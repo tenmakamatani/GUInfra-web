@@ -19,6 +19,8 @@
     ]
   },
   "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
+    "@types/inversify": "^2.0.33",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
     "@types/react-router-dom": "^5.1.0",
@@ -44,7 +46,9 @@
     "webpack-dev-server": "^3.8.0"
   },
   "dependencies": {
+    "aws-sdk": "^2.684.0",
     "connected-react-router": "^6.5.2",
+    "inversify": "^5.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.1.2"
