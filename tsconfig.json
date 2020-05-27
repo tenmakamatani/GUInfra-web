@@ -1,24 +1,26 @@
 {
-    "compilerOptions": {
-        "baseUrl": "src/client",
-        "paths": {
-            "$modules/*": ["modules/*"],
-            "$types/*": ["types/*"],
-        },
-        "strictNullChecks": true,
-        "noUnusedLocals": true,
-        "noImplicitThis": true,
-        "alwaysStrict": true,
-        "outDir": "./dist/",
-        "sourceMap": true,
-        "noImplicitAny": true,
-        "moduleResolution": "node",
-        "lib": [
-            "dom",
-            "es2018"
-        ],
-        "module": "ES2015",
-        "target": "es5",
-        "jsx": "react",
-    }
+  "compilerOptions": {
+    "baseUrl": "src/client",
+    "paths": {
+      "$modules/*": ["modules/*"],
+      "$types/*": ["types/*"],
+    },
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "dom",
+      "es2018"
+    ],
+    "module": "ES2015",
+    "target": "es5",
+    "jsx": "react",
+  }
 }
