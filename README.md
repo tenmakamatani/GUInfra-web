@@ -1,14 +1,14 @@
-# redux-typesciprt-template
+# GUInfra-web
 
-Template to develop with Redux and TypeScript
+Web platform of GUInfra
 
 ## How to use
 
 ### Clone and Setup
 ```
-$ git clone https://github.com/tenmakamatani/redux-typescript-template.git
-$ cd redux-typescript-template
-$ yarn
+$ git clone git@github.com:tenmakamatani/GUInfra-web.git
+$ cd GUInfra-web
+$ yarn install
 ```
 
 ### Development
