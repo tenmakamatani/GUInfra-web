@@ -9,10 +9,10 @@ export class VPC extends AWSResource<IVPC> {
   readonly id: VPCId;
   public properties: IVPC;
 
-  constructor(init: { id?: string; properties: IVPC }) {
+  constructor(init: IVPC & { id?: string }) {
     super();
     this.id = new VPCId(init.id);
-    this.properties = init.properties;
+    this.properties = init;
   }
 }
 
