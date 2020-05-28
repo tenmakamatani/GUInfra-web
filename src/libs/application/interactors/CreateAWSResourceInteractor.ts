@@ -1,10 +1,11 @@
-import { inject } from "inversify";
+import { inject, injectable } from "inversify";
 
 import { TYPES } from "../../types";
 import { IAWSState } from "../../domain/state/aws";
 import { VPCRepository } from "../../domain/repositories/aws";
 import { CreateAWSResourceUseCase } from "../usecases/CreateAWSResourceUseCase";
 
+@injectable()
 export class CreateAWSResourceInteractor extends CreateAWSResourceUseCase {
   private _vpcRepo: VPCRepository;
 

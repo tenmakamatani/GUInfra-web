@@ -16,14 +16,16 @@ export class DI {
       .toConstantValue(new SdkVPCRepository(metadata));
     container
       .bind<CreateAWSResourceUseCase>(TYPES.CreateAWSResourceUseCase)
-      .to(CreateAWSResourceInteractor);
+      .to(CreateAWSResourceInteractor)
+      .inSingletonScope();
   }
 
-  static vpcRepo: VPCRepository = container.get<VPCRepository>(
-    TYPES.VPCRepository
-  );
-
-  static createAWSResourceUseCase: CreateAWSResourceUseCase = container.get<
-    CreateAWSResourceUseCase
-  >(TYPES.CreateAWSResourceUseCase);
+  static get vpcRepo() {
+    return container.get<VPCRepository>(TYPES.VPCRepository);
+  }
+  static get createAWSResourceUseCase() {
+    return container.get<CreateAWSResourceUseCase>(
+      TYPES.CreateAWSResourceUseCase
+    );
+  }
 }
