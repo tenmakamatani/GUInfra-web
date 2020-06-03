@@ -31,11 +31,16 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.(jpg|png)$/,
+        loaders: ['url-loader']
       }
     ]
   },
   plugins: [htmlWebpackPlugin],
   devServer: {
-    open: true
+    open: true,
+    historyApiFallback: true
   }
 };
