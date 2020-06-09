@@ -1,5 +1,5 @@
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const path = require('path')
+const path = require("path")
 
 const htmlWebpackPlugin = new HtmlWebPackPlugin({
   template: "./src/index.html",
@@ -10,8 +10,8 @@ module.exports = {
   mode: process.env.NODE_ENV,
   entry: "./src/index.tsx",
   output: {
-    path: path.resolve('dist'),
-    filename: '[name].js',
+    path: path.resolve("dist"),
+    filename: "[name].js",
     publicPath: "/"
   },
   resolve: {
@@ -34,7 +34,16 @@ module.exports = {
       },
       {
         test: /\.(jpg|png)$/,
-        loaders: ['url-loader']
+        loaders: ["url-loader"]
+      },
+      {
+        test: /\.svg$/,
+          use: {
+            loader: "svg-url-loader",
+            options: {
+              noquotes: true
+            }
+          }
       }
     ]
   },
