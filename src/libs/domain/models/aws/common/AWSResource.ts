@@ -5,11 +5,14 @@ export interface ITag {
   value: string;
 }
 
-export abstract class AWSResource<T> extends Resource<T> {
+export abstract class AWSResource<T> extends Resource {
   readonly provider = Provider.AWS;
+  public properties: T;
   public tags: ITag[] = [];
-  constructor(tags: ITag[]) {
+
+  constructor(init: { tags: ITag[]; properties: T }) {
     super();
-    this.tags = tags;
+    this.properties = init.properties;
+    this.tags = init.tags;
   }
 }

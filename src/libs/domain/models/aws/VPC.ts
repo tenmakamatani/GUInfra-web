@@ -7,12 +7,10 @@ interface IVPC {
 
 export class VPC extends AWSResource<IVPC> {
   readonly id: VPCId;
-  public properties: IVPC;
 
   constructor(init: { id?: string; properties: IVPC; tags: ITag[] }) {
-    super(init.tags);
+    super(init);
     this.id = new VPCId(init.id);
-    this.properties = init.properties;
   }
 }
 

@@ -1,6 +1,6 @@
 import { Provider } from "./Provider";
 
-export abstract class Resource<T> {
+// ジェネリクスなしで全てのリソースの抽象として使用したいため、ジェネリクスは指定しない
+export abstract class Resource {
   abstract provider: Provider;
-  abstract properties: T;
 }
