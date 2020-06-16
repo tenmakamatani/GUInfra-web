@@ -1,5 +1,5 @@
 import { Id } from "../base";
-import { AWSResource } from "./common/AWSResource";
+import { AWSResource, ITag } from "./common/AWSResource";
 
 interface IVPC {
   cidrBlock: string;
@@ -9,10 +9,10 @@ export class VPC extends AWSResource<IVPC> {
   readonly id: VPCId;
   public properties: IVPC;
 
-  constructor(init: IVPC & { id?: string }) {
-    super();
+  constructor(init: { id?: string; properties: IVPC; tags: ITag[] }) {
+    super(init.tags);
     this.id = new VPCId(init.id);
-    this.properties = init;
+    this.properties = init.properties;
   }
 }
 
