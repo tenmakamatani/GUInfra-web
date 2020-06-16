@@ -1,5 +1,5 @@
 import { Id } from "./Id";
 import { Provider } from "./Provider";
-import { Resource } from "./Resource";
+import { Resource, AllResource } from "./Resource";
 
-export { Id, Provider, Resource };
+export { Id, Provider, Resource, AllResource };

@@ -5,7 +5,7 @@ export interface ITag {
   value: string;
 }
 
-export abstract class AWSResource<T> extends Resource {
+export class AWSResource<T> extends Resource<T> {
   readonly provider = Provider.AWS;
   public properties: T;
   public tags: ITag[] = [];

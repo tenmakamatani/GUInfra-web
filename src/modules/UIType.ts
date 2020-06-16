@@ -1,9 +1,9 @@
-import { Resource } from "@libs/domain/models/base";
+import { AllResource } from "@libs/domain/models/base";
 
-export interface withBaseUI<R extends Resource> {
+export interface withBaseUI<T extends AllResource> {
   x: number;
   y: number;
   width: number;
   height: number;
-  resource: R;
+  resource: T;
 }
