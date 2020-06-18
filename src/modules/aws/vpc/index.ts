@@ -1,9 +1,9 @@
-import { actions, VPCActions, VPCActionList } from "./actions";
+import { actions, VPCActions, VPCActionTypeList } from "./actions";
 import { reducer } from "./reducer";
 
 export {
   actions as vpcActions,
   VPCActions,
-  VPCActionList,
+  VPCActionTypeList,
   reducer as vpcReducer
 };

@@ -1,7 +1,7 @@
 import { IAWSState } from "./index";
 import { AWSActions } from "./actions";
 
-import { vpcReducer, VPCActionList } from "./vpc";
+import { vpcReducer, VPCActionTypeList } from "./vpc";
 
 const initialState: IAWSState = {
   metadata: {
@@ -18,6 +18,6 @@ export const reducer = (
 ): IAWSState => {
   const type = action.type;
   // リソースに応じてReducerを発火
-  if (type in VPCActionList) return vpcReducer(state, action);
+  if (type in VPCActionTypeList) return vpcReducer(state, action);
   return state;
 };
