@@ -5,16 +5,14 @@ import { Route, Switch } from "react-router-dom";
 
 import { store, history } from "./modules/store";
 
-const Test = () => {
-  return <h1>Test</h1>;
-};
+import { IndexPage } from "./views/pages/IndexPage";
 
 export const App = () => {
   return (
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <Switch>
-          <Route exact path="/" component={Test} />
+          <Route exact path="/" component={IndexPage} />
         </Switch>
       </ConnectedRouter>
     </Provider>
