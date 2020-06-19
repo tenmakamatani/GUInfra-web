@@ -18,6 +18,6 @@ export const reducer = (
 ): IAWSState => {
   const type = action.type;
   // リソースに応じてReducerを発火
-  if (type in VPCActionTypeList) return vpcReducer(state, action);
+  if (VPCActionTypeList.includes(type)) return vpcReducer(state, action);
   return state;
 };
