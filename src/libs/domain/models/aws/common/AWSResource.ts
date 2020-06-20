@@ -1,12 +1,16 @@
-import { Resource, Provider } from "../../base";
+import { Id, Resource, Provider } from "../../base";
 
 export interface ITag {
   key: string;
   value: string;
 }
 
-export class AWSResource<T> extends Resource<T> {
+export abstract class AWSResource<T> extends Resource<T> {
+  // Add additional type in implement class
+  abstract readonly id: Id;
+  // Init here
   readonly provider = Provider.AWS;
+  // Init by implement class
   public properties: T;
   public tags: ITag[] = [];
 

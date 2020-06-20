@@ -1,3 +1,4 @@
+import { Id } from "./Id";
 import { Provider } from "./Provider";
 
 // 全てのリソースの抽象として使用する
@@ -5,6 +6,7 @@ import { Provider } from "./Provider";
 export abstract class AllResource {}
 
 export abstract class Resource<T> extends AllResource {
-  abstract provider: Provider;
+  abstract readonly id: Id;
+  abstract readonly provider: Provider;
   abstract properties: T;
 }
