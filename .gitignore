@@ -107,3 +107,6 @@ public
 
 # dist dir
 dist
+
+# DS_store
+.DS_Store
