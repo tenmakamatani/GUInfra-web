@@ -23,15 +23,15 @@ interface IDeleteVPC extends IVPCAction {
   payload: IVPCView["resource"]["id"];
 }
 
-const createVPC = (vpcView: IVPCView): ICreateVPC => ({
+const create = (vpcView: IVPCView): ICreateVPC => ({
   type: ActionTypes.CreateVPC,
   payload: vpcView
 });
-const updateVPC = (vpcView: IVPCView): IUpdateVPC => ({
+const update = (vpcView: IVPCView): IUpdateVPC => ({
   type: ActionTypes.UpdateVPC,
   payload: vpcView
 });
-const deleteVPC = (vpcId: IVPCView["resource"]["id"]): IDeleteVPC => ({
+const remove = (vpcId: IVPCView["resource"]["id"]): IDeleteVPC => ({
   type: ActionTypes.DeleteVPC,
   payload: vpcId
 });
@@ -39,9 +39,9 @@ const deleteVPC = (vpcId: IVPCView["resource"]["id"]): IDeleteVPC => ({
 export { VPCActionTypeList };
 
 export const actions = {
-  createVPC,
-  updateVPC,
-  deleteVPC
+  create,
+  update,
+  remove
 };
 
 export type VPCActions = ICreateVPC | IUpdateVPC | IDeleteVPC;
