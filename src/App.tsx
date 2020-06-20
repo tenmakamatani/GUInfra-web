@@ -5,7 +5,7 @@ import { Route, Switch } from "react-router-dom";
 
 import { store, history } from "./modules/store";
 
-import { IndexPage } from "./views/pages/IndexPage";
+import { IndexPage } from "./views/Index";
 
 export const App = () => {
   return (
