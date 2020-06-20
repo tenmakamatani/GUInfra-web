@@ -19,6 +19,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@emotion/babel-preset-css-prop": "^10.0.27",
     "@types/aws-sdk": "^2.7.0",
     "@types/inversify": "^2.0.33",
     "@types/react": "^16.9.2",
@@ -30,6 +32,7 @@
     "@types/uuid": "^8.0.0",
     "@typescript-eslint/eslint-plugin": "^2.4.0",
     "@typescript-eslint/parser": "^2.4.0",
+    "babel-loader": "^8.1.0",
     "eslint": "^6.5.1",
     "eslint-config-prettier": "^6.4.0",
     "eslint-plugin-prettier": "^3.1.1",
@@ -49,6 +52,7 @@
     "webpack-dev-server": "^3.8.0"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.28",
     "aws-sdk": "^2.684.0",
     "connected-react-router": "^6.5.2",
     "inversify": "^5.0.1",
