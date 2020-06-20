@@ -1,19 +1,14 @@
 import * as React from "react";
-import { css } from "@emotion/core";
+
+import { styles } from "../styles";
 
 export interface IResource {
   name: string;
   source: string;
 }
 
-const styles = {
-  wrapper: css({
-    textAlign: "center"
-  })
-};
-
 export const CreateResourceItem: React.SFC<IResource> = props => (
-  <div css={styles.wrapper}>
+  <div css={styles.createResourceItem.wrapper}>
     <img src={props.source} alt="Resource" />
     <p>{props.name}</p>
   </div>

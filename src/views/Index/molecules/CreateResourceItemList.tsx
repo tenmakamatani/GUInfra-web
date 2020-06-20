@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { styles } from "../styles";
 import { CreateResourceItem, IResource } from "../atoms/CreateResourceItem";
 
 interface IProps {
@@ -7,7 +8,7 @@ interface IProps {
 }
 
 export const CreateResourceItemList: React.SFC<IProps> = props => (
-  <div>
+  <div css={styles.createResourceItemList.wrapper}>
     {props.resources.map(resource => (
       <CreateResourceItem name={resource.name} source={resource.source} />
     ))}
