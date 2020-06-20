@@ -2,13 +2,13 @@ import { Action } from "redux";
 import { ActionTypes } from "../types";
 import { IVPCView } from "../resources";
 
-const VPCActionTypeList = [
+const vpcActionTypeList = [
   ActionTypes.CreateVPC,
   ActionTypes.UpdateVPC,
   ActionTypes.DeleteVPC
 ] as const;
 
-type IVPCAction = Action<typeof VPCActionTypeList[number]>;
+type IVPCAction = Action<typeof vpcActionTypeList[number]>;
 
 interface ICreateVPC extends IVPCAction {
   type: ActionTypes.CreateVPC;
@@ -36,7 +36,7 @@ const remove = (vpcId: IVPCView["resource"]["id"]): IDeleteVPC => ({
   payload: vpcId
 });
 
-export { VPCActionTypeList };
+export { vpcActionTypeList };
 
 export const actions = {
   create,
