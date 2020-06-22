@@ -18,6 +18,8 @@ module.exports = {
     extensions: [".ts", ".tsx", ".js"],
     alias: {
       "@libs": path.resolve(__dirname, "./src/libs/"),
+      "@modules": path.resolve(__dirname, "./src/modules/"),
+      "@views": path.resolve(__dirname, "./src/views/"),
     }
   },
   module: {

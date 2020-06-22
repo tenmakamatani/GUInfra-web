@@ -3,6 +3,8 @@
     "baseUrl": "src",
     "paths": {
       "@libs/*": ["libs/*"],
+      "@modules/*": ["modules/*"],
+      "@views/*": ["views/*"]
     },
     "strictNullChecks": true,
     "noUnusedLocals": true,
