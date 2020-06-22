@@ -10,7 +10,11 @@ interface IProps {
 export const CreateResourceItemList: React.SFC<IProps> = props => (
   <div css={styles.createResourceItemList.wrapper}>
     {props.resources.map(resource => (
-      <CreateResourceItem name={resource.name} source={resource.source} />
+      <CreateResourceItem
+        name={resource.name}
+        modalType={resource.modalType}
+        source={resource.source}
+      />
     ))}
   </div>
 );
