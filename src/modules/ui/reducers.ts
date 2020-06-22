@@ -5,7 +5,7 @@ import { ActionTypes, ModalTypes } from "./types";
 const initialState: IUIState = {
   modal: {
     isOpen: true,
-    type: ModalTypes.NotOpen
+    type: ModalTypes.VPCForm
   }
 };
 

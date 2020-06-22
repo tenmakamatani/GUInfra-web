@@ -2,7 +2,9 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReactModal from "react-modal";
 
-import { uiActions, uiSelectors } from "../../modules/ui";
+import { uiActions, uiSelectors, ModalTypes } from "@modules/ui";
+
+import { VPCForm } from "./contents/VPCForm";
 
 ReactModal.setAppElement("#root");
 export const Modal: React.SFC = () => {
@@ -24,9 +26,12 @@ export const Modal: React.SFC = () => {
       onRequestClose={() => {
         dispatch(uiActions.removeModal());
       }}
-      // css={styles.modal.modal}
     >
-      <h2>aiueo</h2>
+      {modal.type === ModalTypes.VPCForm ? (
+        <VPCForm vpc={modal.resource} />
+      ) : (
+        <div></div>
+      )}
     </ReactModal>
   );
 };
