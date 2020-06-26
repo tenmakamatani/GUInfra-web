@@ -5,6 +5,7 @@ import { withBaseUI } from "../UIType";
 
 import { actions } from "./actions";
 import { reducer } from "./reducers";
+import { selectors } from "./selectors";
 import { ActionTypes } from "./types";
 
 export interface IAWSState {
@@ -15,5 +16,6 @@ export interface IAWSState {
 export {
   actions as awsActions,
   reducer as awsReducer,
+  selectors as awsSelector,
   ActionTypes as AWSActionTypes
 };

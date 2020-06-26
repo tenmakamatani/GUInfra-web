@@ -5,7 +5,7 @@ import { reducer } from "./reducers";
 import { selectors } from "./selectors";
 import { ModalTypes } from "./types";
 
-interface IModalState {
+export interface IModalState {
   isOpen: boolean;
   type: ModalTypes;
   resource?: AllResource;

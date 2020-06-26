@@ -13,15 +13,21 @@ export const styles = {
       textAlign: "center"
     })
   },
+  scopeResourceItem: {
+    rnd: css({
+      border: "solid 1px black"
+    })
+  },
   // molecules
   createResourceItemList: {
     wrapper: css({
-      width: "30%",
-      backgroundColor: "green"
+      width: "20%"
     })
   },
   // organisms
-  graph: css({
-    width: "30%"
-  })
+  graph: {
+    wrapper: css({
+      width: "80%"
+    })
+  }
 };

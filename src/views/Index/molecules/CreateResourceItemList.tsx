@@ -11,6 +11,7 @@ export const CreateResourceItemList: React.SFC<IProps> = props => (
   <div css={styles.createResourceItemList.wrapper}>
     {props.resources.map(resource => (
       <CreateResourceItem
+        key={resource.source}
         name={resource.name}
         modalType={resource.modalType}
         source={resource.source}

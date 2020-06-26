@@ -5,6 +5,7 @@ import VPC from "../../../public/aws/VPC.png";
 import { ModalTypes } from "@modules/ui";
 
 import { styles } from "./styles";
+import { Graph } from "./organisms/Graph";
 import { CreateResourceItemList } from "./molecules/CreateResourceItemList";
 
 const createResourceItemList = [
@@ -19,7 +20,7 @@ const IndexPage = () => {
   return (
     <div css={styles.indexPage.wrapper}>
       <CreateResourceItemList resources={createResourceItemList} />
-      <div></div>
+      <Graph />
     </div>
   );
 };

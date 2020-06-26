@@ -11,8 +11,11 @@ export const reducer = (state: IAWSState, action: VPCActions): IAWSState => {
       };
     case ActionTypes.UpdateVPC:
       const updatedVpcList = state.vpcList.map(v => {
-        if (v.resource.id.isEqualTo(action.payload.resource.id))
-          return action.payload;
+        if (v.resource.id.isEqualTo(action.payload.vpcId))
+          return {
+            ...v,
+            ...action.payload.vpcView
+          };
         return v;
       });
       return {

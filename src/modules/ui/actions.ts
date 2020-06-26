@@ -1,13 +1,12 @@
 import { Action } from "redux";
-import { ActionTypes, ModalTypes } from "./types";
+import { IModalState } from "./index";
+import { ActionTypes } from "./types";
 
 type IUIAction = Action<ActionTypes>;
 
 interface IAppearModal extends IUIAction {
   type: ActionTypes.AppearModal;
-  payload: {
-    modalType: ModalTypes;
-  };
+  payload: Omit<IModalState, "isOpen">;
 }
 interface IRemoveModal extends IUIAction {
   type: ActionTypes.RemoveModal;

@@ -21,7 +21,7 @@ export const CreateResourceItem: React.SFC<IResource> = props => {
         onClick={() => {
           dispatch(
             uiActions.appearModal({
-              modalType: props.modalType
+              type: props.modalType
             })
           );
         }}

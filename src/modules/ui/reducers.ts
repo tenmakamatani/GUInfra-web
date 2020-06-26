@@ -4,8 +4,8 @@ import { ActionTypes, ModalTypes } from "./types";
 
 const initialState: IUIState = {
   modal: {
-    isOpen: true,
-    type: ModalTypes.VPCForm
+    isOpen: false,
+    type: ModalTypes.NotOpen
   }
 };
 
@@ -19,7 +19,8 @@ export const reducer = (
         ...state,
         modal: {
           isOpen: true,
-          type: action.payload.modalType
+          type: action.payload.type,
+          resource: action.payload.resource
         }
       };
     case ActionTypes.RemoveModal:

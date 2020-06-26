@@ -1,6 +1,7 @@
 import { Action } from "redux";
 import { ActionTypes } from "../types";
 import { IVPCView } from "../resources";
+import { VPCId } from "@libs/domain/models/aws/VPC";
 
 const vpcActionTypeList = [
   ActionTypes.CreateVPC,
@@ -10,13 +11,18 @@ const vpcActionTypeList = [
 
 type IVPCAction = Action<typeof vpcActionTypeList[number]>;
 
+interface IUpdateVPCPayload {
+  vpcId: VPCId;
+  vpcView: Partial<IVPCView>;
+}
+
 interface ICreateVPC extends IVPCAction {
   type: ActionTypes.CreateVPC;
   payload: IVPCView;
 }
 interface IUpdateVPC extends IVPCAction {
   type: ActionTypes.UpdateVPC;
-  payload: IVPCView;
+  payload: IUpdateVPCPayload;
 }
 interface IDeleteVPC extends IVPCAction {
   type: ActionTypes.DeleteVPC;
@@ -27,9 +33,9 @@ const create = (vpcView: IVPCView): ICreateVPC => ({
   type: ActionTypes.CreateVPC,
   payload: vpcView
 });
-const update = (vpcView: IVPCView): IUpdateVPC => ({
+const update = (payload: IUpdateVPCPayload): IUpdateVPC => ({
   type: ActionTypes.UpdateVPC,
-  payload: vpcView
+  payload: payload
 });
 const remove = (vpcId: IVPCView["resource"]["id"]): IDeleteVPC => ({
   type: ActionTypes.DeleteVPC,

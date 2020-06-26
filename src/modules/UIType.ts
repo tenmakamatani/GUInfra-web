@@ -1,4 +1,4 @@
-import { AllResource } from "@libs/domain/models/base";
+import { AllResource } from "@libs/domain/models";
 
 export interface withBaseUI<T extends AllResource> {
   x: number;

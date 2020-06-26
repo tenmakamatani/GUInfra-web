@@ -19,4 +19,9 @@ export abstract class AWSResource<T> extends Resource<T> {
     this.properties = init.properties;
     this.tags = init.tags;
   }
+
+  update(values: { properties?: T; tags?: ITag[] }): void {
+    this.properties = values.properties ?? this.properties;
+    this.tags = values.tags ?? this.tags;
+  }
 }
