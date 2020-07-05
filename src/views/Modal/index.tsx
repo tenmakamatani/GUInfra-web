@@ -4,6 +4,7 @@ import ReactModal from "react-modal";
 
 import { uiActions, uiSelectors, ModalTypes } from "@modules/ui";
 
+import { MetadataForm } from "./contents/MetadataForm";
 import { VPCForm } from "./contents/VPCForm";
 
 ReactModal.setAppElement("#root");
@@ -29,8 +30,10 @@ export const Modal: React.SFC = () => {
     >
       {modal.type === ModalTypes.VPCForm ? (
         <VPCForm vpc={modal.resource} />
+      ) : modal.type === ModalTypes.MetadataForm ? (
+        <MetadataForm />
       ) : (
-        <div></div>
+        <div />
       )}
     </ReactModal>
   );

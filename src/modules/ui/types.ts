@@ -7,5 +7,6 @@ export enum ModalTypes {
   // null使用のクラッシュが怖いので開いてないときはNotOpenを入れる
   NotOpen,
   // 以下、モーダルのタイプ
+  MetadataForm,
   VPCForm
 }
