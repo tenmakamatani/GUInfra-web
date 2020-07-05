@@ -7,6 +7,7 @@ import { ModalTypes } from "@modules/ui";
 import { styles } from "./styles";
 import { Graph } from "./organisms/Graph";
 import { CreateResourceItemList } from "./molecules/CreateResourceItemList";
+import { AppTemplate } from "../components/templates/AppTemplate";
 
 const createResourceItemList = [
   {
@@ -18,10 +19,12 @@ const createResourceItemList = [
 
 const IndexPage = () => {
   return (
-    <div css={styles.indexPage.wrapper}>
-      <CreateResourceItemList resources={createResourceItemList} />
-      <Graph />
-    </div>
+    <AppTemplate>
+      <div css={styles.indexPage.wrapper}>
+        <CreateResourceItemList resources={createResourceItemList} />
+        <Graph />
+      </div>
+    </AppTemplate>
   );
 };
 
