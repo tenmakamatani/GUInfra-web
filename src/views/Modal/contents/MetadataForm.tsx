@@ -1,9 +1,11 @@
 import * as React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
+import { DI } from "@libs/application/DI";
 import { uiActions } from "@modules/ui";
+import { awsSelector } from "@modules/aws";
 
 const validation = Yup.object().shape({
   accessKeyId: Yup.string().required("※アクセスキーを入力してください"),
@@ -17,14 +19,22 @@ interface IFormValues {
 
 export const MetadataForm: React.SFC = () => {
   const dispatch = useDispatch();
+  const resources = useSelector(awsSelector.selectAll);
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
     initialValues: {
       accessKeyId: "",
       secretAccessKey: ""
     },
-    onSubmit: values => {
-      console.log(values);
+    onSubmit: async values => {
+      DI.setup({
+        accessKeyId: values.accessKeyId,
+        secretAccessKey: values.secretAccessKey,
+        region: "ap-northeast-1"
+      });
+      await DI.createAWSResourceUseCase.execute({
+        vpcList: resources.vpcList.map(vpcView => vpcView.resource)
+      });
       dispatch(uiActions.removeModal());
     }
   });
