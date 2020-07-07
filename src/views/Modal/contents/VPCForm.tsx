@@ -89,6 +89,7 @@ export const VPCForm: React.SFC<IProps> = props => {
         value={formik.values.tags}
         onChange={formik.handleChange}
       />
+      <p>{formik.errors.tags}</p>
       <button type="submit">{vpc ? "更新" : "作成"}</button>
     </form>
   );
