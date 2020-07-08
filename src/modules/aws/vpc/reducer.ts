@@ -22,13 +22,13 @@ export const reducer = (state: IAWSState, action: VPCActions): IAWSState => {
         ...state,
         vpcList: updatedVpcList
       };
-    case ActionTypes.DeleteVPC:
-      const deletedVpcList = state.vpcList.filter(
+    case ActionTypes.RemoveVPC:
+      const removedVpcList = state.vpcList.filter(
         v => !v.resource.id.isEqualTo(action.payload)
       );
       return {
         ...state,
-        vpcList: deletedVpcList
+        vpcList: removedVpcList
       };
     default:
       return state;

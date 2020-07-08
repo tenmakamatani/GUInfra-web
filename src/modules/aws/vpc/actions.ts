@@ -3,13 +3,9 @@ import { ActionTypes } from "../types";
 import { IVPCView } from "../resources";
 import { VPCId } from "@libs/domain/models/aws/VPC";
 
-const vpcActionTypeList = [
-  ActionTypes.CreateVPC,
-  ActionTypes.UpdateVPC,
-  ActionTypes.DeleteVPC
-] as const;
-
-type IVPCAction = Action<typeof vpcActionTypeList[number]>;
+type IVPCAction = Action<ActionTypes> & {
+  resource: "vpc";
+};
 
 interface IUpdateVPCPayload {
   vpcId: VPCId;
@@ -24,25 +20,26 @@ interface IUpdateVPC extends IVPCAction {
   type: ActionTypes.UpdateVPC;
   payload: IUpdateVPCPayload;
 }
-interface IDeleteVPC extends IVPCAction {
-  type: ActionTypes.DeleteVPC;
+interface IRemoveVPC extends IVPCAction {
+  type: ActionTypes.RemoveVPC;
   payload: IVPCView["resource"]["id"];
 }
 
-const create = (vpcView: IVPCView): ICreateVPC => ({
+const create = (payload: ICreateVPC["payload"]): ICreateVPC => ({
+  resource: "vpc",
   type: ActionTypes.CreateVPC,
-  payload: vpcView
+  payload: payload
 });
-const update = (payload: IUpdateVPCPayload): IUpdateVPC => ({
+const update = (payload: IUpdateVPC["payload"]): IUpdateVPC => ({
+  resource: "vpc",
   type: ActionTypes.UpdateVPC,
   payload: payload
 });
-const remove = (vpcId: IVPCView["resource"]["id"]): IDeleteVPC => ({
-  type: ActionTypes.DeleteVPC,
-  payload: vpcId
+const remove = (payload: IRemoveVPC["payload"]): IRemoveVPC => ({
+  resource: "vpc",
+  type: ActionTypes.RemoveVPC,
+  payload: payload
 });
-
-export { vpcActionTypeList };
 
 export const actions = {
   create,
@@ -50,4 +47,4 @@ export const actions = {
   remove
 };
 
-export type VPCActions = ICreateVPC | IUpdateVPC | IDeleteVPC;
+export type VPCActions = ICreateVPC | IUpdateVPC | IRemoveVPC;
