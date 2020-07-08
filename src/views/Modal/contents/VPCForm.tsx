@@ -91,6 +91,16 @@ export const VPCForm: React.SFC<IProps> = props => {
       />
       <p>{formik.errors.tags}</p>
       <button type="submit">{vpc ? "更新" : "作成"}</button>
+      {vpc ? (
+        <button
+          onClick={() => {
+            dispatch(awsActions.vpc.remove(vpc.id));
+            dispatch(uiActions.removeModal());
+          }}
+        >
+          削除
+        </button>
+      ) : null}
     </form>
   );
 };
