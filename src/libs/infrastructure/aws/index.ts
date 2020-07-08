@@ -1,3 +1,4 @@
+import { SdkEC2Repository } from "./SdkEC2Repository";
 import { SdkVPCRepository } from "./SdkVPCRepository";
 
-export { SdkVPCRepository };
+export { SdkEC2Repository, SdkVPCRepository };
