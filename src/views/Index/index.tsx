@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import EC2 from "../../../public/aws/EC2.png";
 import VPC from "../../../public/aws/VPC.png";
 
 import { ModalTypes } from "@modules/ui";
@@ -14,6 +15,11 @@ const createResourceItemList = [
     name: "VPC",
     modalType: ModalTypes.VPCForm,
     source: VPC
+  },
+  {
+    name: "EC2",
+    modalType: ModalTypes.EC2Form,
+    source: EC2
   }
 ];
 
