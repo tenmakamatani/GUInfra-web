@@ -8,5 +8,6 @@ export enum ModalTypes {
   NotOpen,
   // 以下、モーダルのタイプ
   MetadataForm,
+  EC2Form,
   VPCForm
 }
