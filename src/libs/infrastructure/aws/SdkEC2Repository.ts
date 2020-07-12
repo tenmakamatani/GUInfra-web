@@ -4,6 +4,7 @@ import { injectable } from "inversify";
 import { EC2 } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { EC2Repository } from "../../domain/repositories/aws";
+import { ResourceIdsDatastore } from "../datastore/ResourceIdsDatastore";
 
 @injectable()
 export class SdkEC2Repository extends EC2Repository {
@@ -15,7 +16,7 @@ export class SdkEC2Repository extends EC2Repository {
   }
 
   create = async (ec2: EC2): Promise<void> => {
-    await this._ec2
+    const createdEc2 = await this._ec2
       .runInstances({
         ImageId: ec2.properties.imageId,
         InstanceType: ec2.properties.instanceType,
@@ -32,7 +33,14 @@ export class SdkEC2Repository extends EC2Repository {
         ]
       })
       .promise();
+    ResourceIdsDatastore.ec2Ids.push(createdEc2.Instances![0].InstanceId ?? "");
   };
 
-  deleteAll = async (): Promise<void> => {};
+  deleteAll = async (): Promise<void> => {
+    await this._ec2
+      .stopInstances({
+        InstanceIds: ResourceIdsDatastore.ec2Ids
+      })
+      .promise();
+  };
 }
