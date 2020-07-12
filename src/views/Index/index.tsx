@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import EC2 from "../../../public/aws/EC2.png";
-import VPC from "../../../public/aws/VPC.png";
+import EC2 from "@public/aws/EC2.png";
+import VPC from "@public/aws/VPC.png";
 
 import { ModalTypes } from "@modules/ui";
 

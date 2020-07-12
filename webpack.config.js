@@ -17,6 +17,7 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
     alias: {
+      "@public": path.resolve(__dirname, "./public/"),
       "@libs": path.resolve(__dirname, "./src/libs/"),
       "@modules": path.resolve(__dirname, "./src/modules/"),
       "@views": path.resolve(__dirname, "./src/views/"),

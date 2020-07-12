@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@libs/*": ["libs/*"],
-      "@modules/*": ["modules/*"],
-      "@views/*": ["views/*"]
+      "@public/*": ["public/*"],
+      "@libs/*": ["src/libs/*"],
+      "@modules/*": ["src/modules/*"],
+      "@views/*": ["src/views/*"]
     },
     "strictNullChecks": true,
     "noUnusedLocals": true,

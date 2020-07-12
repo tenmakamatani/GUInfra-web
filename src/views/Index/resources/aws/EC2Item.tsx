@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useDispatch } from "react-redux";
 
-import EC2 from "../../../../../public/aws/EC2.png";
+import EC2 from "@public/aws/EC2.png";
 
 import { awsActions } from "@modules/aws";
 import { IEC2View } from "@modules/aws/resources";
