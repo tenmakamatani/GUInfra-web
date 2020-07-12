@@ -1,13 +1,13 @@
 import * as React from "react";
 import { useDispatch } from "react-redux";
 
-import EC2 from "../../../../public/aws/EC2.png";
+import EC2 from "../../../../../public/aws/EC2.png";
 
 import { awsActions } from "@modules/aws";
 import { IEC2View } from "@modules/aws/resources";
 import { uiActions, ModalTypes } from "@modules/ui";
 
-import { EntityResourceItem } from "../atoms/EntityResourceItem";
+import { EntityResourceItem } from "../../atoms/EntityResourceItem";
 
 interface IProps {
   ec2: IEC2View;

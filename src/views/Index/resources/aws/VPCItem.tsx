@@ -5,7 +5,7 @@ import { awsActions } from "@modules/aws";
 import { IVPCView } from "@modules/aws/resources";
 import { uiActions, ModalTypes } from "@modules/ui";
 
-import { ScopeResourceItem } from "../atoms/ScopeResourceItem";
+import { ScopeResourceItem } from "../../atoms/ScopeResourceItem";
 
 interface IProps {
   vpc: IVPCView;

@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 
 import { awsSelector } from "@modules/aws";
 
-import { EC2Item } from "../resources/EC2Item";
-import { VPCItem } from "../resources/VPCItem";
+import { EC2Item } from "../resources/aws/EC2Item";
+import { VPCItem } from "../resources/aws/VPCItem";
 
 import { styles } from "../styles";
 
