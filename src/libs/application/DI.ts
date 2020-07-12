@@ -4,8 +4,8 @@ import { TYPES } from "../types";
 import { IAWSState } from "../domain/state/aws";
 import { EC2Repository, VPCRepository } from "../domain/repositories/aws";
 import { SdkEC2Repository, SdkVPCRepository } from "../infrastructure/aws";
-import { CreateAWSResourceUseCase } from "./usecases/CreateAWSResourceUseCase";
-import { CreateAWSResourceInteractor } from "./interactors/CreateAWSResourceInteractor";
+import { AWSResourceUseCase } from "./usecases/AWSResourceUseCase";
+import { AWSResourceInteractor } from "./interactors/AWSResourceInteractor";
 
 const container = new Container();
 
@@ -18,8 +18,8 @@ export class DI {
       .bind<VPCRepository>(TYPES.VPCRepository)
       .toConstantValue(new SdkVPCRepository(metadata));
     container
-      .bind<CreateAWSResourceUseCase>(TYPES.CreateAWSResourceUseCase)
-      .to(CreateAWSResourceInteractor)
+      .bind<AWSResourceUseCase>(TYPES.AWSResourceUseCase)
+      .to(AWSResourceInteractor)
       .inSingletonScope();
   }
 
@@ -29,9 +29,7 @@ export class DI {
   static get vpcRepo() {
     return container.get<VPCRepository>(TYPES.VPCRepository);
   }
-  static get createAWSResourceUseCase() {
-    return container.get<CreateAWSResourceUseCase>(
-      TYPES.CreateAWSResourceUseCase
-    );
+  static get awsResourceUseCase() {
+    return container.get<AWSResourceUseCase>(TYPES.AWSResourceUseCase);
   }
 }

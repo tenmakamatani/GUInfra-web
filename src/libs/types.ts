@@ -1,5 +1,5 @@
 export const TYPES = {
   EC2Repository: Symbol.for("EC2Repository"),
   VPCRepository: Symbol.for("VPCRepository"),
-  CreateAWSResourceUseCase: Symbol.for("CreateAWSResourceUseCase")
+  AWSResourceUseCase: Symbol.for("AWSResourceUseCase")
 } as const;
