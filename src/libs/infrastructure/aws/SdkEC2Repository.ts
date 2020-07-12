@@ -4,7 +4,7 @@ import { injectable } from "inversify";
 import { EC2 } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { EC2Repository } from "../../domain/repositories/aws";
-import { ResourceIdsDatastore } from "../datastore/ResourceIdsDatastore";
+import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
 
 @injectable()
 export class SdkEC2Repository extends EC2Repository {

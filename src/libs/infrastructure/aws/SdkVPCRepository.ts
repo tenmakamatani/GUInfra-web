@@ -4,7 +4,7 @@ import { injectable } from "inversify";
 import { VPC } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { VPCRepository } from "../../domain/repositories/aws";
-import { ResourceIdsDatastore } from "../datastore/ResourceIdsDatastore";
+import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
 
 @injectable()
 export class SdkVPCRepository extends VPCRepository {

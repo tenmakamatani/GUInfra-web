@@ -4,6 +4,7 @@ import { TYPES } from "../../types";
 import { IAWSState } from "../../domain/state/aws";
 import { EC2Repository, VPCRepository } from "../../domain/repositories/aws";
 import { AWSResourceUseCase } from "../usecases/AWSResourceUseCase";
+import { ResourceIdsDatastore } from "../datastore/ResourceIdsDatastore";
 
 @injectable()
 export class AWSResourceInteractor extends AWSResourceUseCase {
@@ -27,5 +28,6 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
 
   deleteAll = async (): Promise<void> => {
     await Promise.all([this._ec2Repo.deleteAll(), this._vpcRepo.deleteAll()]);
+    ResourceIdsDatastore.freshAll();
   };
 }
