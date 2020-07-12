@@ -15,21 +15,23 @@ export class SdkEC2Repository extends EC2Repository {
   }
 
   create = async (ec2: EC2): Promise<void> => {
-    await this._ec2.runInstances({
-      ImageId: ec2.properties.imageId,
-      InstanceType: ec2.properties.instanceType,
-      MaxCount: 1,
-      MinCount: 1,
-      TagSpecifications: [
-        {
-          ResourceType: "instance",
-          Tags: ec2.tags.map(tag => ({
-            Key: tag.key,
-            Value: tag.value
-          }))
-        }
-      ]
-    });
+    await this._ec2
+      .runInstances({
+        ImageId: ec2.properties.imageId,
+        InstanceType: ec2.properties.instanceType,
+        MaxCount: 1,
+        MinCount: 1,
+        TagSpecifications: [
+          {
+            ResourceType: "instance",
+            Tags: ec2.tags.map(tag => ({
+              Key: tag.key,
+              Value: tag.value
+            }))
+          }
+        ]
+      })
+      .promise();
   };
 
   deleteAll = async (): Promise<void> => {};
