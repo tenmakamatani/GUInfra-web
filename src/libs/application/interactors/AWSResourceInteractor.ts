@@ -24,4 +24,8 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
     const vpcPromises = resources.vpcList.map(vpc => this._vpcRepo.create(vpc));
     await Promise.all([ec2Promises, vpcPromises]);
   };
+
+  deleteAll = async (): Promise<void> => {
+    await Promise.all([this._ec2Repo.deleteAll(), this._vpcRepo.deleteAll()]);
+  };
 }

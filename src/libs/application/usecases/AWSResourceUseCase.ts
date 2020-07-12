@@ -5,4 +5,5 @@ import { IAWSState } from "../../domain/state/aws";
 @injectable()
 export abstract class AWSResourceUseCase {
   abstract async create(resources: Omit<IAWSState, "metadata">): Promise<void>;
+  abstract async deleteAll(): Promise<void>;
 }
