@@ -32,7 +32,7 @@ export const MetadataForm: React.SFC = () => {
         secretAccessKey: values.secretAccessKey,
         region: "ap-northeast-1"
       });
-      await DI.createAWSResourceUseCase.execute({
+      await DI.awsResourceUseCase.create({
         ec2List: [],
         vpcList: resources.vpcList.map(vpcView => vpcView.resource)
       });
