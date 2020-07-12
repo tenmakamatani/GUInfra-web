@@ -10,7 +10,6 @@ import { styles } from "../styles";
 
 export const Graph: React.SFC = () => {
   const awsResources = useSelector(awsSelector.selectAll);
-  console.log(awsResources);
   return (
     <div css={styles.graph.wrapper}>
       {awsResources.ec2List.map(ec2 => (
