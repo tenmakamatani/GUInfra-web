@@ -13,10 +13,10 @@ export const Graph: React.SFC = () => {
   return (
     <div css={styles.graph.wrapper}>
       {awsResources.ec2List.map(ec2 => (
-        <EC2Item ec2={ec2} />
+        <EC2Item key={ec2.resource.id.value} ec2={ec2} />
       ))}
       {awsResources.vpcList.map(vpc => (
-        <VPCItem vpc={vpc} />
+        <VPCItem key={vpc.resource.id.value} vpc={vpc} />
       ))}
     </div>
   );
