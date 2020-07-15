@@ -28,7 +28,8 @@ export const EntityResourceItem: React.SFC<IProps> = props => {
       <img
         style={{
           width: "100%",
-          height: "100%"
+          height: "100%",
+          pointerEvents: "none"
         }}
         src={props.source}
         alt="リソース"
