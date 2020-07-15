@@ -19,7 +19,7 @@ interface IFormValues {
 
 export const MetadataForm: React.SFC = () => {
   const dispatch = useDispatch();
-  const resources = useSelector(awsSelector.selectAll);
+  const awsState = useSelector(awsSelector.selectAll);
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
     initialValues: {
@@ -33,8 +33,8 @@ export const MetadataForm: React.SFC = () => {
         region: "ap-northeast-1"
       });
       await DI.awsResourceUseCase.create({
-        ec2List: resources.ec2List.map(ec2View => ec2View.resource),
-        vpcList: resources.vpcList.map(vpcView => vpcView.resource)
+        ec2List: awsState.ec2List.map(ec2View => ec2View.resource),
+        vpcList: awsState.vpcList.map(vpcView => vpcView.resource)
       });
       dispatch(uiActions.removeModal());
     }
