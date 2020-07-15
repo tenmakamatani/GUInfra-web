@@ -33,7 +33,7 @@ export const MetadataForm: React.SFC = () => {
         region: "ap-northeast-1"
       });
       await DI.awsResourceUseCase.create({
-        ec2List: [],
+        ec2List: resources.ec2List.map(ec2View => ec2View.resource),
         vpcList: resources.vpcList.map(vpcView => vpcView.resource)
       });
       dispatch(uiActions.removeModal());
