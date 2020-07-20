@@ -16,6 +16,7 @@ export const CreateResourceItem: React.SFC<IResource> = props => {
   return (
     <div css={styles.createResourceItem.wrapper}>
       <img
+        css={styles.createResourceItem.wrapper}
         src={props.source}
         alt="Resource"
         onClick={() => {

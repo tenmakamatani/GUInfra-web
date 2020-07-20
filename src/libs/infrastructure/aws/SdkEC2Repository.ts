@@ -38,7 +38,7 @@ export class SdkEC2Repository extends EC2Repository {
 
   deleteAll = async (): Promise<void> => {
     await this._ec2
-      .stopInstances({
+      .terminateInstances({
         InstanceIds: ResourceIdsDatastore.ec2Ids
       })
       .promise();

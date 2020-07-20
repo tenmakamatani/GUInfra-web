@@ -22,8 +22,20 @@ export const Header: React.SFC = () => {
   return (
     <header>
       <div css={styles.wrapper}>
-        <button onClick={handleClickCreate}>実行</button>
-        <button onClick={handleClickDelete}>削除</button>
+        <div css={styles.titleWrapper}>
+          <h1 css={styles.title}>GUInfra</h1>
+        </div>
+        <div css={styles.buttonsWrapper}>
+          <button
+            css={[styles.button, styles.leftButton]}
+            onClick={handleClickCreate}
+          >
+            実行
+          </button>
+          <button css={styles.button} onClick={handleClickDelete}>
+            削除
+          </button>
+        </div>
       </div>
     </header>
   );
