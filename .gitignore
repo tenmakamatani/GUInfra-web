@@ -110,3 +110,5 @@ dist
 
 # DS_store
 .DS_Store
+
+.vercel
