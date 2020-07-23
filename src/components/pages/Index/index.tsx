@@ -5,7 +5,6 @@ import { ModalTypes } from "@modules/ui";
 import { styles } from "./styles";
 import { Graph } from "./organisms/Graph";
 import { CreateResourceItemList } from "./molecules/CreateResourceItemList";
-import { AppTemplate } from "../../templates/AppTemplate";
 
 const createResourceItemList = [
   {
