@@ -39,7 +39,7 @@ const remove = (payload: IRemoveEC2["payload"]): IRemoveEC2 => ({
   payload: payload
 });
 
-export const actions = {
+export const ec2Actions = {
   create,
   update,
   remove

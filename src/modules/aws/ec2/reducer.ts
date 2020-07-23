@@ -2,7 +2,7 @@ import { IAWSState } from "../index";
 import { EC2Actions } from "./actions";
 import { ActionTypes } from "../types";
 
-export const reducer = (state: IAWSState, action: EC2Actions): IAWSState => {
+export const ec2Reducer = (state: IAWSState, action: EC2Actions): IAWSState => {
   switch (action.type) {
     case ActionTypes.CreateEC2:
       return {

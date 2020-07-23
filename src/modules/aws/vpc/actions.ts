@@ -41,7 +41,7 @@ const remove = (payload: IRemoveVPC["payload"]): IRemoveVPC => ({
   payload: payload
 });
 
-export const actions = {
+export const vpcActions = {
   create,
   update,
   remove

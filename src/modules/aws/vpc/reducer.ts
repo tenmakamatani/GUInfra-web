@@ -2,7 +2,7 @@ import { IAWSState } from "../index";
 import { VPCActions } from "./actions";
 import { ActionTypes } from "../types";
 
-export const reducer = (state: IAWSState, action: VPCActions): IAWSState => {
+export const vpcReducer = (state: IAWSState, action: VPCActions): IAWSState => {
   switch (action.type) {
     case ActionTypes.CreateVPC:
       return {
