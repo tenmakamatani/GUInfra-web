@@ -1,4 +1,5 @@
 import * as AWS from "aws-sdk";
+import "reflect-metadata";
 import { injectable } from "inversify";
 
 import { EC2 } from "../../domain/models/aws";

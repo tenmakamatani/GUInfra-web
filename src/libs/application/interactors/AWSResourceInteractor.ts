@@ -8,17 +8,8 @@ import { ResourceIdsDatastore } from "../datastore/ResourceIdsDatastore";
 
 @injectable()
 export class AWSResourceInteractor extends AWSResourceUseCase {
-  private _ec2Repo: EC2Repository;
-  private _vpcRepo: VPCRepository;
-
-  constructor(
-    @inject(TYPES.EC2Repository) ec2Repo: EC2Repository,
-    @inject(TYPES.VPCRepository) vpcRepo: VPCRepository
-  ) {
-    super();
-    this._ec2Repo = ec2Repo;
-    this._vpcRepo = vpcRepo;
-  }
+  @inject(TYPES.EC2Repository) private _ec2Repo: EC2Repository;
+  @inject(TYPES.VPCRepository) private _vpcRepo: VPCRepository;
 
   create = async (resources: Omit<IAWSState, "metadata">): Promise<void> => {
     const ec2Promises = resources.ec2List.map(ec2 => this._ec2Repo.create(ec2));

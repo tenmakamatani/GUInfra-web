@@ -107,6 +107,7 @@ public
 
 # dist dir
 dist
+build
 
 # DS_store
 .DS_Store

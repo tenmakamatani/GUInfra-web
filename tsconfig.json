@@ -2,10 +2,18 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@public/*": ["public/*"],
-      "@libs/*": ["src/libs/*"],
-      "@modules/*": ["src/modules/*"],
-      "@views/*": ["src/views/*"]
+      "@public/*": [
+        "public/*"
+      ],
+      "@libs/*": [
+        "src/libs/*"
+      ],
+      "@modules/*": [
+        "src/modules/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ]
     },
     "strictNullChecks": true,
     "noUnusedLocals": true,
@@ -22,8 +30,24 @@
       "dom",
       "es2018"
     ],
-    "module": "ES2015",
+    "module": "esnext",
     "target": "es5",
-    "jsx": "preserve"
-  }
+    "jsx": "preserve",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

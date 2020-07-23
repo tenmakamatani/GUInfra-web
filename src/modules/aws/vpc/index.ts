@@ -1,4 +1,4 @@
-import { actions, VPCActions } from "./actions";
+import { actions } from "./actions";
 import { reducer } from "./reducer";
 
-export { actions as vpcActions, VPCActions, reducer as vpcReducer };
+export { actions as vpcActions, reducer as vpcReducer };
