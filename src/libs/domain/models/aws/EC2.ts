@@ -1,6 +1,5 @@
 import { Id } from "../base";
 import { AWSResource, ITag } from "./common/AWSResource";
-import { VPCId } from "./VPC";
 
 interface IEC2 {
   imageId: string;
@@ -13,7 +12,7 @@ export class EC2 extends AWSResource<IEC2> {
 
   constructor(init: { id?: string; properties: IEC2; tags: ITag[] }) {
     super(init);
-    this.id = new VPCId(init.id);
+    this.id = new EC2Id(init.id);
   }
 }
 
