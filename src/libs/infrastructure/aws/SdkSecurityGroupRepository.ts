@@ -1,5 +1,4 @@
 import * as AWS from "aws-sdk";
-import "reflect-metadata";
 import { injectable } from "inversify";
 
 import { SecurityGroup } from "../../domain/models/aws";
