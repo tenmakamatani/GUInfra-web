@@ -1,4 +1,4 @@
-import { EC2, VPC } from "../models/aws";
+import { EC2, VPC, SecurityGroup } from "../models/aws";
 
 export interface IAWSState {
   metadata: {
@@ -8,4 +8,5 @@ export interface IAWSState {
   };
   ec2List: EC2[];
   vpcList: VPC[];
+  securityGroupList: SecurityGroup[];
 }

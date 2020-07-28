@@ -2,8 +2,16 @@ import { Container } from "inversify";
 
 import { TYPES } from "../types";
 import { IAWSState } from "../domain/state/aws";
-import { EC2Repository, VPCRepository } from "../domain/repositories/aws";
-import { SdkEC2Repository, SdkVPCRepository } from "../infrastructure/aws";
+import {
+  EC2Repository,
+  VPCRepository,
+  SecurityGroupRepository
+} from "../domain/repositories/aws";
+import {
+  SdkEC2Repository,
+  SdkVPCRepository,
+  SdkSecurityGroupRepository
+} from "../infrastructure/aws";
 import { AWSResourceUseCase } from "./usecases/AWSResourceUseCase";
 import { AWSResourceInteractor } from "./interactors/AWSResourceInteractor";
 
@@ -18,6 +26,9 @@ export class DI {
       .bind<VPCRepository>(TYPES.VPCRepository)
       .toConstantValue(new SdkVPCRepository(metadata));
     container
+      .bind<SecurityGroupRepository>(TYPES.SecurityGroupRepository)
+      .toConstantValue(new SdkSecurityGroupRepository(metadata));
+    container
       .bind<AWSResourceUseCase>(TYPES.AWSResourceUseCase)
       .to(AWSResourceInteractor)
       .inSingletonScope();
@@ -28,6 +39,11 @@ export class DI {
   }
   static get vpcRepo() {
     return container.get<VPCRepository>(TYPES.VPCRepository);
+  }
+  static get securityGroupRepo() {
+    return container.get<SecurityGroupRepository>(
+      TYPES.SecurityGroupRepository
+    );
   }
   static get awsResourceUseCase() {
     return container.get<AWSResourceUseCase>(TYPES.AWSResourceUseCase);
