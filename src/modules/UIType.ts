@@ -7,3 +7,7 @@ export interface withBaseUI<T extends AllResource> {
   height: number;
   resource: T;
 }
+
+export interface withoutBaseUI<T extends AllResource> {
+  resource: T;
+}

@@ -1,6 +1,6 @@
 import { IAWSState as DomainAWSState } from "@libs/domain/state/aws";
 
-import { IEC2View, IVPCView } from "./resources";
+import { IEC2View, IVPCView, ISecurityGroupView } from "./resources";
 
 import { actions } from "./actions";
 import { reducer } from "./reducers";
@@ -11,6 +11,7 @@ export interface IAWSState {
   metadata: DomainAWSState["metadata"];
   ec2List: IEC2View[];
   vpcList: IVPCView[];
+  securityGroupList: ISecurityGroupView[];
 }
 
 export {

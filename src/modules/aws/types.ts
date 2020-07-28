@@ -4,5 +4,8 @@ export enum ActionTypes {
   RemoveVPC = "AWS/RemoveVPC",
   CreateEC2 = "AWS/CreateEC2",
   UpdateEC2 = "AWS/UpdateEC2",
-  RemoveEC2 = "AWS/RemoveEC2"
+  RemoveEC2 = "AWS/RemoveEC2",
+  CreateSecurityGroup = "AWS/CreateSecurityGroup",
+  UpdateSecurityGroup = "AWS/UpdateSecurityGroup",
+  RemoveSecurityGroup = "AWS/RemoveSecurityGroup"
 }

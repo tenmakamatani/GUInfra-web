@@ -1,8 +1,9 @@
-import { EC2, VPC } from "@libs/domain/models/aws";
+import { EC2, VPC, SecurityGroup } from "@libs/domain/models/aws";
 
-import { withBaseUI } from "../uiType";
+import { withBaseUI, withoutBaseUI } from "../uiType";
 
 export interface IEC2View extends withBaseUI<EC2> {}
 export interface IVPCView extends withBaseUI<VPC> {}
+export interface ISecurityGroupView extends withoutBaseUI<SecurityGroup> {}
 
-export type IResourceView = IEC2View | IVPCView;
+export type IResourceView = IEC2View | IVPCView | ISecurityGroupView;
