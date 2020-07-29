@@ -12,7 +12,11 @@ export const styles = {
   createResourceItem: {
     wrapper: css({
       textAlign: "center",
-      width: 100
+      width: 100,
+      cursor: "pointer",
+      "&:hover": {
+        opacity: 0.8
+      }
     }),
     img: css({
       width: "100%",
