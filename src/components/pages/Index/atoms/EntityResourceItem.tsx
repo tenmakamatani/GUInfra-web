@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Rnd, RndResizeCallback, RndDragCallback } from "react-rnd";
 
-import { IResourceView } from "@modules/aws/resources";
+import { IWithUIResourceView } from "@modules/aws/resources";
 
 interface IProps {
   source: string;
-  resource: IResourceView;
+  resource: IWithUIResourceView;
   onDragStop: RndDragCallback;
   onResizeStop: RndResizeCallback;
 }
@@ -16,7 +16,7 @@ export const EntityResourceItem: React.SFC<IProps> = props => {
     <Rnd
       default={{
         x: resource.x,
-        y: resource.y,
+        y: resource.y!,
         width: resource.width,
         height: resource.height
       }}

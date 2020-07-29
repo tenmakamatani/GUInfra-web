@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Rnd, RndResizeCallback, RndDragCallback } from "react-rnd";
 
-import { IResourceView } from "@modules/aws/resources";
+import { IWithUIResourceView } from "@modules/aws/resources";
 
 import { styles } from "../styles";
 
 interface IProps {
-  resource: IResourceView;
+  resource: IWithUIResourceView;
   onDragStop: RndDragCallback;
   onResizeStop: RndResizeCallback;
 }

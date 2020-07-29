@@ -6,4 +6,5 @@ export interface IEC2View extends withBaseUI<EC2> {}
 export interface IVPCView extends withBaseUI<VPC> {}
 export interface ISecurityGroupView extends withoutBaseUI<SecurityGroup> {}
 
-export type IResourceView = IEC2View | IVPCView | ISecurityGroupView;
+export type IWithUIResourceView = IEC2View | IVPCView;
+export type IWithoutUIResourceView = ISecurityGroupView;
