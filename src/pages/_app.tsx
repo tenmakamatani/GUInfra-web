@@ -10,6 +10,14 @@ export default class GUInfra extends App {
     const { Component, pageProps } = this.props;
     return (
       <Provider store={store}>
+        <style global jsx>{`
+          body {
+            height: 100vh;
+          }
+          div#__next {
+            height: 100vh;
+          }
+        `}</style>
         <AppTemplate>
           <Modal />
           <Component {...pageProps} />

@@ -34,12 +34,26 @@ export const styles = {
       marginTop: "10px"
     })
   },
+  attachResourceItemList: {
+    wrapper: css({
+      width: "20%"
+    })
+  },
   // organisms
   graph: {
     wrapper: css({
       width: "60%",
-      height: "calc(100% - 70px)",
+      height: "calc(100%-70px)",
       border: "1px solid rgba(0,0,0,0.2)"
+    })
+  },
+  // resources
+  securityGroupItem: {
+    wrapper: css({
+      cursor: "pointer",
+      "&:hover": {
+        opacity: 0.5
+      }
     })
   }
 };

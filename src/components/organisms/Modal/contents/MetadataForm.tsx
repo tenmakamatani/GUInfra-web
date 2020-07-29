@@ -34,7 +34,10 @@ export const MetadataForm: React.SFC = () => {
       });
       await DI.awsResourceUseCase.create({
         ec2List: awsState.ec2List.map(ec2View => ec2View.resource),
-        vpcList: awsState.vpcList.map(vpcView => vpcView.resource)
+        vpcList: awsState.vpcList.map(vpcView => vpcView.resource),
+        securityGroupList: awsState.securityGroupList.map(
+          securityGroupView => securityGroupView.resource
+        )
       });
       dispatch(uiActions.removeModal());
     }

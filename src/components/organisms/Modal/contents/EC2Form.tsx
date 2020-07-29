@@ -61,8 +61,8 @@ export const EC2Form: React.SFC<IProps> = props => {
             })
           })
         );
-        dispatch(uiActions.removeModal());
       }
+      dispatch(uiActions.removeModal());
     }
   });
   return (

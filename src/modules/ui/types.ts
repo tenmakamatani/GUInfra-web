@@ -9,5 +9,6 @@ export enum ModalTypes {
   // 以下、モーダルのタイプ
   MetadataForm,
   EC2Form,
-  VPCForm
+  VPCForm,
+  SecurityGroupForm
 }
