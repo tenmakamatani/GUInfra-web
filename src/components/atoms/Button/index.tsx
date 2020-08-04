@@ -1,6 +1,7 @@
 import * as React from "react";
 
 interface IProps {
+  type?: "submit";
   value: string;
   onClick: () => void;
 }
