@@ -1,10 +1,11 @@
 import * as React from "react";
 
-import { Text, Select } from "@components/atoms";
+import { Text, Select, IOption } from "@components/atoms";
 
 type Props = {
   label: string;
   error?: string;
+  options: IOption[];
 } & React.DetailedHTMLProps<
   React.SelectHTMLAttributes<HTMLSelectElement>,
   HTMLSelectElement
