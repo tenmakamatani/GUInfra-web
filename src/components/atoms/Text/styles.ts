@@ -1,7 +1,7 @@
 import { css } from "@emotion/core";
 
 export default {
-  content: css({
+  error: css({
     color: "red"
   })
-}
+};

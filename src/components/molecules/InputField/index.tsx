@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Input, ErrorMessage } from "@components/atoms";
+import { Input, Text } from "@components/atoms";
 
 type Props = {
   label: string;
@@ -12,9 +12,9 @@ type Props = {
 export const InputField: React.SFC<Props> = props => {
   return (
     <div>
-      <p>{props.label}</p>
+      <Text content={props.label} />
       <Input {...props} />
-      <ErrorMessage content={props.error} />
+      <Text error content={props.error} />
     </div>
   );
 };
