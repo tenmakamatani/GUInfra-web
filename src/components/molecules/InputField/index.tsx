@@ -1,6 +1,5 @@
 import * as React from "react";
-import { Input } from "@components/atoms/Input";
-import { ErrorMessage } from "@components/atoms/ErrorMessage";
+import { Input, ErrorMessage } from "@components/atoms";
 
 type Props = {
   label: string;
