@@ -16,8 +16,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "node_modules/prettier/bin-prettier.js --write",
-      "git add"
+      "node_modules/prettier/bin-prettier.js --write"
     ]
   },
   "devDependencies": {
