@@ -8,6 +8,8 @@ import { EC2 } from "@libs/domain/models/aws";
 import { uiActions } from "@modules/ui";
 import { awsActions } from "@modules/aws";
 
+import { InputField } from "@components/molecules";
+
 const validation = Yup.object().shape({
   tags: Yup.string()
 });
@@ -67,14 +69,15 @@ export const EC2Form: React.SFC<IProps> = props => {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
-      <input
+      <InputField
+        label="Tags"
         name="tags"
         type="text"
-        placeholder="タグ"
+        placeholder="key:value"
         value={formik.values.tags}
         onChange={formik.handleChange}
+        error={formik.errors.tags}
       />
-      <p>{formik.errors.tags}</p>
       <button type="submit">{ec2 ? "更新" : "作成"}</button>
       {ec2 ? (
         <button

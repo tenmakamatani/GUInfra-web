@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { DI } from "@libs/application/DI";
 import { uiActions } from "@modules/ui";
 import { awsSelector } from "@modules/aws";
+import { InputField } from "@components/molecules";
 
 const validation = Yup.object().shape({
   accessKeyId: Yup.string().required("※アクセスキーを入力してください"),
@@ -44,22 +45,24 @@ export const MetadataForm: React.SFC = () => {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
-      <input
+      <InputField
+        label="AccessKeyId"
         name="accessKeyId"
         type="text"
-        placeholder="アクセスキー"
+        placeholder="Your AWS AccessKeyId"
         value={formik.values.accessKeyId}
         onChange={formik.handleChange}
+        error={formik.errors.accessKeyId}
       />
-      <p>{formik.errors.accessKeyId}</p>
-      <input
+      <InputField
+        label="SecretAccessKey"
         name="secretAccessKey"
         type="text"
-        placeholder="シークレットキー"
+        placeholder="Your AWS SecretAccessKey"
         value={formik.values.secretAccessKey}
         onChange={formik.handleChange}
+        error={formik.errors.secretAccessKey}
       />
-      <p>{formik.errors.secretAccessKey}</p>
       <button type="submit">作成</button>
     </form>
   );

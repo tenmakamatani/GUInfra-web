@@ -7,6 +7,7 @@ import { VPC } from "@libs/domain/models/aws";
 
 import { uiActions } from "@modules/ui";
 import { awsActions } from "@modules/aws";
+import { InputField } from "@components/molecules";
 
 const validation = Yup.object().shape({
   cidrBlock: Yup.string().required("※CIDRブロックを入力してください"),
@@ -74,22 +75,24 @@ export const VPCForm: React.SFC<IProps> = props => {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
-      <input
+      <InputField
+        label="CIDRブロック"
         name="cidrBlock"
         type="text"
-        placeholder="CIDRブロック"
+        placeholder="10.0.0.0/16"
         value={formik.values.cidrBlock}
         onChange={formik.handleChange}
+        error={formik.errors.cidrBlock}
       />
-      <p>{formik.errors.cidrBlock}</p>
-      <input
+      <InputField
+        label="タグ"
         name="tags"
         type="text"
-        placeholder="タグ"
+        placeholder="key:value"
         value={formik.values.tags}
         onChange={formik.handleChange}
+        error={formik.errors.tags}
       />
-      <p>{formik.errors.tags}</p>
       <button type="submit">{vpc ? "更新" : "作成"}</button>
       {vpc ? (
         <button

@@ -8,6 +8,8 @@ import { SecurityGroup } from "@libs/domain/models/aws";
 import { uiActions } from "@modules/ui";
 import { awsActions } from "@modules/aws";
 
+import { InputField } from "@components/molecules";
+
 interface IProps {
   securityGroup?: SecurityGroup;
 }
@@ -72,22 +74,24 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
-      <input
+      <InputField
+        label="Name"
         name="name"
         type="text"
-        placeholder="名前"
+        placeholder="SecurityGroup1"
         value={formik.values.name}
         onChange={formik.handleChange}
+        error={formik.errors.name}
       />
-      <p>{formik.errors.name}</p>
-      <input
+      <InputField
+        label="Description"
         name="description"
         type="text"
         placeholder="説明"
         value={formik.values.description}
         onChange={formik.handleChange}
+        error={formik.errors.description}
       />
-      <p>{formik.errors.description}</p>
       <button type="submit">{securityGroup ? "更新" : "作成"}</button>
       {securityGroup ? (
         <button
