@@ -56,9 +56,11 @@ export const EC2Form: React.SFC<IProps> = props => {
             width: 100,
             height: 100,
             resource: new EC2({
+              // Todo: Configへ追加
               properties: {
                 imageId: "ami-0ee1410f0644c1cac",
-                instanceType: "t2.micro"
+                instanceType: "t2.micro",
+                securityGroupIds: []
               },
               tags: tags
             })

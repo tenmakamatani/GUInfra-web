@@ -1,9 +1,11 @@
 import { Id } from "../base";
 import { AWSResource, ITag } from "./common/AWSResource";
+import { SecurityGroupId } from "./SecurityGroup";
 
 interface IEC2 {
   imageId: string;
   instanceType: string;
+  securityGroupIds: SecurityGroupId[];
   // securityGroupIds, subnetId
 }
 
