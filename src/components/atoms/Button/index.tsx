@@ -7,5 +7,5 @@ interface IProps {
 }
 
 export const Button: React.SFC<IProps> = props => {
-  return <button {...props} />;
+  return <button {...props}>{props.value}</button>;
 };

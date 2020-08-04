@@ -9,6 +9,7 @@ import { uiActions } from "@modules/ui";
 import { awsActions } from "@modules/aws";
 
 import { InputField } from "@components/molecules";
+import { Button } from "@components/atoms";
 
 interface IProps {
   securityGroup?: SecurityGroup;
@@ -92,16 +93,19 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
         onChange={formik.handleChange}
         error={formik.errors.description}
       />
-      <button type="submit">{securityGroup ? "更新" : "作成"}</button>
+      <Button
+        type="submit"
+        value={securityGroup ? "更新" : "作成"}
+        onClick={() => {}}
+      />
       {securityGroup ? (
-        <button
+        <Button
+          value="削除"
           onClick={() => {
             dispatch(awsActions.securityGroup.remove(securityGroup.id));
             dispatch(uiActions.removeModal());
           }}
-        >
-          削除
-        </button>
+        />
       ) : null}
     </form>
   );

@@ -7,6 +7,7 @@ import { DI } from "@libs/application/DI";
 import { uiActions } from "@modules/ui";
 import { awsSelector } from "@modules/aws";
 import { InputField } from "@components/molecules";
+import { Button } from "@components/atoms";
 
 const validation = Yup.object().shape({
   accessKeyId: Yup.string().required("※アクセスキーを入力してください"),
@@ -63,7 +64,7 @@ export const MetadataForm: React.SFC = () => {
         onChange={formik.handleChange}
         error={formik.errors.secretAccessKey}
       />
-      <button type="submit">作成</button>
+      <Button type="submit" value="作成" onClick={() => {}} />
     </form>
   );
 };

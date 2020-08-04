@@ -8,6 +8,7 @@ import { EC2 } from "@libs/domain/models/aws";
 import { uiActions } from "@modules/ui";
 import { awsActions } from "@modules/aws";
 
+import { Button } from "@components/atoms";
 import { InputField } from "@components/molecules";
 
 const validation = Yup.object().shape({
@@ -78,16 +79,15 @@ export const EC2Form: React.SFC<IProps> = props => {
         onChange={formik.handleChange}
         error={formik.errors.tags}
       />
-      <button type="submit">{ec2 ? "更新" : "作成"}</button>
+      <Button type="submit" value={ec2 ? "更新" : "作成"} onClick={() => {}} />
       {ec2 ? (
-        <button
+        <Button
+          value="削除"
           onClick={() => {
             dispatch(awsActions.ec2.remove(ec2.id));
             dispatch(uiActions.removeModal());
           }}
-        >
-          削除
-        </button>
+        />
       ) : null}
     </form>
   );

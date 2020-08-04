@@ -8,6 +8,7 @@ import { VPC } from "@libs/domain/models/aws";
 import { uiActions } from "@modules/ui";
 import { awsActions } from "@modules/aws";
 import { InputField } from "@components/molecules";
+import { Button } from "@components/atoms";
 
 const validation = Yup.object().shape({
   cidrBlock: Yup.string().required("※CIDRブロックを入力してください"),
@@ -93,16 +94,15 @@ export const VPCForm: React.SFC<IProps> = props => {
         onChange={formik.handleChange}
         error={formik.errors.tags}
       />
-      <button type="submit">{vpc ? "更新" : "作成"}</button>
+      <Button type="submit" value={vpc ? "更新" : "作成"} onClick={() => {}} />
       {vpc ? (
-        <button
+        <Button
+          value="削除"
           onClick={() => {
             dispatch(awsActions.vpc.remove(vpc.id));
             dispatch(uiActions.removeModal());
           }}
-        >
-          削除
-        </button>
+        />
       ) : null}
     </form>
   );
