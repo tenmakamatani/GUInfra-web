@@ -1,17 +1,19 @@
 import * as React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
 import { EC2 } from "@libs/domain/models/aws";
+import { SecurityGroupId } from "@libs/domain/models/aws/SecurityGroup";
 
 import { uiActions } from "@modules/ui";
-import { awsActions } from "@modules/aws";
+import { awsActions, awsSelector } from "@modules/aws";
 
 import { Button } from "@components/atoms";
-import { InputField } from "@components/molecules";
+import { InputField, SelectField } from "@components/molecules";
 
 const validation = Yup.object().shape({
+  securityGroupId: Yup.string(),
   tags: Yup.string()
 });
 
@@ -20,15 +22,18 @@ interface IProps {
 }
 
 interface IFormValues {
+  securityGroupId: string;
   tags: string;
 }
 
 export const EC2Form: React.SFC<IProps> = props => {
   const ec2 = props.ec2;
   const dispatch = useDispatch();
+  const awsState = useSelector(awsSelector.selectAll);
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
     initialValues: {
+      securityGroupId: "",
       tags: ec2?.tags.map(tag => `${tag.key}:${tag.value}`).join() ?? ""
     },
     onSubmit: values => {
@@ -38,6 +43,11 @@ export const EC2Form: React.SFC<IProps> = props => {
       }));
       if (ec2) {
         ec2.update({
+          properties: {
+            imageId: ec2.properties.imageId,
+            instanceType: ec2.properties.instanceType,
+            securityGroupIds: [new SecurityGroupId(values.securityGroupId)]
+          },
           tags: tags
         });
         dispatch(
@@ -80,6 +90,17 @@ export const EC2Form: React.SFC<IProps> = props => {
         value={formik.values.tags}
         onChange={formik.handleChange}
         error={formik.errors.tags}
+      />
+      <SelectField
+        label="SecurityGroupIds"
+        name="securityGroupId"
+        value={formik.values.securityGroupId}
+        onChange={formik.handleChange}
+        options={awsState.securityGroupList.map(s => ({
+          label: s.resource.properties.name,
+          value: s.resource.id.value
+        }))}
+        error={formik.errors.securityGroupId}
       />
       <Button type="submit" value={ec2 ? "更新" : "作成"} onClick={() => {}} />
       {ec2 ? (
