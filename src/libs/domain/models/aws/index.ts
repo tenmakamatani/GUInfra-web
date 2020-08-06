@@ -1,5 +1,3 @@
-import { EC2 } from "./EC2";
-import { VPC } from "./VPC";
-import { SecurityGroup } from "./SecurityGroup";
-
-export { EC2, VPC, SecurityGroup };
+export * from "./EC2";
+export * from "./VPC";
+export * from "./SecurityGroup";

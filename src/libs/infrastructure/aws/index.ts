@@ -1,7 +1,5 @@
 import "reflect-metadata";
 
-import { SdkEC2Repository } from "./SdkEC2Repository";
-import { SdkVPCRepository } from "./SdkVPCRepository";
-import { SdkSecurityGroupRepository } from "./SdkSecurityGroupRepository";
-
-export { SdkEC2Repository, SdkVPCRepository, SdkSecurityGroupRepository };
+export * from "./SdkEC2Repository";
+export * from "./SdkVPCRepository";
+export * from "./SdkSecurityGroupRepository";
