@@ -15,7 +15,7 @@ export class SdkSecurityGroupRepository extends SecurityGroupRepository {
     this._ec2 = new AWS.EC2(metadata);
   }
 
-  async create(securityGroup: SecurityGroup): Promise<void> {
+  async create(securityGroup: SecurityGroup): Promise<string> {
     const group = await this._ec2
       .createSecurityGroup({
         GroupName: securityGroup.properties.name,
@@ -48,6 +48,7 @@ export class SdkSecurityGroupRepository extends SecurityGroupRepository {
       })
     ]);
     ResourceIdsDatastore.securityGroupIds.push(groupId);
+    return groupId;
   }
 
   async deleteAll(): Promise<void> {
