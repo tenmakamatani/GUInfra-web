@@ -15,7 +15,7 @@ export class SdkEC2Repository extends EC2Repository {
     this._ec2 = new AWS.EC2(metadata);
   }
 
-  create = async (ec2: EC2): Promise<void> => {
+  create = async (ec2: EC2): Promise<string> => {
     const createdEc2 = await this._ec2
       .runInstances({
         ImageId: ec2.properties.imageId,
@@ -33,7 +33,9 @@ export class SdkEC2Repository extends EC2Repository {
         ]
       })
       .promise();
-    ResourceIdsDatastore.ec2Ids.push(createdEc2.Instances![0].InstanceId ?? "");
+    const ec2Id = createdEc2.Instances![0].InstanceId!;
+    ResourceIdsDatastore.ec2Ids.push(ec2Id);
+    return ec2Id;
   };
 
   deleteAll = async (): Promise<void> => {
