@@ -2,6 +2,7 @@ import { inject, injectable } from "inversify";
 
 import { TYPES } from "../../types";
 import { IAWSState } from "../../domain/state/aws";
+import { Id } from "@libs/domain/models/base";
 import {
   EC2Repository,
   VPCRepository,
@@ -9,6 +10,11 @@ import {
 } from "../../domain/repositories/aws";
 import { AWSResourceUseCase } from "../usecases/AWSResourceUseCase";
 import { ResourceIdsDatastore } from "../datastore/ResourceIdsDatastore";
+
+interface IIdsSet<I extends Id> {
+  before: I;
+  after: string;
+}
 
 @injectable()
 export class AWSResourceInteractor extends AWSResourceUseCase {
