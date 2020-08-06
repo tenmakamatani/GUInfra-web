@@ -47,7 +47,6 @@ export class SdkSecurityGroupRepository extends SecurityGroupRepository {
         }))
       })
     ]);
-    ResourceIdsDatastore.securityGroupIds.push(groupId);
     return groupId;
   }
 

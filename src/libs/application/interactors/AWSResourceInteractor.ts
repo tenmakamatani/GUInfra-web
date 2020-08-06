@@ -18,12 +18,25 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
   private _securityGroupRepo: SecurityGroupRepository;
 
   create = async (resources: Omit<IAWSState, "metadata">): Promise<void> => {
-    const ec2Promises = resources.ec2List.map(ec2 => this._ec2Repo.create(ec2));
-    const vpcPromises = resources.vpcList.map(vpc => this._vpcRepo.create(vpc));
-    const securityGroupPromises = resources.securityGroupList.map(
-      securityGroup => this._securityGroupRepo.create(securityGroup)
+    const ec2Promises = Promise.all(
+      resources.ec2List.map(ec2 => this._ec2Repo.create(ec2))
     );
-    await Promise.all([ec2Promises, vpcPromises, securityGroupPromises]);
+    const vpcPromises = Promise.all(
+      resources.vpcList.map(vpc => this._vpcRepo.create(vpc))
+    );
+    const securityGroupPromises = Promise.all(
+      resources.securityGroupList.map(securityGroup =>
+        this._securityGroupRepo.create(securityGroup)
+      )
+    );
+    const [ec2Ids, vpcIds, securityGroupIds] = await Promise.all([
+      ec2Promises,
+      vpcPromises,
+      securityGroupPromises
+    ]);
+    ResourceIdsDatastore.ec2Ids = ec2Ids;
+    ResourceIdsDatastore.vpcIds = vpcIds;
+    ResourceIdsDatastore.securityGroupIds = securityGroupIds;
   };
 
   deleteAll = async (): Promise<void> => {

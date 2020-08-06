@@ -22,7 +22,6 @@ export class SdkVPCRepository extends VPCRepository {
       })
       .promise();
     const vpcId = createdVpc.Vpc!.VpcId!;
-    ResourceIdsDatastore.vpcIds.push(vpcId);
     return vpcId;
   };
 

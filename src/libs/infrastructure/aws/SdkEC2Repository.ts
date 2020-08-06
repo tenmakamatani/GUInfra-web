@@ -34,7 +34,6 @@ export class SdkEC2Repository extends EC2Repository {
       })
       .promise();
     const ec2Id = createdEc2.Instances![0].InstanceId!;
-    ResourceIdsDatastore.ec2Ids.push(ec2Id);
     return ec2Id;
   };
 
