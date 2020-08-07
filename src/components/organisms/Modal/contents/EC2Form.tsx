@@ -4,7 +4,6 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 import { EC2 } from "@libs/domain/models/aws";
-import { SecurityGroupId } from "@libs/domain/models/aws/SecurityGroup";
 
 import { uiActions } from "@modules/ui";
 import { awsActions, awsSelector } from "@modules/aws";
@@ -33,7 +32,7 @@ export const EC2Form: React.SFC<IProps> = props => {
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
     initialValues: {
-      securityGroupId: "",
+      securityGroupId: awsState.securityGroupList[0]?.resource.id.value ?? "",
       tags: ec2?.tags.map(tag => `${tag.key}:${tag.value}`).join() ?? ""
     },
     onSubmit: values => {
@@ -41,12 +40,15 @@ export const EC2Form: React.SFC<IProps> = props => {
         key: val.split(":")[0],
         value: val.split(":")[1]
       }));
+      const securityGroupIds = awsState.securityGroupList
+        .filter(s => s.resource.id.value === values.securityGroupId)
+        .map(v => v.resource.id);
       if (ec2) {
         ec2.update({
           properties: {
             imageId: ec2.properties.imageId,
             instanceType: ec2.properties.instanceType,
-            securityGroupIds: [new SecurityGroupId(values.securityGroupId)]
+            securityGroupIds: securityGroupIds
           },
           tags: tags
         });
@@ -70,7 +72,7 @@ export const EC2Form: React.SFC<IProps> = props => {
               properties: {
                 imageId: "ami-0ee1410f0644c1cac",
                 instanceType: "t2.micro",
-                securityGroupIds: []
+                securityGroupIds: securityGroupIds
               },
               tags: tags
             })

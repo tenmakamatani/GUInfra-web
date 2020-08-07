@@ -3,6 +3,7 @@ import { inject, injectable } from "inversify";
 import { TYPES } from "../../types";
 import { IAWSState } from "../../domain/state/aws";
 import { Id } from "@libs/domain/models/base";
+import { SecurityGroupId } from "@libs/domain/models/aws";
 import {
   EC2Repository,
   VPCRepository,
@@ -24,9 +25,7 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
   private _securityGroupRepo: SecurityGroupRepository;
 
   async create(resources: Omit<IAWSState, "metadata">): Promise<void> {
-    const ec2Promises = Promise.all(
-      resources.ec2List.map(ec2 => this._ec2Repo.create(ec2))
-    );
+    const securityGroupIdsSet: IIdsSet<SecurityGroupId>[] = [];
     const vpcPromises = Promise.all(
       resources.vpcList.map(vpc => this._vpcRepo.create(vpc))
     );
@@ -35,11 +34,25 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
         this._securityGroupRepo.create(securityGroup)
       )
     );
-    const [ec2Ids, vpcIds, securityGroupIds] = await Promise.all([
-      ec2Promises,
+    const [vpcIds, securityGroupIds] = await Promise.all([
       vpcPromises,
       securityGroupPromises
     ]);
+    for (let i = 0; i < securityGroupIds.length; i++) {
+      securityGroupIdsSet.push({
+        before: resources.securityGroupList[i]!.id,
+        after: securityGroupIds[i]
+      });
+    }
+    const ec2Promises = resources.ec2List.map(ec2 => {
+      const ec2SecurityGroupIds = ec2.properties.securityGroupIds.map(sId => {
+        return securityGroupIdsSet.find(sIdsSet => {
+          return sIdsSet.before.isEqualTo(sId);
+        })!.after;
+      });
+      return this._ec2Repo.create(ec2, ec2SecurityGroupIds);
+    });
+    const ec2Ids = await Promise.all(ec2Promises);
     ResourceIdsDatastore.ec2Ids = ec2Ids;
     ResourceIdsDatastore.vpcIds = vpcIds;
     ResourceIdsDatastore.securityGroupIds = securityGroupIds;
