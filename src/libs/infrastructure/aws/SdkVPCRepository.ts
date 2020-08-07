@@ -4,7 +4,6 @@ import { injectable } from "inversify";
 import { VPC } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { VPCRepository } from "../../domain/repositories/aws";
-import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
 
 @injectable()
 export class SdkVPCRepository extends VPCRepository {
@@ -25,8 +24,8 @@ export class SdkVPCRepository extends VPCRepository {
     return vpcId;
   }
 
-  async deleteAll(): Promise<void> {
-    const deleteVpcPromises = ResourceIdsDatastore.vpcIds.map(vpcId =>
+  async deleteAll(ids: string[]): Promise<void> {
+    const deleteVpcPromises = ids.map(vpcId =>
       this._ec2.deleteVpc({ VpcId: vpcId }).promise()
     );
     await Promise.all(deleteVpcPromises);

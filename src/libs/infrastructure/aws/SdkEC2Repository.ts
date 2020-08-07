@@ -4,7 +4,6 @@ import { injectable } from "inversify";
 import { EC2 } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { EC2Repository } from "../../domain/repositories/aws";
-import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
 
 @injectable()
 export class SdkEC2Repository extends EC2Repository {
@@ -38,10 +37,10 @@ export class SdkEC2Repository extends EC2Repository {
     return ec2Id;
   }
 
-  async deleteAll(): Promise<void> {
+  async deleteAll(ids: string[]): Promise<void> {
     await this._ec2
       .terminateInstances({
-        InstanceIds: ResourceIdsDatastore.ec2Ids
+        InstanceIds: ids
       })
       .promise();
   }

@@ -4,7 +4,6 @@ import { injectable } from "inversify";
 import { SecurityGroup } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { SecurityGroupRepository } from "../../domain/repositories/aws";
-import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
 
 @injectable()
 export class SdkSecurityGroupRepository extends SecurityGroupRepository {
@@ -50,14 +49,13 @@ export class SdkSecurityGroupRepository extends SecurityGroupRepository {
     return groupId;
   }
 
-  async deleteAll(): Promise<void> {
-    const deleteAllSecurityGroupPromise = ResourceIdsDatastore.securityGroupIds.map(
-      s =>
-        this._ec2
-          .deleteSecurityGroup({
-            GroupId: s
-          })
-          .promise()
+  async deleteAll(ids: string[]): Promise<void> {
+    const deleteAllSecurityGroupPromise = ids.map(s =>
+      this._ec2
+        .deleteSecurityGroup({
+          GroupId: s
+        })
+        .promise()
     );
     await Promise.all(deleteAllSecurityGroupPromise);
   }
