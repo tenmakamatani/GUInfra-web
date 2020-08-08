@@ -11,7 +11,7 @@ interface ISubnet {
 export class Subnet extends AWSResource<ISubnet> {
   readonly id: SubnetId;
 
-  constructor(init: { id: string; properties: ISubnet; tags: ITag[] }) {
+  constructor(init: { id?: string; properties: ISubnet; tags: ITag[] }) {
     super(init);
     this.id = new SubnetId(init.id);
   }
