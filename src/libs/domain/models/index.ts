@@ -1,6 +1,19 @@
-import { EC2, VPC, SecurityGroup } from "./aws";
+import {
+  EC2,
+  VPC,
+  Subnet,
+  RouteTable,
+  SecurityGroup,
+  InternetGateway
+} from "./aws";
 
-export type AllResource = EC2 | VPC | SecurityGroup;
+export type AllResource =
+  | EC2
+  | VPC
+  | Subnet
+  | RouteTable
+  | SecurityGroup
+  | InternetGateway;
 export type EntityResource = EC2;
-export type ScopeResource = VPC;
-export type AttachResource = SecurityGroup;
+export type ScopeResource = VPC | Subnet;
+export type AttachResource = RouteTable | SecurityGroup | InternetGateway;
