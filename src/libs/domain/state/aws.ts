@@ -2,6 +2,7 @@ import {
   EC2,
   VPC,
   Subnet,
+  RouteTable,
   SecurityGroup,
   InternetGateway
 } from "../models/aws";
@@ -15,6 +16,7 @@ export interface IAWSState {
   ec2List: EC2[];
   vpcList: VPC[];
   subnetList: Subnet[];
+  routeTableList: RouteTable[];
   securityGroupList: SecurityGroup[];
   internetGatewayList: InternetGateway[];
 }
