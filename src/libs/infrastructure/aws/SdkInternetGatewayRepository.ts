@@ -23,9 +23,11 @@ export class SdkInternetGatewayRepository extends InternetGatewayRepository {
 
   async deleteAll(ids: string[]): Promise<void> {
     const deleteInternetGatewayPromises = ids.map(id =>
-      this._ec2.deleteInternetGateway({
-        InternetGatewayId: id
-      })
+      this._ec2
+        .deleteInternetGateway({
+          InternetGatewayId: id
+        })
+        .promise()
     );
     await Promise.all(deleteInternetGatewayPromises);
   }
