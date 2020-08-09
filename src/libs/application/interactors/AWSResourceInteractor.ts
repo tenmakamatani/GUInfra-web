@@ -7,7 +7,10 @@ import { SecurityGroupId } from "@libs/domain/models/aws";
 import {
   EC2Repository,
   VPCRepository,
-  SecurityGroupRepository
+  SubnetRepository,
+  RouteTableRepository,
+  SecurityGroupRepository,
+  InternetGatewayRepository
 } from "../../domain/repositories/aws";
 import { AWSResourceUseCase } from "../usecases/AWSResourceUseCase";
 import { ResourceIdsDatastore } from "../datastore/ResourceIdsDatastore";
@@ -21,8 +24,13 @@ interface IIdsSet<I extends Id> {
 export class AWSResourceInteractor extends AWSResourceUseCase {
   @inject(TYPES.EC2Repository) private _ec2Repo: EC2Repository;
   @inject(TYPES.VPCRepository) private _vpcRepo: VPCRepository;
+  @inject(TYPES.SubnetRepository) private _subnetRepo: SubnetRepository;
+  @inject(TYPES.RouteTableRepository)
+  private _routeTableRepo: RouteTableRepository;
   @inject(TYPES.SecurityGroupRepository)
   private _securityGroupRepo: SecurityGroupRepository;
+  @inject(TYPES.InternetGatewayRepository)
+  private _internetGatewayRepo: InternetGatewayRepository;
 
   async create(resources: Omit<IAWSState, "metadata">): Promise<void> {
     const securityGroupIdsSet: IIdsSet<SecurityGroupId>[] = [];
