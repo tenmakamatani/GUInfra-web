@@ -3,8 +3,8 @@ import { AWSResource, ITag } from "./common/AWSResource";
 import { VPCId, InternetGatewayId } from ".";
 
 interface IRouteTable {
-  vpcId: VPCId;
-  gatewayId: InternetGatewayId;
+  vpcId?: VPCId;
+  gatewayId?: InternetGatewayId;
 }
 
 export class RouteTable extends AWSResource<IRouteTable> {
