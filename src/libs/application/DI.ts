@@ -5,12 +5,18 @@ import { IAWSState } from "../domain/state/aws";
 import {
   EC2Repository,
   VPCRepository,
-  SecurityGroupRepository
+  SubnetRepository,
+  RouteTableRepository,
+  SecurityGroupRepository,
+  InternetGatewayRepository
 } from "../domain/repositories/aws";
 import {
   SdkEC2Repository,
   SdkVPCRepository,
-  SdkSecurityGroupRepository
+  SdkSubnetRepository,
+  SdkRouteTableRepository,
+  SdkSecurityGroupRepository,
+  SdkInternetGatewayRepository
 } from "../infrastructure/aws";
 import { AWSResourceUseCase } from "./usecases/AWSResourceUseCase";
 import { AWSResourceInteractor } from "./interactors/AWSResourceInteractor";
@@ -26,8 +32,17 @@ export class DI {
       .bind<VPCRepository>(TYPES.VPCRepository)
       .toConstantValue(new SdkVPCRepository(metadata));
     container
+      .bind<SubnetRepository>(TYPES.SubnetRepository)
+      .toConstantValue(new SdkSubnetRepository(metadata));
+    container
+      .bind<RouteTableRepository>(TYPES.RouteTableRepository)
+      .toConstantValue(new SdkRouteTableRepository(metadata));
+    container
       .bind<SecurityGroupRepository>(TYPES.SecurityGroupRepository)
       .toConstantValue(new SdkSecurityGroupRepository(metadata));
+    container
+      .bind<InternetGatewayRepository>(TYPES.InternetGatewayRepository)
+      .toConstantValue(new SdkInternetGatewayRepository(metadata));
     container
       .bind<AWSResourceUseCase>(TYPES.AWSResourceUseCase)
       .to(AWSResourceInteractor)
@@ -40,9 +55,20 @@ export class DI {
   static get vpcRepo() {
     return container.get<VPCRepository>(TYPES.VPCRepository);
   }
+  static get subnetRepo() {
+    return container.get<SubnetRepository>(TYPES.SubnetRepository);
+  }
+  static get routeTableRepo() {
+    return container.get<RouteTableRepository>(TYPES.RouteTableRepository);
+  }
   static get securityGroupRepo() {
     return container.get<SecurityGroupRepository>(
       TYPES.SecurityGroupRepository
+    );
+  }
+  static get internetGatewayRepository() {
+    return container.get<InternetGatewayRepository>(
+      TYPES.InternetGatewayRepository
     );
   }
   static get awsResourceUseCase() {
