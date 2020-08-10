@@ -6,7 +6,9 @@ export enum ActionTypes {
 export enum ModalTypes {
   // null使用のクラッシュが怖いので開いてないときはNotOpenを入れる
   NotOpen,
-  // 以下、モーダルのタイプ
+  // ログ表示用のモーダル
+  LogDisplay,
+  // 以下、リソース作成モーダルのタイプ
   MetadataForm,
   EC2Form,
   VPCForm,
