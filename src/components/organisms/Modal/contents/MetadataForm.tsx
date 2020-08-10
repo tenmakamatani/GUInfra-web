@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 import { DI } from "@libs/application/DI";
-import { uiActions } from "@modules/ui";
+import { uiActions, ModalTypes } from "@modules/ui";
 import { awsSelector } from "@modules/aws";
 import { InputField } from "@components/molecules";
 import { Button } from "@components/atoms";
@@ -34,6 +34,11 @@ export const MetadataForm: React.SFC = () => {
         secretAccessKey: values.secretAccessKey,
         region: "ap-northeast-1"
       });
+      dispatch(
+        uiActions.appearModal({
+          type: ModalTypes.LogDisplay
+        })
+      );
       await DI.awsResourceUseCase.create({
         ec2List: awsState.ec2List.map(ec2View => ec2View.resource),
         vpcList: awsState.vpcList.map(vpcView => vpcView.resource),
