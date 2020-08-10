@@ -6,12 +6,12 @@ export class ResourceIdsDatastore {
   public static securityGroupIds: string[] = [];
   public static internetGatewayIds: string[] = [];
 
-  static freshAll = (): void => {
+  static freshAll(): void {
     ResourceIdsDatastore.ec2Ids = [];
     ResourceIdsDatastore.vpcIds = [];
     ResourceIdsDatastore.subnetIds = [];
     ResourceIdsDatastore.routeTableIds = [];
     ResourceIdsDatastore.securityGroupIds = [];
     ResourceIdsDatastore.internetGatewayIds = [];
-  };
+  }
 }
