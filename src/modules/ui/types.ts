@@ -12,5 +12,8 @@ export enum ModalTypes {
   MetadataForm,
   EC2Form,
   VPCForm,
-  SecurityGroupForm
+  SubnetForm,
+  RouteTableForm,
+  SecurityGroupForm,
+  InternetGatewayForm
 }
