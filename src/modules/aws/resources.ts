@@ -14,7 +14,11 @@ export interface IVPCView extends withBaseUI<VPC> {}
 export interface ISubnetView extends withBaseUI<Subnet> {}
 export interface IRouteTableView extends withoutBaseUI<RouteTable> {}
 export interface ISecurityGroupView extends withoutBaseUI<SecurityGroup> {}
-export interface IInternetGatewayView extends withoutBaseUI<InternetGateway> {}
+export interface IInternetGatewayView extends withBaseUI<InternetGateway> {}
 
-export type IWithUIResourceView = IEC2View | IVPCView;
-export type IWithoutUIResourceView = ISecurityGroupView;
+export type IWithUIResourceView =
+  | IEC2View
+  | IVPCView
+  | ISubnetView
+  | IInternetGatewayView;
+export type IWithoutUIResourceView = IRouteTableView | ISecurityGroupView;

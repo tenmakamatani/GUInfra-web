@@ -6,6 +6,7 @@ import { awsSelector } from "@modules/aws";
 import { EC2Item } from "../resources/aws/EC2Item";
 import { VPCItem } from "../resources/aws/VPCItem";
 import { SubnetItem } from "../resources/aws/SubnetItem";
+import { InternetGatewayItem } from "../resources/aws/InternetGatewayItem";
 
 import { styles } from "../styles";
 
@@ -21,6 +22,12 @@ export const Graph: React.SFC = () => {
       ))}
       {awsResources.subnetList.map(subnet => (
         <SubnetItem key={subnet.resource.id.value} subnet={subnet} />
+      ))}
+      {awsResources.internetGatewayList.map(internetGateway => (
+        <InternetGatewayItem
+          key={internetGateway.resource.id.value}
+          internetGateway={internetGateway}
+        />
       ))}
     </div>
   );

@@ -39,6 +39,10 @@ export const InternetGatewayForm: React.SFC<IProps> = ({ internetGateway }) => {
       } else {
         dispatch(
           awsActions.internetGateway.create({
+            x: window.innerWidth * 0.5,
+            y: window.innerHeight * 0.5,
+            width: 100,
+            height: 100,
             resource: new InternetGateway({
               properties: {},
               tags: []
