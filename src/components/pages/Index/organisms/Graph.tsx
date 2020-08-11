@@ -5,6 +5,7 @@ import { awsSelector } from "@modules/aws";
 
 import { EC2Item } from "../resources/aws/EC2Item";
 import { VPCItem } from "../resources/aws/VPCItem";
+import { SubnetItem } from "../resources/aws/SubnetItem";
 
 import { styles } from "../styles";
 
@@ -17,6 +18,9 @@ export const Graph: React.SFC = () => {
       ))}
       {awsResources.vpcList.map(vpc => (
         <VPCItem key={vpc.resource.id.value} vpc={vpc} />
+      ))}
+      {awsResources.subnetList.map(subnet => (
+        <SubnetItem key={subnet.resource.id.value} subnet={subnet} />
       ))}
     </div>
   );
