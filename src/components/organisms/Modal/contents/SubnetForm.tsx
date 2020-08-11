@@ -74,6 +74,7 @@ export const SubnetForm: React.SFC<IProps> = props => {
           })
         );
       }
+      dispatch(uiActions.removeModal());
     }
   });
 
