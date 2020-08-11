@@ -1,14 +1,32 @@
 import { ec2Actions as ec2, EC2Actions } from "./ec2";
 import { vpcActions as vpc, VPCActions } from "./vpc";
+import { subnetActions as subnet, SubnetActions } from "./subnet";
+import {
+  routeTableActions as routeTable,
+  RouteTableActions
+} from "./routeTable";
 import {
   securityGroupActions as securityGroup,
   SecurityGroupActions
 } from "./securityGroup";
+import {
+  internetGatewayActions as internetGateway,
+  InternetGatewayActions
+} from "./internetGateway";
 
-export type AWSActions = EC2Actions | VPCActions | SecurityGroupActions;
+export type AWSActions =
+  | EC2Actions
+  | VPCActions
+  | SubnetActions
+  | RouteTableActions
+  | SecurityGroupActions
+  | InternetGatewayActions;
 
 export const actions = {
   ec2,
   vpc,
-  securityGroup
+  subnet,
+  routeTable,
+  securityGroup,
+  internetGateway
 };
