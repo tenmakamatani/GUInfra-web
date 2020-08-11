@@ -1,5 +1,5 @@
 type LogType = "normal" | "error";
-interface ILog {
+export interface ILog {
   value: string;
   type: LogType;
 }

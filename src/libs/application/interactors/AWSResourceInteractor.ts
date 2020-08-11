@@ -17,6 +17,7 @@ import {
   InternetGatewayRepository
 } from "../../domain/repositories/aws";
 import { AWSResourceUseCase } from "../usecases/AWSResourceUseCase";
+import { LogDatastore } from "../datastore/LogDatastore";
 import { ResourceIdsDatastore } from "../datastore/ResourceIdsDatastore";
 
 interface IIdsSet<I extends Id> {
@@ -36,7 +37,16 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
   @inject(TYPES.InternetGatewayRepository)
   private _internetGatewayRepo: InternetGatewayRepository;
 
+  private _logNormal(val: string): void {
+    LogDatastore.normal(val);
+  }
+  private _logError(val: string): void {
+    LogDatastore.error(val);
+  }
+
   async create(resources: Omit<IAWSState, "metadata">): Promise<void> {
+    this._logNormal("testtest");
+    this._logError("testtest");
     // IdのSetを用意
     const vpcIdSet: IIdsSet<VPCId>[] = [];
     const securityGroupIdsSet: IIdsSet<SecurityGroupId>[] = [];
@@ -56,6 +66,9 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
         this._internetGatewayRepo.create(internetGateway)
       )
     );
+    this._logNormal("Creating vpc...");
+    this._logNormal("Creating security group...");
+    this._logNormal("Creating internet gateway...");
     const [vpcIds, securityGroupIds, internetGatewayIds] = await Promise.all([
       vpcPromises,
       securityGroupPromises,
