@@ -27,6 +27,11 @@ const createResourceItemList = [
     name: "SecurityGroup",
     modalType: ModalTypes.SecurityGroupForm,
     source: "/aws/SecurityGroup.png"
+  },
+  {
+    name: "InternetGateway",
+    modalType: ModalTypes.InternetGatewayForm,
+    source: "/aws/InternetGateway.png"
   }
 ];
 
