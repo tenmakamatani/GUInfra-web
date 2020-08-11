@@ -19,6 +19,11 @@ const createResourceItemList = [
     source: "/aws/EC2.png"
   },
   {
+    name: "Subnet",
+    modalType: ModalTypes.SubnetForm,
+    source: "/aws/Subnet.png"
+  },
+  {
     name: "SecurityGroup",
     modalType: ModalTypes.SecurityGroupForm,
     source: "/aws/SecurityGroup.png"
