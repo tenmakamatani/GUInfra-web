@@ -17,7 +17,6 @@ export const InternetGatewayItem: React.SFC<IProps> = ({ internetGateway }) => {
   const dispatch = useDispatch();
   return (
     <EntityResourceItem
-      key={internetGateway.resource.id.value}
       source={InternetGateway}
       resource={internetGateway}
       onDragStop={(e, data) => {
