@@ -10,7 +10,14 @@ import { EC2Form } from "./contents/EC2Form";
 import { VPCForm } from "./contents/VPCForm";
 import { SubnetForm } from "./contents/SubnetForm";
 import { SecurityGroupForm } from "./contents/SecurityGroupForm";
-import { EC2, VPC, Subnet, SecurityGroup } from "@libs/domain/models/aws";
+import { InternetGatewayForm } from "./contents/InternetGatewayForm";
+import {
+  EC2,
+  VPC,
+  Subnet,
+  SecurityGroup,
+  InternetGateway
+} from "@libs/domain/models/aws";
 
 ReactModal.setAppElement("#root");
 export const Modal: React.SFC = () => {
@@ -41,6 +48,10 @@ export const Modal: React.SFC = () => {
         <SubnetForm subnet={modal.resource as Subnet} />
       ) : modal.type === ModalTypes.SecurityGroupForm ? (
         <SecurityGroupForm securityGroup={modal.resource as SecurityGroup} />
+      ) : modal.type === ModalTypes.InternetGatewayForm ? (
+        <InternetGatewayForm
+          internetGateway={modal.resource as InternetGateway}
+        />
       ) : modal.type === ModalTypes.MetadataForm ? (
         <MetadataForm />
       ) : modal.type === ModalTypes.LogDisplay ? (
