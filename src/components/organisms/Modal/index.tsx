@@ -8,8 +8,9 @@ import { LogDisplay } from "./contents/LogDisplay";
 import { MetadataForm } from "./contents/MetadataForm";
 import { EC2Form } from "./contents/EC2Form";
 import { VPCForm } from "./contents/VPCForm";
+import { SubnetForm } from "./contents/SubnetForm";
 import { SecurityGroupForm } from "./contents/SecurityGroupForm";
-import { EC2, VPC, SecurityGroup } from "@libs/domain/models/aws";
+import { EC2, VPC, Subnet, SecurityGroup } from "@libs/domain/models/aws";
 
 ReactModal.setAppElement("#root");
 export const Modal: React.SFC = () => {
@@ -36,6 +37,8 @@ export const Modal: React.SFC = () => {
         <VPCForm vpc={modal.resource as VPC} />
       ) : modal.type === ModalTypes.EC2Form ? (
         <EC2Form ec2={modal.resource as EC2} />
+      ) : modal.type === ModalTypes.SubnetForm ? (
+        <SubnetForm subnet={modal.resource as Subnet} />
       ) : modal.type === ModalTypes.SecurityGroupForm ? (
         <SecurityGroupForm securityGroup={modal.resource as SecurityGroup} />
       ) : modal.type === ModalTypes.MetadataForm ? (

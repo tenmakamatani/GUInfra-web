@@ -28,7 +28,7 @@ interface IFormValues {
   vpcId: string;
 }
 
-export const VPCForm: React.SFC<IProps> = props => {
+export const SubnetForm: React.SFC<IProps> = props => {
   const subnet = props.subnet;
   const dispatch = useDispatch();
   const awsState = useSelector(awsSelector.selectAll);
