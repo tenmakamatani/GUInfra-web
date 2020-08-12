@@ -24,6 +24,11 @@ const createResourceItemList = [
     source: "/aws/Subnet.png"
   },
   {
+    name: "RouteTable",
+    modalType: ModalTypes.RouteTableForm,
+    source: "/aws/RouteTable.png"
+  },
+  {
     name: "SecurityGroup",
     modalType: ModalTypes.SecurityGroupForm,
     source: "/aws/SecurityGroup.png"
