@@ -9,15 +9,15 @@ import { awsSelector } from "@modules/aws";
 import { InputField } from "@components/molecules";
 import { Button } from "@components/atoms";
 
-const validation = Yup.object().shape({
-  accessKeyId: Yup.string().required("※アクセスキーを入力してください"),
-  secretAccessKey: Yup.string().required("※シークレットキーを入力してください")
-});
-
 interface IFormValues {
   accessKeyId: string;
   secretAccessKey: string;
 }
+
+const validation = Yup.object().shape<IFormValues>({
+  accessKeyId: Yup.string().required("※アクセスキーを入力してください"),
+  secretAccessKey: Yup.string().required("※シークレットキーを入力してください")
+});
 
 export const MetadataForm: React.SFC = () => {
   const dispatch = useDispatch();

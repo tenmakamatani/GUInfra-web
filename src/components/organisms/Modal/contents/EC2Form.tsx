@@ -20,11 +20,10 @@ interface IFormValues {
   subnetId: string;
   securityGroupId: string;
 }
-
-const validation = Yup.object().shape({
+const validation = Yup.object().shape<IFormValues>({
   name: Yup.string().required("※Nameを入力してください"),
   subnetId: Yup.string().required("※SubnetIdを入力してください"),
-  securityGroupId: Yup.string()
+  securityGroupId: Yup.string() as Yup.StringSchema<string>
 });
 
 export const EC2Form: React.SFC<IProps> = props => {
