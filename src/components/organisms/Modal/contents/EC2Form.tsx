@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-import { EC2 } from "@libs/domain/models/aws";
+import { EC2, SubnetId, SecurityGroupId } from "@libs/domain/models/aws";
 
 import { uiActions } from "@modules/ui";
 import { awsActions, awsSelector } from "@modules/aws";
@@ -11,17 +11,19 @@ import { awsActions, awsSelector } from "@modules/aws";
 import { Button } from "@components/atoms";
 import { SelectField } from "@components/molecules";
 
-const validation = Yup.object().shape({
-  securityGroupId: Yup.string()
-});
-
 interface IProps {
   ec2?: EC2;
 }
 
 interface IFormValues {
+  subnetId: string;
   securityGroupId: string;
 }
+
+const validation = Yup.object().shape({
+  subnetId: Yup.string().required("※SubnetIdを入力してください"),
+  securityGroupId: Yup.string()
+});
 
 export const EC2Form: React.SFC<IProps> = props => {
   const ec2 = props.ec2;
@@ -30,16 +32,17 @@ export const EC2Form: React.SFC<IProps> = props => {
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
     initialValues: {
+      subnetId: awsState.subnetList[0]?.resource.id.value ?? "",
       securityGroupId: awsState.securityGroupList[0]?.resource.id.value ?? ""
     },
     onSubmit: values => {
-      const securityGroupIds = awsState.securityGroupList
-        .filter(s => s.resource.id.value === values.securityGroupId)
-        .map(v => v.resource.id);
+      const subnetId = new SubnetId(values.subnetId);
+      const securityGroupIds = [new SecurityGroupId(values.securityGroupId)];
       if (ec2) {
         ec2.update({
           imageId: ec2.properties.imageId,
           instanceType: ec2.properties.instanceType,
+          subnetId: subnetId,
           securityGroupIds: securityGroupIds
         });
         dispatch(
@@ -62,6 +65,7 @@ export const EC2Form: React.SFC<IProps> = props => {
               properties: {
                 imageId: "ami-0ee1410f0644c1cac",
                 instanceType: "t2.micro",
+                subnetId: subnetId,
                 securityGroupIds: securityGroupIds
               }
             })
@@ -73,6 +77,17 @@ export const EC2Form: React.SFC<IProps> = props => {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
+      <SelectField
+        label="SubnetId"
+        name="subnetId"
+        value={formik.values.subnetId}
+        onChange={formik.handleChange}
+        options={awsState.subnetList.map(s => ({
+          label: s.resource.id.value,
+          value: s.resource.id.value
+        }))}
+        error={formik.errors.subnetId}
+      />
       <SelectField
         label="SecurityGroupIds"
         name="securityGroupId"

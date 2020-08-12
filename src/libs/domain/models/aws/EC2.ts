@@ -1,12 +1,13 @@
 import { Id } from "../base";
 import { AWSResource } from "./common/AWSResource";
+import { SubnetId } from "./Subnet";
 import { SecurityGroupId } from "./SecurityGroup";
 
 interface IEC2 {
   imageId: string;
   instanceType: string;
   securityGroupIds: SecurityGroupId[];
-  // securityGroupIds, subnetId
+  subnetId: SubnetId;
 }
 
 export class EC2 extends AWSResource<IEC2> {

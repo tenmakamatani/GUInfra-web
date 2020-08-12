@@ -10,15 +10,15 @@ import { awsActions } from "@modules/aws";
 import { InputField } from "@components/molecules";
 import { Button } from "@components/atoms";
 
-const validation = Yup.object().shape({
-  cidrBlock: Yup.string().required("※CIDRブロックを入力してください")
-});
-
 interface IProps {
   vpc?: VPC;
 }
 
 type IFormValues = VPC["properties"];
+
+const validation = Yup.object().shape<IFormValues>({
+  cidrBlock: Yup.string().required("※CIDRブロックを入力してください")
+});
 
 export const VPCForm: React.SFC<IProps> = props => {
   const vpc = props.vpc;
