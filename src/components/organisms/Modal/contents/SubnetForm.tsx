@@ -87,7 +87,7 @@ export const SubnetForm: React.SFC<IProps> = props => {
         error={formik.errors.cidrBlock}
       />
       <InputField
-        label="アベイラビリティーゾーン"
+        label="AvailabilityZone"
         name="availabilityZone"
         type="text"
         placeholder="ap-northeast-1a"
