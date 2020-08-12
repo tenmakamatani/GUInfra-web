@@ -30,8 +30,14 @@ export const RouteTableForm: React.SFC<IProps> = ({ routeTable }) => {
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
     initialValues: {
-      vpcId: awsState.vpcList[0]?.resource.id.value ?? "",
-      gatewayId: awsState.internetGatewayList[0]?.resource.id.value ?? ""
+      vpcId:
+        routeTable?.properties.vpcId.value ??
+        awsState.vpcList[0]?.resource.id.value ??
+        "",
+      gatewayId:
+        routeTable?.properties.gatewayId?.value ??
+        awsState.internetGatewayList[0]?.resource.id.value ??
+        ""
     },
     onSubmit: values => {
       const vpcId = new VPCId(values.vpcId);

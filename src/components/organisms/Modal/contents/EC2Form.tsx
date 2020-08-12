@@ -34,9 +34,15 @@ export const EC2Form: React.SFC<IProps> = props => {
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
     initialValues: {
-      name: "",
-      subnetId: awsState.subnetList[0]?.resource.id.value ?? "",
-      securityGroupId: awsState.securityGroupList[0]?.resource.id.value ?? ""
+      name: ec2?.properties.name ?? "",
+      subnetId:
+        ec2?.properties.subnetId.value ??
+        awsState.subnetList[0]?.resource.id.value ??
+        "",
+      securityGroupId:
+        ec2?.properties.securityGroupIds[0]?.value ??
+        awsState.securityGroupList[0]?.resource.id.value ??
+        ""
     },
     onSubmit: values => {
       const name = values.name;

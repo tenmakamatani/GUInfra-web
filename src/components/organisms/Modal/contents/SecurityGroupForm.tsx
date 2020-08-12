@@ -34,10 +34,11 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
       description: securityGroup?.properties.description ?? ""
     },
     onSubmit: values => {
+      const { name, description } = values;
       if (securityGroup) {
         securityGroup.update({
-          name: values.name,
-          description: values.description,
+          name: name,
+          description: description,
           permissions: {
             ingress: [],
             egress: []
@@ -56,8 +57,8 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
           awsActions.securityGroup.create({
             resource: new SecurityGroup({
               properties: {
-                name: values.name,
-                description: values.description,
+                name: name,
+                description: description,
                 permissions: {
                   ingress: [],
                   egress: []
