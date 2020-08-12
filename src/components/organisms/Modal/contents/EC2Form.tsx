@@ -82,7 +82,7 @@ export const EC2Form: React.SFC<IProps> = props => {
         label="Name"
         name="name"
         type="text"
-        placeholder="vpc-1"
+        placeholder="ec2-1"
         value={formik.values.name}
         onChange={formik.handleChange}
         error={formik.errors.name}
