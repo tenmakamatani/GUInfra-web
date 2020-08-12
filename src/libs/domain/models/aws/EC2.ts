@@ -4,6 +4,7 @@ import { SubnetId } from "./Subnet";
 import { SecurityGroupId } from "./SecurityGroup";
 
 interface IEC2 {
+  name: string;
   securityGroupIds: SecurityGroupId[];
   subnetId: SubnetId;
 }

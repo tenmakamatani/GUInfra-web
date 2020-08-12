@@ -21,7 +21,17 @@ export class SdkEC2Repository extends EC2Repository {
         InstanceType: "t2.micro",
         MaxCount: 1,
         MinCount: 1,
-        SecurityGroupIds: securityGroupIds
+        SecurityGroupIds: securityGroupIds,
+        TagSpecifications: [
+          {
+            Tags: [
+              {
+                Key: "Name",
+                Value: ec2.properties.name
+              }
+            ]
+          }
+        ]
       })
       .promise();
     const ec2Id = createdEc2.Instances![0].InstanceId!;

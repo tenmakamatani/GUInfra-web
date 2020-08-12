@@ -9,18 +9,20 @@ import { uiActions } from "@modules/ui";
 import { awsActions, awsSelector } from "@modules/aws";
 
 import { Button } from "@components/atoms";
-import { SelectField } from "@components/molecules";
+import { SelectField, InputField } from "@components/molecules";
 
 interface IProps {
   ec2?: EC2;
 }
 
 interface IFormValues {
+  name: string;
   subnetId: string;
   securityGroupId: string;
 }
 
 const validation = Yup.object().shape({
+  name: Yup.string().required("※Nameを入力してください"),
   subnetId: Yup.string().required("※SubnetIdを入力してください"),
   securityGroupId: Yup.string()
 });
@@ -32,14 +34,17 @@ export const EC2Form: React.SFC<IProps> = props => {
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
     initialValues: {
+      name: "",
       subnetId: awsState.subnetList[0]?.resource.id.value ?? "",
       securityGroupId: awsState.securityGroupList[0]?.resource.id.value ?? ""
     },
     onSubmit: values => {
+      const name = values.name;
       const subnetId = new SubnetId(values.subnetId);
       const securityGroupIds = [new SecurityGroupId(values.securityGroupId)];
       if (ec2) {
         ec2.update({
+          name: name,
           subnetId: subnetId,
           securityGroupIds: securityGroupIds
         });
@@ -59,8 +64,8 @@ export const EC2Form: React.SFC<IProps> = props => {
             width: 100,
             height: 100,
             resource: new EC2({
-              // Todo: Configへ追加
               properties: {
+                name: name,
                 subnetId: subnetId,
                 securityGroupIds: securityGroupIds
               }
@@ -73,6 +78,15 @@ export const EC2Form: React.SFC<IProps> = props => {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
+      <InputField
+        label="Name"
+        name="name"
+        type="text"
+        placeholder="vpc-1"
+        value={formik.values.name}
+        onChange={formik.handleChange}
+        error={formik.errors.name}
+      />
       <SelectField
         label="SubnetId"
         name="subnetId"
