@@ -2,6 +2,7 @@ import { Id } from "../base";
 import { AWSResource } from "./common/AWSResource";
 
 interface IVPC {
+  name: string;
   cidrBlock: string;
 }
 

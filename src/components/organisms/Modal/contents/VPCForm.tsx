@@ -17,6 +17,7 @@ interface IProps {
 type IFormValues = VPC["properties"];
 
 const validation = Yup.object().shape<IFormValues>({
+  name: Yup.string().required("※Nameを入力してください"),
   cidrBlock: Yup.string().required("※CIDRブロックを入力してください")
 });
 
@@ -26,12 +27,14 @@ export const VPCForm: React.SFC<IProps> = props => {
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
     initialValues: {
+      name: vpc?.properties.name ?? "",
       cidrBlock: vpc?.properties.cidrBlock ?? ""
     },
     onSubmit: values => {
-      const cidrBlock = values.cidrBlock;
+      const { name, cidrBlock } = values;
       if (vpc) {
         vpc.update({
+          name: name,
           cidrBlock: cidrBlock
         });
         dispatch(
@@ -51,6 +54,7 @@ export const VPCForm: React.SFC<IProps> = props => {
             height: 100,
             resource: new VPC({
               properties: {
+                name: name,
                 cidrBlock: cidrBlock
               }
             })
@@ -62,6 +66,15 @@ export const VPCForm: React.SFC<IProps> = props => {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
+      <InputField
+        label="Name"
+        name="name"
+        type="text"
+        placeholder="vpc-1"
+        value={formik.values.name}
+        onChange={formik.handleChange}
+        error={formik.errors.name}
+      />
       <InputField
         label="CIDRブロック"
         name="cidrBlock"

@@ -21,6 +21,17 @@ export class SdkVPCRepository extends VPCRepository {
       })
       .promise();
     const vpcId = createdVpc.Vpc!.VpcId!;
+    await this._ec2
+      .createTags({
+        Resources: [vpcId],
+        Tags: [
+          {
+            Key: "Name",
+            Value: vpc.properties.name
+          }
+        ]
+      })
+      .promise();
     return vpcId;
   }
 
