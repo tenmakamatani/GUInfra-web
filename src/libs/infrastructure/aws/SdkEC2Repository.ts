@@ -17,8 +17,8 @@ export class SdkEC2Repository extends EC2Repository {
   async create(ec2: EC2, securityGroupIds: string[]): Promise<string> {
     const createdEc2 = await this._ec2
       .runInstances({
-        ImageId: ec2.properties.imageId,
-        InstanceType: ec2.properties.instanceType,
+        ImageId: "ami-0ee1410f0644c1cac",
+        InstanceType: "t2.micro",
         MaxCount: 1,
         MinCount: 1,
         SecurityGroupIds: securityGroupIds

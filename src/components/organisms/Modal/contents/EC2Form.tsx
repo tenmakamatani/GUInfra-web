@@ -40,8 +40,6 @@ export const EC2Form: React.SFC<IProps> = props => {
       const securityGroupIds = [new SecurityGroupId(values.securityGroupId)];
       if (ec2) {
         ec2.update({
-          imageId: ec2.properties.imageId,
-          instanceType: ec2.properties.instanceType,
           subnetId: subnetId,
           securityGroupIds: securityGroupIds
         });
@@ -63,8 +61,6 @@ export const EC2Form: React.SFC<IProps> = props => {
             resource: new EC2({
               // Todo: Configへ追加
               properties: {
-                imageId: "ami-0ee1410f0644c1cac",
-                instanceType: "t2.micro",
                 subnetId: subnetId,
                 securityGroupIds: securityGroupIds
               }

@@ -4,8 +4,6 @@ import { SubnetId } from "./Subnet";
 import { SecurityGroupId } from "./SecurityGroup";
 
 interface IEC2 {
-  imageId: string;
-  instanceType: string;
   securityGroupIds: SecurityGroupId[];
   subnetId: SubnetId;
 }
