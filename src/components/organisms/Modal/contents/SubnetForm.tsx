@@ -10,23 +10,25 @@ import { awsActions, awsSelector } from "@modules/aws";
 import { InputField, SelectField } from "@components/molecules";
 import { Button } from "@components/atoms";
 
-const validation = Yup.object().shape({
+interface IProps {
+  subnet?: Subnet;
+}
+
+interface IFormValues {
+  name: string;
+  cidrBlock: string;
+  availabilityZone: string;
+  vpcId: string;
+}
+
+const validation = Yup.object().shape<IFormValues>({
+  name: Yup.string().required("※Nameを入力してください"),
   cidrBlock: Yup.string().required("※CIDRブロックを入力してください"),
   availabilityZone: Yup.string().required(
     "※AvailabilityZoneを入力してください"
   ),
   vpcId: Yup.string().required("※VPCを選択してください")
 });
-
-interface IProps {
-  subnet?: Subnet;
-}
-
-interface IFormValues {
-  cidrBlock: string;
-  availabilityZone: string;
-  vpcId: string;
-}
 
 export const SubnetForm: React.SFC<IProps> = props => {
   const subnet = props.subnet;
@@ -35,16 +37,23 @@ export const SubnetForm: React.SFC<IProps> = props => {
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
     initialValues: {
-      cidrBlock: "",
-      availabilityZone: "",
-      vpcId: awsState.vpcList[0]?.resource.id.value ?? ""
+      name: subnet?.properties.name ?? "",
+      cidrBlock: subnet?.properties.cidrBlock ?? "",
+      availabilityZone: subnet?.properties.availabilityZone ?? "",
+      vpcId:
+        subnet?.properties.vpcId.value ??
+        awsState.vpcList[0]?.resource.id.value ??
+        ""
     },
     onSubmit: values => {
+      const { name, cidrBlock, availabilityZone } = values;
+      const vpcId = new VPCId(values.vpcId);
       if (subnet) {
         subnet.update({
-          cidrBlock: values.cidrBlock,
-          availabilityZone: values.availabilityZone,
-          vpcId: new VPCId(values.vpcId)
+          name: name,
+          cidrBlock: cidrBlock,
+          availabilityZone: availabilityZone,
+          vpcId: vpcId
         });
         dispatch(
           awsActions.subnet.update({
@@ -63,9 +72,10 @@ export const SubnetForm: React.SFC<IProps> = props => {
             height: 100,
             resource: new Subnet({
               properties: {
-                cidrBlock: values.cidrBlock,
-                availabilityZone: values.availabilityZone,
-                vpcId: new VPCId(values.vpcId)
+                name: name,
+                cidrBlock: cidrBlock,
+                availabilityZone: availabilityZone,
+                vpcId: vpcId
               }
             })
           })
@@ -77,6 +87,15 @@ export const SubnetForm: React.SFC<IProps> = props => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
+      <InputField
+        label="Name"
+        name="name"
+        type="text"
+        placeholder="subnet-1"
+        value={formik.values.name}
+        onChange={formik.handleChange}
+        error={formik.errors.name}
+      />
       <InputField
         label="CIDRブロック"
         name="cidrBlock"

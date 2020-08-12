@@ -22,7 +22,19 @@ export class SdkSubnetRepository extends SubnetRepository {
         VpcId: vpcId
       })
       .promise();
-    return createdSubnet.Subnet!.SubnetId!;
+    const subnetId = createdSubnet.Subnet!.SubnetId!;
+    await this._ec2
+      .createTags({
+        Resources: [subnetId],
+        Tags: [
+          {
+            Key: "Name",
+            Value: subnet.properties.name
+          }
+        ]
+      })
+      .promise();
+    return subnetId;
   }
 
   async deleteAll(ids: string[]): Promise<void> {

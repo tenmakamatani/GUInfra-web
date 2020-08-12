@@ -3,6 +3,7 @@ import { AWSResource } from "./common/AWSResource";
 import { VPCId } from ".";
 
 interface ISubnet {
+  name: string;
   availabilityZone: string;
   cidrBlock: string;
   vpcId: VPCId;
