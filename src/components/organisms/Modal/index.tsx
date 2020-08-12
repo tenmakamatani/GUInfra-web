@@ -9,12 +9,14 @@ import { MetadataForm } from "./contents/MetadataForm";
 import { EC2Form } from "./contents/EC2Form";
 import { VPCForm } from "./contents/VPCForm";
 import { SubnetForm } from "./contents/SubnetForm";
+import { RouteTableForm } from "./contents/RouteTableForm";
 import { SecurityGroupForm } from "./contents/SecurityGroupForm";
 import { InternetGatewayForm } from "./contents/InternetGatewayForm";
 import {
   EC2,
   VPC,
   Subnet,
+  RouteTable,
   SecurityGroup,
   InternetGateway
 } from "@libs/domain/models/aws";
@@ -46,6 +48,8 @@ export const Modal: React.SFC = () => {
         <EC2Form ec2={modal.resource as EC2} />
       ) : modal.type === ModalTypes.SubnetForm ? (
         <SubnetForm subnet={modal.resource as Subnet} />
+      ) : modal.type === ModalTypes.RouteTableForm ? (
+        <RouteTableForm routeTable={modal.resource as RouteTable} />
       ) : modal.type === ModalTypes.SecurityGroupForm ? (
         <SecurityGroupForm securityGroup={modal.resource as SecurityGroup} />
       ) : modal.type === ModalTypes.InternetGatewayForm ? (
