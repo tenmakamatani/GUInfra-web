@@ -1,5 +1,5 @@
 import { Id } from "../base";
-import { AWSResource, ITag } from "./common/AWSResource";
+import { AWSResource } from "./common/AWSResource";
 import { VPCId, InternetGatewayId } from ".";
 
 interface IRouteTable {
@@ -10,8 +10,8 @@ interface IRouteTable {
 export class RouteTable extends AWSResource<IRouteTable> {
   readonly id: RouteTableId;
 
-  constructor(init: { id?: string; properties: IRouteTable; tags: ITag[] }) {
-    super(init);
+  constructor(init: { id?: string; properties: IRouteTable }) {
+    super(init.properties);
     this.id = new RouteTableId(init.id);
   }
 }

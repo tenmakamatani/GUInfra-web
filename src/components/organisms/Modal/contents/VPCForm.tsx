@@ -11,17 +11,14 @@ import { InputField } from "@components/molecules";
 import { Button } from "@components/atoms";
 
 const validation = Yup.object().shape({
-  cidrBlock: Yup.string().required("※CIDRブロックを入力してください"),
-  tags: Yup.string()
+  cidrBlock: Yup.string().required("※CIDRブロックを入力してください")
 });
 
 interface IProps {
   vpc?: VPC;
 }
 
-type IFormValues = VPC["properties"] & {
-  tags: string;
-};
+type IFormValues = VPC["properties"];
 
 export const VPCForm: React.SFC<IProps> = props => {
   const vpc = props.vpc;
@@ -29,23 +26,13 @@ export const VPCForm: React.SFC<IProps> = props => {
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
     initialValues: {
-      cidrBlock: vpc?.properties.cidrBlock ?? "",
-      tags: vpc?.tags.map(tag => `${tag.key}:${tag.value}`).join() ?? ""
+      cidrBlock: vpc?.properties.cidrBlock ?? ""
     },
     onSubmit: values => {
       const cidrBlock = values.cidrBlock;
-      const tags = values.tags.split("¥n").map(val => {
-        return {
-          key: val.split(":")[0],
-          value: val.split(":")[1]
-        };
-      });
       if (vpc) {
         vpc.update({
-          properties: {
-            cidrBlock: cidrBlock
-          },
-          tags: tags
+          cidrBlock: cidrBlock
         });
         dispatch(
           awsActions.vpc.update({
@@ -65,8 +52,7 @@ export const VPCForm: React.SFC<IProps> = props => {
             resource: new VPC({
               properties: {
                 cidrBlock: cidrBlock
-              },
-              tags: tags
+              }
             })
           })
         );
@@ -84,15 +70,6 @@ export const VPCForm: React.SFC<IProps> = props => {
         value={formik.values.cidrBlock}
         onChange={formik.handleChange}
         error={formik.errors.cidrBlock}
-      />
-      <InputField
-        label="タグ"
-        name="tags"
-        type="text"
-        placeholder="key:value"
-        value={formik.values.tags}
-        onChange={formik.handleChange}
-        error={formik.errors.tags}
       />
       <Button type="submit" value={vpc ? "更新" : "作成"} onClick={() => {}} />
       {vpc ? (

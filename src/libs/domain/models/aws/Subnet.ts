@@ -1,5 +1,5 @@
 import { Id } from "../base";
-import { AWSResource, ITag } from "./common/AWSResource";
+import { AWSResource } from "./common/AWSResource";
 import { VPCId } from ".";
 
 interface ISubnet {
@@ -11,8 +11,8 @@ interface ISubnet {
 export class Subnet extends AWSResource<ISubnet> {
   readonly id: SubnetId;
 
-  constructor(init: { id?: string; properties: ISubnet; tags: ITag[] }) {
-    super(init);
+  constructor(init: { id?: string; properties: ISubnet }) {
+    super(init.properties);
     this.id = new SubnetId(init.id);
   }
 }

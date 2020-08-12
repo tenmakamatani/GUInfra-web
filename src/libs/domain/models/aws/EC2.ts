@@ -1,5 +1,5 @@
 import { Id } from "../base";
-import { AWSResource, ITag } from "./common/AWSResource";
+import { AWSResource } from "./common/AWSResource";
 import { SecurityGroupId } from "./SecurityGroup";
 
 interface IEC2 {
@@ -12,8 +12,8 @@ interface IEC2 {
 export class EC2 extends AWSResource<IEC2> {
   readonly id: EC2Id;
 
-  constructor(init: { id?: string; properties: IEC2; tags: ITag[] }) {
-    super(init);
+  constructor(init: { id?: string; properties: IEC2 }) {
+    super(init.properties);
     this.id = new EC2Id(init.id);
   }
 }

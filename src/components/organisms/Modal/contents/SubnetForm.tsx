@@ -42,11 +42,9 @@ export const SubnetForm: React.SFC<IProps> = props => {
     onSubmit: values => {
       if (subnet) {
         subnet.update({
-          properties: {
-            cidrBlock: values.cidrBlock,
-            availabilityZone: values.availabilityZone,
-            vpcId: new VPCId(values.vpcId)
-          }
+          cidrBlock: values.cidrBlock,
+          availabilityZone: values.availabilityZone,
+          vpcId: new VPCId(values.vpcId)
         });
         dispatch(
           awsActions.subnet.update({
@@ -68,8 +66,7 @@ export const SubnetForm: React.SFC<IProps> = props => {
                 cidrBlock: values.cidrBlock,
                 availabilityZone: values.availabilityZone,
                 vpcId: new VPCId(values.vpcId)
-              },
-              tags: []
+              }
             })
           })
         );

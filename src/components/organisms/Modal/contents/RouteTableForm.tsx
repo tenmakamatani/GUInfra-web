@@ -38,10 +38,8 @@ export const RouteTableForm: React.SFC<IProps> = ({ routeTable }) => {
       const gatewayId = new InternetGatewayId(values.gatewayId);
       if (routeTable) {
         routeTable.update({
-          properties: {
-            vpcId: vpcId,
-            gatewayId: gatewayId
-          }
+          vpcId: vpcId,
+          gatewayId: gatewayId
         });
         dispatch(
           awsActions.routeTable.update({
@@ -58,8 +56,7 @@ export const RouteTableForm: React.SFC<IProps> = ({ routeTable }) => {
               properties: {
                 vpcId: vpcId,
                 gatewayId: gatewayId
-              },
-              tags: []
+              }
             })
           })
         );

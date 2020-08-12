@@ -44,8 +44,7 @@ export const InternetGatewayForm: React.SFC<IProps> = ({ internetGateway }) => {
             width: 100,
             height: 100,
             resource: new InternetGateway({
-              properties: {},
-              tags: []
+              properties: {}
             })
           })
         );

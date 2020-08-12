@@ -36,13 +36,11 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
     onSubmit: values => {
       if (securityGroup) {
         securityGroup.update({
-          properties: {
-            name: values.name,
-            description: values.description,
-            permissions: {
-              ingress: [],
-              egress: []
-            }
+          name: values.name,
+          description: values.description,
+          permissions: {
+            ingress: [],
+            egress: []
           }
         });
         dispatch(
@@ -64,8 +62,7 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
                   ingress: [],
                   egress: []
                 }
-              },
-              tags: []
+              }
             })
           })
         );

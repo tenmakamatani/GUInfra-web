@@ -9,11 +9,10 @@ import { uiActions } from "@modules/ui";
 import { awsActions, awsSelector } from "@modules/aws";
 
 import { Button } from "@components/atoms";
-import { InputField, SelectField } from "@components/molecules";
+import { SelectField } from "@components/molecules";
 
 const validation = Yup.object().shape({
-  securityGroupId: Yup.string(),
-  tags: Yup.string()
+  securityGroupId: Yup.string()
 });
 
 interface IProps {
@@ -22,7 +21,6 @@ interface IProps {
 
 interface IFormValues {
   securityGroupId: string;
-  tags: string;
 }
 
 export const EC2Form: React.SFC<IProps> = props => {
@@ -32,25 +30,17 @@ export const EC2Form: React.SFC<IProps> = props => {
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
     initialValues: {
-      securityGroupId: awsState.securityGroupList[0]?.resource.id.value ?? "",
-      tags: ec2?.tags.map(tag => `${tag.key}:${tag.value}`).join() ?? ""
+      securityGroupId: awsState.securityGroupList[0]?.resource.id.value ?? ""
     },
     onSubmit: values => {
-      const tags = values.tags.split("¥n").map(val => ({
-        key: val.split(":")[0],
-        value: val.split(":")[1]
-      }));
       const securityGroupIds = awsState.securityGroupList
         .filter(s => s.resource.id.value === values.securityGroupId)
         .map(v => v.resource.id);
       if (ec2) {
         ec2.update({
-          properties: {
-            imageId: ec2.properties.imageId,
-            instanceType: ec2.properties.instanceType,
-            securityGroupIds: securityGroupIds
-          },
-          tags: tags
+          imageId: ec2.properties.imageId,
+          instanceType: ec2.properties.instanceType,
+          securityGroupIds: securityGroupIds
         });
         dispatch(
           awsActions.ec2.update({
@@ -73,8 +63,7 @@ export const EC2Form: React.SFC<IProps> = props => {
                 imageId: "ami-0ee1410f0644c1cac",
                 instanceType: "t2.micro",
                 securityGroupIds: securityGroupIds
-              },
-              tags: tags
+              }
             })
           })
         );
@@ -84,15 +73,6 @@ export const EC2Form: React.SFC<IProps> = props => {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
-      <InputField
-        label="Tags"
-        name="tags"
-        type="text"
-        placeholder="key:value"
-        value={formik.values.tags}
-        onChange={formik.handleChange}
-        error={formik.errors.tags}
-      />
       <SelectField
         label="SecurityGroupIds"
         name="securityGroupId"

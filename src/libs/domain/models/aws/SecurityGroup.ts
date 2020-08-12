@@ -1,5 +1,5 @@
 import { Id } from "../base";
-import { AWSResource, ITag } from "./common/AWSResource";
+import { AWSResource } from "./common/AWSResource";
 
 interface IIpPermissions {
   protocol: "tcp";
@@ -20,8 +20,8 @@ interface ISecurityGroup {
 export class SecurityGroup extends AWSResource<ISecurityGroup> {
   readonly id: SecurityGroupId;
 
-  constructor(init: { id?: string; properties: ISecurityGroup; tags: ITag[] }) {
-    super(init);
+  constructor(init: { id?: string; properties: ISecurityGroup }) {
+    super(init.properties);
     this.id = new SecurityGroupId(init.id);
   }
 }

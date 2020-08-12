@@ -21,16 +21,7 @@ export class SdkEC2Repository extends EC2Repository {
         InstanceType: ec2.properties.instanceType,
         MaxCount: 1,
         MinCount: 1,
-        SecurityGroupIds: securityGroupIds,
-        TagSpecifications: [
-          {
-            ResourceType: "instance",
-            Tags: ec2.tags.map(tag => ({
-              Key: tag.key,
-              Value: tag.value
-            }))
-          }
-        ]
+        SecurityGroupIds: securityGroupIds
       })
       .promise();
     const ec2Id = createdEc2.Instances![0].InstanceId!;
