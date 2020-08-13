@@ -2,7 +2,7 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-
+import { AvailabilityZone } from "@libs/domain/models/aws/AvailabilityZone";
 import { Subnet, VPCId } from "@libs/domain/models/aws";
 
 import { uiActions } from "@modules/ui";
@@ -101,12 +101,14 @@ export const SubnetForm: React.SFC<IProps> = props => {
         onChange={formik.handleChange}
         error={formik.errors.cidrBlock}
       />
-      <InputField
+      <SelectField
         label="AvailabilityZone"
         name="availabilityZone"
-        type="text"
-        placeholder="ap-northeast-1a"
         value={formik.values.availabilityZone}
+        options={AvailabilityZone.map(v => ({
+          label: v,
+          value: v
+        }))}
         onChange={formik.handleChange}
         error={formik.errors.availabilityZone}
       />
