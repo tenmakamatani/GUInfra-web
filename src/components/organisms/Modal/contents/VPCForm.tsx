@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
+import config from "@config";
 import { VPC } from "@libs/domain/models/aws";
-
 import { uiActions } from "@modules/ui";
 import { awsActions } from "@modules/aws";
 import { InputField } from "@components/molecules";
@@ -18,7 +18,9 @@ type IFormValues = VPC["properties"];
 
 const validation = Yup.object().shape<IFormValues>({
   name: Yup.string().required("※Nameを入力してください"),
-  cidrBlock: Yup.string().required("※CIDRブロックを入力してください")
+  cidrBlock: Yup.string()
+    .required("※CIDRブロックを入力してください")
+    .matches(config.regexp.cidrBlock, "※CIDRブロックの形式が違います")
 });
 
 export const VPCForm: React.SFC<IProps> = props => {

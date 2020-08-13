@@ -2,9 +2,10 @@ import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { useFormik } from "formik";
+
+import config from "@config";
 import { AvailabilityZone } from "@libs/domain/models/aws/AvailabilityZone";
 import { Subnet, VPCId } from "@libs/domain/models/aws";
-
 import { uiActions } from "@modules/ui";
 import { awsActions, awsSelector } from "@modules/aws";
 import { InputField, SelectField } from "@components/molecules";
@@ -23,7 +24,9 @@ interface IFormValues {
 
 const validation = Yup.object().shape<IFormValues>({
   name: Yup.string().required("※Nameを入力してください"),
-  cidrBlock: Yup.string().required("※CIDRブロックを入力してください"),
+  cidrBlock: Yup.string()
+    .required("※CIDRブロックを入力してください")
+    .matches(config.regexp.cidrBlock, "※CIDRブロックの形式が違います"),
   availabilityZone: Yup.string().required(
     "※AvailabilityZoneを入力してください"
   ),
