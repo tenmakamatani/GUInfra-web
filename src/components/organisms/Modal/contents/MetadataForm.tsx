@@ -42,12 +42,16 @@ export const MetadataForm: React.SFC = () => {
       await DI.awsResourceUseCase.create({
         ec2List: awsState.ec2List.map(ec2View => ec2View.resource),
         vpcList: awsState.vpcList.map(vpcView => vpcView.resource),
-        subnetList: [],
-        routeTableList: [],
+        subnetList: awsState.subnetList.map(subnetView => subnetView.resource),
+        routeTableList: awsState.routeTableList.map(
+          routeTableView => routeTableView.resource
+        ),
         securityGroupList: awsState.securityGroupList.map(
           securityGroupView => securityGroupView.resource
         ),
-        internetGatewayList: []
+        internetGatewayList: awsState.internetGatewayList.map(
+          internetGatewayView => internetGatewayView.resource
+        )
       });
       dispatch(uiActions.removeModal());
     }
