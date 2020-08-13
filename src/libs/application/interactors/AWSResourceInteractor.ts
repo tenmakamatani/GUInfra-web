@@ -37,6 +37,9 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
   @inject(TYPES.InternetGatewayRepository)
   private _internetGatewayRepo: InternetGatewayRepository;
 
+  private _freshLog(): void {
+    LogDatastore.fresh();
+  }
   private _logNormal(val: string): void {
     LogDatastore.normal(val);
   }
@@ -138,6 +141,7 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
     ResourceIdsDatastore.routeTableIds = routeTableIds;
     ResourceIdsDatastore.securityGroupIds = securityGroupIds;
     ResourceIdsDatastore.internetGatewayIds = internetGatewayIds;
+    this._freshLog();
   }
 
   async deleteAll(): Promise<void> {
