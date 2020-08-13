@@ -14,7 +14,7 @@ interface IUpdateSubnetPayload {
 
 interface ICreateSubnet extends ISubnetAction {
   type: ActionTypes.CreateSubnet;
-  payload: ISubnetView;
+  payload: ISubnetView["resource"];
 }
 interface IUpdateSubnet extends ISubnetAction {
   type: ActionTypes.UpdateSubnet;

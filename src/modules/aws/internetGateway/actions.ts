@@ -14,7 +14,7 @@ interface IUpdateInternetGatewayPayload {
 
 interface ICreateInternetGateway extends IInternetGatewayAction {
   type: ActionTypes.CreateInternetGateway;
-  payload: IInternetGatewayView;
+  payload: IInternetGatewayView["resource"];
 }
 interface IUpdateInternetGateway extends IInternetGatewayAction {
   type: ActionTypes.UpdateInternetGateway;

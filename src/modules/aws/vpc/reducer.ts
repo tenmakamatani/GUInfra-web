@@ -1,3 +1,4 @@
+import { defaultResourceViewCreator } from "../../uiType";
 import { IAWSState } from "../index";
 import { VPCActions } from "./actions";
 import { ActionTypes } from "../types";
@@ -7,7 +8,7 @@ export const vpcReducer = (state: IAWSState, action: VPCActions): IAWSState => {
     case ActionTypes.CreateVPC:
       return {
         ...state,
-        vpcList: [...state.vpcList, action.payload]
+        vpcList: [...state.vpcList, defaultResourceViewCreator(action.payload)]
       };
     case ActionTypes.UpdateVPC:
       const updatedVpcList = state.vpcList.map(v => {

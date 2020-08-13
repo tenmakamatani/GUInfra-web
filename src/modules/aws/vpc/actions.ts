@@ -14,7 +14,7 @@ interface IUpdateVPCPayload {
 
 interface ICreateVPC extends IVPCAction {
   type: ActionTypes.CreateVPC;
-  payload: IVPCView;
+  payload: IVPCView["resource"];
 }
 interface IUpdateVPC extends IVPCAction {
   type: ActionTypes.UpdateVPC;

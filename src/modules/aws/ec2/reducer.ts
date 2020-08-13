@@ -1,3 +1,4 @@
+import { defaultResourceViewCreator } from "../../uiType";
 import { IAWSState } from "../index";
 import { EC2Actions } from "./actions";
 import { ActionTypes } from "../types";
@@ -7,7 +8,7 @@ export const ec2Reducer = (state: IAWSState, action: EC2Actions): IAWSState => {
     case ActionTypes.CreateEC2:
       return {
         ...state,
-        ec2List: [...state.ec2List, action.payload]
+        ec2List: [...state.ec2List, defaultResourceViewCreator(action.payload)]
       };
     case ActionTypes.UpdateEC2:
       const updatedEc2List = state.ec2List.map(v => {

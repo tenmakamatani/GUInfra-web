@@ -1,3 +1,4 @@
+import { defaultResourceViewCreator } from "../../uiType";
 import { IAWSState } from "../index";
 import { InternetGatewayActions } from "./actions";
 import { ActionTypes } from "../types";
@@ -10,7 +11,10 @@ export const internetGatewayReducer = (
     case ActionTypes.CreateInternetGateway:
       return {
         ...state,
-        internetGatewayList: [...state.internetGatewayList, action.payload]
+        internetGatewayList: [
+          ...state.internetGatewayList,
+          defaultResourceViewCreator(action.payload)
+        ]
       };
     case ActionTypes.UpdateInternetGateway:
       const updatedinternetGatewayList = state.internetGatewayList.map(v => {

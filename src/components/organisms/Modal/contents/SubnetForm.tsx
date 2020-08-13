@@ -65,12 +65,8 @@ export const SubnetForm: React.SFC<IProps> = props => {
         );
       } else {
         dispatch(
-          awsActions.subnet.create({
-            x: window.innerWidth * 0.5,
-            y: window.innerHeight * 0.5,
-            width: 100,
-            height: 100,
-            resource: new Subnet({
+          awsActions.subnet.create(
+            new Subnet({
               properties: {
                 name: name,
                 cidrBlock: cidrBlock,
@@ -78,7 +74,7 @@ export const SubnetForm: React.SFC<IProps> = props => {
                 vpcId: vpcId
               }
             })
-          })
+          )
         );
       }
       dispatch(uiActions.removeModal());

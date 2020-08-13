@@ -1,3 +1,4 @@
+import { defaultResourceViewCreator } from "../../uiType";
 import { IAWSState } from "../index";
 import { SubnetActions } from "./actions";
 import { ActionTypes } from "../types";
@@ -10,7 +11,10 @@ export const subnetReducer = (
     case ActionTypes.CreateSubnet:
       return {
         ...state,
-        subnetList: [...state.subnetList, action.payload]
+        subnetList: [
+          ...state.subnetList,
+          defaultResourceViewCreator(action.payload)
+        ]
       };
     case ActionTypes.UpdateSubnet:
       const updatedsubnetList = state.subnetList.map(v => {

@@ -9,7 +9,7 @@ type IEC2Action = Action<ActionTypes> & {
 
 interface ICreateEC2 extends IEC2Action {
   type: ActionTypes.CreateEC2;
-  payload: IEC2View;
+  payload: IEC2View["resource"];
 }
 interface IUpdateEC2 extends IEC2Action {
   type: ActionTypes.UpdateEC2;
