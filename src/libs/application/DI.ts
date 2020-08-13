@@ -25,6 +25,7 @@ const container = new Container();
 
 export class DI {
   static setup(metadata: IAWSState["metadata"]) {
+    container.unbindAll();
     container
       .bind<EC2Repository>(TYPES.EC2Repository)
       .toConstantValue(new SdkEC2Repository(metadata));
