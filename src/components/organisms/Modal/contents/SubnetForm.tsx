@@ -42,7 +42,8 @@ export const SubnetForm: React.SFC<IProps> = props => {
     initialValues: {
       name: subnet?.properties.name ?? "",
       cidrBlock: subnet?.properties.cidrBlock ?? "",
-      availabilityZone: subnet?.properties.availabilityZone ?? "",
+      availabilityZone:
+        subnet?.properties.availabilityZone ?? AvailabilityZone[0],
       vpcId:
         subnet?.properties.vpcId.value ??
         awsState.vpcList[0]?.resource.id.value ??
