@@ -1,13 +1,7 @@
+import regexp from "./regexp";
+import images from "./images";
+
 export default {
-  regexp: {
-    cidrBlock: new RegExp(/^\d+\.\d+\.\d+\.\d+\/\d+$/)
-  },
-  images: {
-    ec2: "/aws/EC2.png",
-    vpc: "/aws/VPC.png",
-    subnet: "/aws/Subnet.png",
-    routeTable: "/aws/RouteTable.png",
-    securityGroup: "/aws/SecurityGroup.png",
-    internetGateway: "/aws/InternetGateway.png"
-  }
+  regexp,
+  images
 };
