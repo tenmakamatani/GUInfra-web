@@ -22,7 +22,7 @@
     "noUnusedLocals": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    "outDir": "./dist/",
+    "outDir": "./build/",
     "sourceMap": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
