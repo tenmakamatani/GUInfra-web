@@ -1,8 +1,7 @@
 import * as React from "react";
 import { useDispatch } from "react-redux";
 
-import EC2 from "@public/aws/EC2.png";
-
+import config from "@config";
 import { awsActions } from "@modules/aws";
 import { IEC2View } from "@modules/aws/resources";
 import { uiActions, ModalTypes } from "@modules/ui";
@@ -17,7 +16,7 @@ export const EC2Item: React.SFC<IProps> = ({ ec2 }) => {
   const dispatch = useDispatch();
   return (
     <EntityResourceItem
-      source={EC2}
+      source={config.images.ec2}
       resource={ec2}
       onDragStop={(e, data) => {
         if (Math.abs(data.x - ec2.x) < 5 && Math.abs(data.y - ec2.y) < 5) {

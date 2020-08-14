@@ -1,8 +1,7 @@
 import * as React from "react";
 import { useDispatch } from "react-redux";
 
-import InternetGateway from "@public/aws/InternetGateway.png";
-
+import config from "@config";
 import { awsActions } from "@modules/aws";
 import { IInternetGatewayView } from "@modules/aws/resources";
 import { uiActions, ModalTypes } from "@modules/ui";
@@ -17,7 +16,7 @@ export const InternetGatewayItem: React.SFC<IProps> = ({ internetGateway }) => {
   const dispatch = useDispatch();
   return (
     <EntityResourceItem
-      source={InternetGateway}
+      source={config.images.internetGateway}
       resource={internetGateway}
       onDragStop={(e, data) => {
         if (

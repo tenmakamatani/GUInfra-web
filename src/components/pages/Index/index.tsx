@@ -1,7 +1,7 @@
 import * as React from "react";
 
+import config from "@config";
 import { ModalTypes } from "@modules/ui";
-
 import { styles } from "./styles";
 import { Graph } from "./organisms/Graph";
 import { CreateResourceItemList } from "./molecules/CreateResourceItemList";
@@ -9,34 +9,34 @@ import { AttachResourceItemList } from "./molecules/AttachResourceItemList";
 
 const createResourceItemList = [
   {
-    name: "VPC",
-    modalType: ModalTypes.VPCForm,
-    source: "/aws/VPC.png"
-  },
-  {
     name: "EC2",
     modalType: ModalTypes.EC2Form,
-    source: "/aws/EC2.png"
+    source: config.images.ec2
+  },
+  {
+    name: "VPC",
+    modalType: ModalTypes.VPCForm,
+    source: config.images.vpc
   },
   {
     name: "Subnet",
     modalType: ModalTypes.SubnetForm,
-    source: "/aws/Subnet.png"
+    source: config.images.subnet
   },
   {
     name: "RouteTable",
     modalType: ModalTypes.RouteTableForm,
-    source: "/aws/RouteTable.png"
+    source: config.images.routeTable
   },
   {
     name: "SecurityGroup",
     modalType: ModalTypes.SecurityGroupForm,
-    source: "/aws/SecurityGroup.png"
+    source: config.images.securityGroup
   },
   {
     name: "InternetGateway",
     modalType: ModalTypes.InternetGatewayForm,
-    source: "/aws/InternetGateway.png"
+    source: config.images.internetGateway
   }
 ];
 
