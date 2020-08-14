@@ -135,12 +135,12 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
       subnetPromises,
       routeTablePromises
     ]);
-    ResourceIdsDatastore.ec2Ids = ec2Ids;
-    ResourceIdsDatastore.vpcIds = vpcIds;
-    ResourceIdsDatastore.subnetIds = subnetIds;
-    ResourceIdsDatastore.routeTableIds = routeTableIds;
-    ResourceIdsDatastore.securityGroupIds = securityGroupIds;
-    ResourceIdsDatastore.internetGatewayIds = internetGatewayIds;
+    ResourceIdsDatastore.ec2Ids.push(...ec2Ids);
+    ResourceIdsDatastore.vpcIds.push(...vpcIds);
+    ResourceIdsDatastore.subnetIds.push(...subnetIds);
+    ResourceIdsDatastore.routeTableIds.push(...routeTableIds);
+    ResourceIdsDatastore.securityGroupIds.push(...securityGroupIds);
+    ResourceIdsDatastore.internetGatewayIds.push(...internetGatewayIds);
     this._freshLog();
   }
 
