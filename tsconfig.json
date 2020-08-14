@@ -1,25 +1,56 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@libs/*": ["libs/*"],
+      "@config": [
+        "src/config"
+      ],
+      "@public/*": [
+        "public/*"
+      ],
+      "@libs/*": [
+        "src/libs/*"
+      ],
+      "@modules/*": [
+        "src/modules/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ]
     },
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    "outDir": "./dist/",
+    "outDir": "./build/",
     "sourceMap": true,
     "noImplicitAny": true,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "lib": [
       "dom",
       "es2018"
     ],
-    "module": "ES2015",
+    "module": "esnext",
     "target": "es5",
-    "jsx": "react",
-  }
+    "jsx": "preserve",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

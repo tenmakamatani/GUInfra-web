@@ -1,3 +1,8 @@
-import { SdkVPCRepository } from "./SdkVPCRepository";
+import "reflect-metadata";
 
-export { SdkVPCRepository };
+export * from "./SdkEC2Repository";
+export * from "./SdkVPCRepository";
+export * from "./SdkSubnetRepository";
+export * from "./SdkRouteTableRepository";
+export * from "./SdkSecurityGroupRepository";
+export * from "./SdkInternetGatewayRepository";

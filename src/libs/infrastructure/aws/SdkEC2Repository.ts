@@ -1,0 +1,48 @@
+import * as AWS from "aws-sdk";
+import { injectable } from "inversify";
+
+import { EC2 } from "../../domain/models/aws";
+import { IAWSState } from "../../domain/state/aws";
+import { EC2Repository } from "../../domain/repositories/aws";
+
+@injectable()
+export class SdkEC2Repository extends EC2Repository {
+  private _ec2: AWS.EC2;
+
+  constructor(metadata: IAWSState["metadata"]) {
+    super();
+    this._ec2 = new AWS.EC2(metadata);
+  }
+
+  async create(ec2: EC2, securityGroupIds: string[]): Promise<string> {
+    const createdEc2 = await this._ec2
+      .runInstances({
+        ImageId: "ami-0ee1410f0644c1cac",
+        InstanceType: "t2.micro",
+        MaxCount: 1,
+        MinCount: 1,
+        SecurityGroupIds: securityGroupIds,
+        TagSpecifications: [
+          {
+            Tags: [
+              {
+                Key: "Name",
+                Value: ec2.properties.name
+              }
+            ]
+          }
+        ]
+      })
+      .promise();
+    const ec2Id = createdEc2.Instances![0].InstanceId!;
+    return ec2Id;
+  }
+
+  async deleteAll(ids: string[]): Promise<void> {
+    await this._ec2
+      .terminateInstances({
+        InstanceIds: ids
+      })
+      .promise();
+  }
+}

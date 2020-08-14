@@ -14,13 +14,31 @@ export class SdkVPCRepository extends VPCRepository {
     this._ec2 = new AWS.EC2(metadata);
   }
 
-  create = async (vpc: VPC): Promise<void> => {
-    await this._ec2
+  async create(vpc: VPC): Promise<string> {
+    const createdVpc = await this._ec2
       .createVpc({
         CidrBlock: vpc.properties.cidrBlock
       })
       .promise();
-  };
+    const vpcId = createdVpc.Vpc!.VpcId!;
+    await this._ec2
+      .createTags({
+        Resources: [vpcId],
+        Tags: [
+          {
+            Key: "Name",
+            Value: vpc.properties.name
+          }
+        ]
+      })
+      .promise();
+    return vpcId;
+  }
 
-  deleteAll = async (): Promise<void> => {};
+  async deleteAll(ids: string[]): Promise<void> {
+    const deleteVpcPromises = ids.map(vpcId =>
+      this._ec2.deleteVpc({ VpcId: vpcId }).promise()
+    );
+    await Promise.all(deleteVpcPromises);
+  }
 }
