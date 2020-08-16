@@ -39,6 +39,7 @@ export class SdkEC2Repository extends EC2Repository {
   }
 
   async deleteAll(ids: string[]): Promise<void> {
+    if (!ids.length) return;
     await this._ec2
       .terminateInstances({
         InstanceIds: ids
