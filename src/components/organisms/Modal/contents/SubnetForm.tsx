@@ -122,7 +122,7 @@ export const SubnetForm: React.SFC<IProps> = props => {
         value={formik.values.vpcId}
         onChange={formik.handleChange}
         options={awsState.vpcList.map(vpc => ({
-          label: vpc.resource.properties.cidrBlock,
+          label: vpc.resource.properties.name,
           value: vpc.resource.id.value
         }))}
         error={formik.errors.vpcId}
