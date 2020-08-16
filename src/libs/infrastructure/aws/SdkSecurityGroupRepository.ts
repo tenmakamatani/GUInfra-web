@@ -14,9 +14,10 @@ export class SdkSecurityGroupRepository extends SecurityGroupRepository {
     this._ec2 = new AWS.EC2(metadata);
   }
 
-  async create(securityGroup: SecurityGroup): Promise<string> {
+  async create(securityGroup: SecurityGroup, vpcId: string): Promise<string> {
     const group = await this._ec2
       .createSecurityGroup({
+        VpcId: vpcId,
         GroupName: securityGroup.properties.name,
         Description: securityGroup.properties.description
       })

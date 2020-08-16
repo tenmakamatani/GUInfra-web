@@ -1,5 +1,6 @@
 import { Id } from "../base";
 import { AWSResource } from "./common/AWSResource";
+import { VPCId } from "./VPC";
 
 export type IpPermissionType = "ssh" | "http" | "https" | "all";
 
@@ -8,6 +9,7 @@ interface IIpPermissions {
 }
 
 interface ISecurityGroup {
+  vpcId: VPCId;
   name: string;
   description: string;
   permissions: {

@@ -1,12 +1,16 @@
 import * as React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-import { SecurityGroup, IpPermissionType } from "@libs/domain/models/aws";
+import {
+  SecurityGroup,
+  IpPermissionType,
+  VPCId
+} from "@libs/domain/models/aws";
 
 import { uiActions } from "@modules/ui";
-import { awsActions } from "@modules/aws";
+import { awsActions, awsSelector } from "@modules/aws";
 
 import { InputField, SelectField } from "@components/molecules";
 import { Button } from "@components/atoms";
@@ -16,6 +20,7 @@ interface IProps {
 }
 
 interface IFormValues {
+  vpcId: string;
   name: string;
   description: string;
   ingressPermissionTypes: string[];
@@ -23,17 +28,23 @@ interface IFormValues {
 }
 
 const validation = Yup.object().shape<IFormValues>({
-  name: Yup.string().required("※nameを入力してください"),
-  description: Yup.string().required("※descriptionを入力してください"),
+  vpcId: Yup.string().required("※VPCIdを入力してください"),
+  name: Yup.string().required("※Nameを入力してください"),
+  description: Yup.string().required("※Descriptionを入力してください"),
   ingressPermissionTypes: Yup.array<string>() as Yup.MixedSchema<string[]>,
   egressPermissionTypes: Yup.array<string>() as Yup.MixedSchema<string[]>
 });
 
 export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
   const dispatch = useDispatch();
+  const awsState = useSelector(awsSelector.selectAll);
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
     initialValues: {
+      vpcId:
+        securityGroup?.properties.vpcId.value ??
+        awsState.vpcList[0]?.resource.id.value ??
+        "",
       name: securityGroup?.properties.name ?? "",
       description: securityGroup?.properties.description ?? "",
       ingressPermissionTypes:
@@ -43,6 +54,7 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
     },
     onSubmit: values => {
       const { name, description } = values;
+      const vpcId = new VPCId(values.vpcId);
       const ingressPermissions = values.ingressPermissionTypes.map(i => ({
         type: i as IpPermissionType
       }));
@@ -51,6 +63,7 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
       }));
       if (securityGroup) {
         securityGroup.update({
+          vpcId: vpcId,
           name: name,
           description: description,
           permissions: {
@@ -71,6 +84,7 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
           awsActions.securityGroup.create({
             resource: new SecurityGroup({
               properties: {
+                vpcId: vpcId,
                 name: name,
                 description: description,
                 permissions: {
@@ -99,6 +113,17 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
 
   return (
     <form onSubmit={formik.handleSubmit}>
+      <SelectField
+        label="VPCId"
+        name="vpcId"
+        value={formik.values.vpcId}
+        options={awsState.vpcList.map(v => ({
+          label: v.resource.properties.name,
+          value: v.resource.id.value
+        }))}
+        onChange={formik.handleChange}
+        error={formik.errors.vpcId}
+      />
       <InputField
         label="Name"
         name="name"

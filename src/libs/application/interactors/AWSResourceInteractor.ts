@@ -48,8 +48,6 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
   }
 
   async create(resources: Omit<IAWSState, "metadata">): Promise<void> {
-    this._logNormal("testtest");
-    this._logError("testtest");
     // IdのSetを用意
     const vpcIdSet: IIdsSet<VPCId>[] = [];
     const securityGroupIdsSet: IIdsSet<SecurityGroupId>[] = [];
@@ -59,22 +57,15 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
     const vpcPromises = Promise.all(
       resources.vpcList.map(vpc => this._vpcRepo.create(vpc))
     );
-    const securityGroupPromises = Promise.all(
-      resources.securityGroupList.map(securityGroup =>
-        this._securityGroupRepo.create(securityGroup)
-      )
-    );
     const internetGatewayPromises = Promise.all(
       resources.internetGatewayList.map(internetGateway =>
         this._internetGatewayRepo.create(internetGateway)
       )
     );
     this._logNormal("Creating vpc...");
-    this._logNormal("Creating security group...");
     this._logNormal("Creating internet gateway...");
-    const [vpcIds, securityGroupIds, internetGatewayIds] = await Promise.all([
+    const [vpcIds, internetGatewayIds] = await Promise.all([
       vpcPromises,
-      securityGroupPromises,
       internetGatewayPromises
     ]);
 
@@ -85,18 +76,31 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
         after: vpcIds[i]
       });
     }
-    for (let i = 0; i < securityGroupIds.length; i++) {
-      securityGroupIdsSet.push({
-        before: resources.securityGroupList[i]!.id,
-        after: securityGroupIds[i]
-      });
-    }
     for (let i = 0; i < internetGatewayIds.length; i++) {
       internetGatewayIdSet.push({
         before: resources.internetGatewayList[i]!.id,
         after: internetGatewayIds[i]
       });
     }
+
+    const securityGroupIds = await Promise.all(
+      resources.securityGroupList.map(securityGroup => {
+        const securityGroupVPCId = vpcIdSet.find(vpcIdSet =>
+          vpcIdSet.before.isEqualTo(securityGroup.properties.vpcId)
+        )!.after;
+        return this._securityGroupRepo.create(
+          securityGroup,
+          securityGroupVPCId
+        );
+      })
+    );
+    for (let i = 0; i < securityGroupIds.length; i++) {
+      securityGroupIdsSet.push({
+        before: resources.securityGroupList[i]!.id,
+        after: securityGroupIds[i]
+      });
+    }
+
     // 他のリソースに依存するリソースを作成
     const ec2Promises = Promise.all(
       resources.ec2List.map(ec2 => {
