@@ -147,7 +147,6 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
   async deleteAll(): Promise<void> {
     await Promise.all([
       this._ec2Repo.deleteAll(ResourceIdsDatastore.ec2Ids),
-      this._vpcRepo.deleteAll(ResourceIdsDatastore.vpcIds),
       this._internetGatewayRepo.deleteAll(
         ResourceIdsDatastore.internetGatewayIds
       )
@@ -157,6 +156,7 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
       this._securityGroupRepo.deleteAll(ResourceIdsDatastore.securityGroupIds),
       this._routeTableRepo.deleteAll(ResourceIdsDatastore.routeTableIds)
     ]);
+    await Promise.all([this._vpcRepo.deleteAll(ResourceIdsDatastore.vpcIds)]);
     ResourceIdsDatastore.freshAll();
   }
 }
