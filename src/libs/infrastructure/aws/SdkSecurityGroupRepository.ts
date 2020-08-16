@@ -23,52 +23,56 @@ export class SdkSecurityGroupRepository extends SecurityGroupRepository {
       .promise();
     const groupId = group.GroupId!;
     await Promise.all([
-      this._ec2.authorizeSecurityGroupIngress({
-        GroupId: groupId,
-        IpPermissions: securityGroup.properties.permissions.ingress.map(p => {
-          const port =
-            p.type === "ssh"
-              ? 22
-              : p.type === "http"
-              ? 80
-              : p.type === "https"
-              ? 443
-              : 0;
-          return {
-            IpProtocol: "tcp",
-            FromPort: port,
-            ToPort: port,
-            IpRanges: [
-              {
-                CidrIp: "0.0.0.0/0"
-              }
-            ]
-          };
+      this._ec2
+        .authorizeSecurityGroupIngress({
+          GroupId: groupId,
+          IpPermissions: securityGroup.properties.permissions.ingress.map(p => {
+            const port =
+              p.type === "ssh"
+                ? 22
+                : p.type === "http"
+                ? 80
+                : p.type === "https"
+                ? 443
+                : 0;
+            return {
+              IpProtocol: "tcp",
+              FromPort: port,
+              ToPort: port,
+              IpRanges: [
+                {
+                  CidrIp: "0.0.0.0/0"
+                }
+              ]
+            };
+          })
         })
-      }),
-      this._ec2.authorizeSecurityGroupEgress({
-        GroupId: groupId,
-        IpPermissions: securityGroup.properties.permissions.egress.map(p => {
-          const port =
-            p.type === "ssh"
-              ? 22
-              : p.type === "http"
-              ? 80
-              : p.type === "https"
-              ? 443
-              : 0;
-          return {
-            IpProtocol: "tcp",
-            FromPort: port,
-            ToPort: port,
-            IpRanges: [
-              {
-                CidrIp: "0.0.0.0/0"
-              }
-            ]
-          };
+        .promise(),
+      this._ec2
+        .authorizeSecurityGroupEgress({
+          GroupId: groupId,
+          IpPermissions: securityGroup.properties.permissions.egress.map(p => {
+            const port =
+              p.type === "ssh"
+                ? 22
+                : p.type === "http"
+                ? 80
+                : p.type === "https"
+                ? 443
+                : 0;
+            return {
+              IpProtocol: "tcp",
+              FromPort: port,
+              ToPort: port,
+              IpRanges: [
+                {
+                  CidrIp: "0.0.0.0/0"
+                }
+              ]
+            };
+          })
         })
-      })
+        .promise()
     ]);
     return groupId;
   }
