@@ -15,6 +15,7 @@ export const VPCItem: React.SFC<IProps> = ({ vpc }) => {
   const dispatch = useDispatch();
   return (
     <ScopeResourceItem
+      name={vpc.resource.properties.name}
       resource={vpc}
       onDragStop={(e, data) => {
         if (Math.abs(data.x - vpc.x) < 5 && Math.abs(data.y - vpc.y) < 5) {

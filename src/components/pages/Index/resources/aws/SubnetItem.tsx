@@ -15,6 +15,7 @@ export const SubnetItem: React.SFC<IProps> = ({ subnet }) => {
   const dispatch = useDispatch();
   return (
     <ScopeResourceItem
+      name={subnet.resource.properties.name}
       resource={subnet}
       onDragStop={(e, data) => {
         if (
