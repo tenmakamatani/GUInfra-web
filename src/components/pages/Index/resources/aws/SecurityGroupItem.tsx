@@ -24,11 +24,13 @@ export const SecurityGroupItem: React.SFC<IProps> = ({ securityGroup }) => {
     >
       <p>{securityGroup.resource.properties.name}</p>
       <p>{securityGroup.resource.properties.description}</p>
+      <p>ingress</p>
       {securityGroup.resource.properties.permissions.ingress.map(i => (
-        <p>{`${i.fromPort} => ${i.toPort}`}</p>
+        <p>{i.type}</p>
       ))}
+      <p>egress</p>
       {securityGroup.resource.properties.permissions.egress.map(e => (
-        <p>{`${e.fromPort} => ${e.toPort}`}</p>
+        <p>{e.type}</p>
       ))}
     </div>
   );

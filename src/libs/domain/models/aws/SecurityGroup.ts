@@ -1,11 +1,10 @@
 import { Id } from "../base";
 import { AWSResource } from "./common/AWSResource";
 
+export type IpPermissionType = "ssh" | "http" | "https" | "all";
+
 interface IIpPermissions {
-  protocol: "tcp";
-  fromPort: number;
-  toPort: number;
-  ipRanges: string[];
+  type: IpPermissionType;
 }
 
 interface ISecurityGroup {
