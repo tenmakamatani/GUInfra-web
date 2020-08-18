@@ -1,15 +1,15 @@
 import * as React from "react";
 import { useDispatch } from "react-redux";
 
-import { AllResource } from "@libs/domain/models";
 import { ModalTypes, uiActions } from "@modules/ui";
+import { IWithoutUIResourceView } from "@modules/aws/resources";
 import { Text } from "@components/atoms/Text";
 
 interface IProps {
   title: string;
   description: string;
-  resource: AllResource;
   modalType: ModalTypes;
+  resourceView: IWithoutUIResourceView;
 }
 
 export const AttachResourceItem: React.SFC<IProps> = props => {
@@ -20,7 +20,7 @@ export const AttachResourceItem: React.SFC<IProps> = props => {
         dispatch(
           uiActions.appearModal({
             type: props.modalType,
-            resource: props.resource
+            resource: props.resourceView.resource
           })
         );
       }}

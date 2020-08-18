@@ -1,37 +1,33 @@
 import * as React from "react";
-import { useDispatch } from "react-redux";
 import { ISecurityGroupView } from "@modules/aws/resources";
-import { uiActions, ModalTypes } from "@modules/ui";
-import { styles } from "../../styles";
+import { ModalTypes } from "@modules/ui";
+import { AttachResourceItem } from "../../atoms/AttachResourceItem";
 
 interface IProps {
   securityGroup: ISecurityGroupView;
 }
 
 export const SecurityGroupItem: React.SFC<IProps> = ({ securityGroup }) => {
-  const dispatch = useDispatch();
+  const getDescription = (): string => {
+    let description = "";
+    description += `${securityGroup.resource.properties.description}\n`;
+    description += `\n[ingress]\n`;
+    securityGroup.resource.properties.permissions.ingress.map(i => {
+      description += `${i.type},`;
+    });
+    description += `\n[egress]\n`;
+    securityGroup.resource.properties.permissions.egress.map(e => {
+      description += `${e.type},`;
+    });
+    return description;
+  };
+
   return (
-    <div
-      onClick={() => {
-        dispatch(
-          uiActions.appearModal({
-            type: ModalTypes.SecurityGroupForm,
-            resource: securityGroup.resource
-          })
-        );
-      }}
-      css={styles.securityGroupItem.wrapper}
-    >
-      <p>{securityGroup.resource.properties.name}</p>
-      <p>{securityGroup.resource.properties.description}</p>
-      <p>ingress</p>
-      {securityGroup.resource.properties.permissions.ingress.map(i => (
-        <p>{i.type}</p>
-      ))}
-      <p>egress</p>
-      {securityGroup.resource.properties.permissions.egress.map(e => (
-        <p>{e.type}</p>
-      ))}
-    </div>
+    <AttachResourceItem
+      title={securityGroup.resource.properties.name}
+      description={getDescription()}
+      modalType={ModalTypes.SecurityGroupForm}
+      resourceView={securityGroup}
+    />
   );
 };
