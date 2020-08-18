@@ -48,6 +48,7 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
   }
 
   async create(resources: Omit<IAWSState, "metadata">): Promise<void> {
+    this._logError("test");
     // IdのSetを用意
     const vpcIdSet: IIdsSet<VPCId>[] = [];
     const securityGroupIdsSet: IIdsSet<SecurityGroupId>[] = [];
