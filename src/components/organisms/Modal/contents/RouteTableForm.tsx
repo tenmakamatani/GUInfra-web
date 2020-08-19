@@ -82,6 +82,7 @@ export const RouteTableForm: React.SFC<IProps> = ({ routeTable }) => {
           value: v.resource.id.value
         }))}
         error={formik.errors.vpcId}
+        touched={formik.touched.vpcId}
       />
       <SelectField
         label="GatewayId"
@@ -93,6 +94,7 @@ export const RouteTableForm: React.SFC<IProps> = ({ routeTable }) => {
           value: i.resource.id.value
         }))}
         error={formik.errors.gatewayId}
+        touched={formik.touched.gatewayId}
       />
       <Button
         type="submit"

@@ -66,6 +66,7 @@ export const MetadataForm: React.SFC = () => {
         value={formik.values.accessKeyId}
         onChange={formik.handleChange}
         error={formik.errors.accessKeyId}
+        touched={formik.touched.accessKeyId}
       />
       <InputField
         label="SecretAccessKey"
@@ -75,6 +76,7 @@ export const MetadataForm: React.SFC = () => {
         value={formik.values.secretAccessKey}
         onChange={formik.handleChange}
         error={formik.errors.secretAccessKey}
+        touched={formik.touched.secretAccessKey}
       />
       <Button type="submit" value="作成" onClick={() => {}} />
     </form>

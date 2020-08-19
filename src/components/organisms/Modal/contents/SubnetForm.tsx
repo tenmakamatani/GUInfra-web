@@ -95,6 +95,7 @@ export const SubnetForm: React.SFC<IProps> = props => {
         value={formik.values.name}
         onChange={formik.handleChange}
         error={formik.errors.name}
+        touched={formik.touched.name}
       />
       <InputField
         label="CIDRブロック"
@@ -104,6 +105,7 @@ export const SubnetForm: React.SFC<IProps> = props => {
         value={formik.values.cidrBlock}
         onChange={formik.handleChange}
         error={formik.errors.cidrBlock}
+        touched={formik.touched.cidrBlock}
       />
       <SelectField
         label="AvailabilityZone"
@@ -115,6 +117,7 @@ export const SubnetForm: React.SFC<IProps> = props => {
         }))}
         onChange={formik.handleChange}
         error={formik.errors.availabilityZone}
+        touched={formik.touched.availabilityZone}
       />
       <SelectField
         label="VPCId"
@@ -126,6 +129,7 @@ export const SubnetForm: React.SFC<IProps> = props => {
           value: vpc.resource.id.value
         }))}
         error={formik.errors.vpcId}
+        touched={formik.touched.vpcId}
       />
       <Button
         type="submit"

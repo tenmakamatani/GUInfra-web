@@ -123,6 +123,7 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
         }))}
         onChange={formik.handleChange}
         error={formik.errors.vpcId}
+        touched={formik.touched.vpcId}
       />
       <InputField
         label="Name"
@@ -132,6 +133,7 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
         value={formik.values.name}
         onChange={formik.handleChange}
         error={formik.errors.name}
+        touched={formik.touched.name}
       />
       <InputField
         label="Description"
@@ -141,6 +143,7 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
         value={formik.values.description}
         onChange={formik.handleChange}
         error={formik.errors.description}
+        touched={formik.touched.description}
       />
       <SelectField
         label="Permissions(ingress)"
@@ -158,7 +161,6 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
           { label: "https", value: "https" },
           { label: "all", value: "all" }
         ]}
-        multiple
       />
       <SelectField
         label="Permissions(egress)"

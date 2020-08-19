@@ -4,6 +4,7 @@ import { Input, Text } from "@components/atoms";
 type Props = {
   label: string;
   error?: string;
+  touched?: boolean;
 } & React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
@@ -14,7 +15,7 @@ export const InputField: React.SFC<Props> = props => {
     <div>
       <Text content={props.label} />
       <Input {...props} />
-      <Text error content={props.error} />
+      <Text error content={props.touched ? props.error : ""} />
     </div>
   );
 };

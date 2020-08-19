@@ -72,6 +72,7 @@ export const VPCForm: React.SFC<IProps> = props => {
         value={formik.values.name}
         onChange={formik.handleChange}
         error={formik.errors.name}
+        touched={formik.touched.name}
       />
       <InputField
         label="CIDRブロック"
@@ -81,6 +82,7 @@ export const VPCForm: React.SFC<IProps> = props => {
         value={formik.values.cidrBlock}
         onChange={formik.handleChange}
         error={formik.errors.cidrBlock}
+        touched={formik.touched.cidrBlock}
       />
       <Button type="submit" value={vpc ? "更新" : "作成"} onClick={() => {}} />
       {vpc ? (

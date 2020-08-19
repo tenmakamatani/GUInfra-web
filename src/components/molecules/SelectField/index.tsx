@@ -6,6 +6,7 @@ type Props = {
   label: string;
   error?: string;
   options: IOption[];
+  touched?: boolean;
 } & React.DetailedHTMLProps<
   React.SelectHTMLAttributes<HTMLSelectElement>,
   HTMLSelectElement
@@ -16,7 +17,7 @@ export const SelectField: React.SFC<Props> = props => {
     <div>
       <Text content={props.label} />
       <Select {...props} />
-      <Text error content={props.error} />
+      <Text error content={props.touched ? props.error : ""} />
     </div>
   );
 };

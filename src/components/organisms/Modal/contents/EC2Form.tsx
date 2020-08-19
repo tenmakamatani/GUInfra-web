@@ -87,6 +87,7 @@ export const EC2Form: React.SFC<IProps> = props => {
         value={formik.values.name}
         onChange={formik.handleChange}
         error={formik.errors.name}
+        touched={formik.touched.name}
       />
       <SelectField
         label="SubnetId"
@@ -98,6 +99,7 @@ export const EC2Form: React.SFC<IProps> = props => {
           value: s.resource.id.value
         }))}
         error={formik.errors.subnetId}
+        touched={formik.touched.subnetId}
       />
       <SelectField
         label="SecurityGroupIds"
@@ -109,6 +111,7 @@ export const EC2Form: React.SFC<IProps> = props => {
           value: s.resource.id.value
         }))}
         error={formik.errors.securityGroupId}
+        touched={formik.touched.securityGroupId}
       />
       <Button type="submit" value={ec2 ? "更新" : "作成"} onClick={() => {}} />
       {ec2 ? (
