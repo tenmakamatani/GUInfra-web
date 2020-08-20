@@ -4,6 +4,7 @@ import { injectable } from "inversify";
 import { RouteTable } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { RouteTableRepository } from "../../domain/repositories/aws";
+import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
 
 interface IRouteTableParams {
   GatewayId: string;
@@ -18,13 +19,18 @@ export class SdkRouteTableRepository extends RouteTableRepository {
     this._ec2 = new AWS.EC2(metadata);
   }
 
-  async create(
-    routeTable: RouteTable,
-    vpcId: string,
-    gatewayId?: string
-  ): Promise<string> {
+  async create(routeTable: RouteTable): Promise<string> {
+    const vpcId = ResourceIdsDatastore.getVpcResourceId(
+      routeTable.properties.vpcId
+    );
     const routeTableParams = {} as IRouteTableParams;
-    if (gatewayId) routeTableParams["GatewayId"] = gatewayId;
+    if (routeTable.properties.gatewayId) {
+      routeTableParams[
+        "GatewayId"
+      ] = ResourceIdsDatastore.getInternetGatewayResourceId(
+        routeTable.properties.gatewayId
+      );
+    }
     const createdRouteTable = await this._ec2
       .createRouteTable({
         VpcId: vpcId
@@ -37,6 +43,10 @@ export class SdkRouteTableRepository extends RouteTableRepository {
         RouteTableId: routeTableId
       })
       .promise();
+    ResourceIdsDatastore.setRouteTableId({
+      entityId: routeTable.id,
+      resourceId: routeTableId
+    });
     return routeTableId;
   }
 

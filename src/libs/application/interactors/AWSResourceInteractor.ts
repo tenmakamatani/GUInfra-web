@@ -2,12 +2,6 @@ import { inject, injectable } from "inversify";
 
 import { TYPES } from "../../types";
 import { IAWSState } from "../../domain/state/aws";
-import { Id } from "@libs/domain/models/base";
-import {
-  VPCId,
-  SecurityGroupId,
-  InternetGatewayId
-} from "@libs/domain/models/aws";
 import {
   EC2Repository,
   VPCRepository,
@@ -19,11 +13,6 @@ import {
 import { AWSResourceUseCase } from "../usecases/AWSResourceUseCase";
 import { LogDatastore } from "../datastore/LogDatastore";
 import { ResourceIdsDatastore } from "../datastore/ResourceIdsDatastore";
-
-interface IIdsSet<I extends Id> {
-  before: I;
-  after: string;
-}
 
 @injectable()
 export class AWSResourceInteractor extends AWSResourceUseCase {
@@ -49,10 +38,6 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
 
   async create(resources: Omit<IAWSState, "metadata">): Promise<void> {
     this._logError("test");
-    // IdのSetを用意
-    const vpcIdSet: IIdsSet<VPCId>[] = [];
-    const securityGroupIdsSet: IIdsSet<SecurityGroupId>[] = [];
-    const internetGatewayIdSet: IIdsSet<InternetGatewayId>[] = [];
 
     // 他に依存しない独立したリソースを作成
     const vpcPromises = Promise.all(
@@ -65,103 +50,50 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
     );
     this._logNormal("Creating vpc...");
     this._logNormal("Creating internet gateway...");
-    const [vpcIds, internetGatewayIds] = await Promise.all([
-      vpcPromises,
-      internetGatewayPromises
-    ]);
-
-    // 依存されるリソースのIDのSetを用意
-    for (let i = 0; i < vpcIds.length; i++) {
-      vpcIdSet.push({
-        before: resources.vpcList[i]!.id,
-        after: vpcIds[i]
-      });
-    }
-    for (let i = 0; i < internetGatewayIds.length; i++) {
-      internetGatewayIdSet.push({
-        before: resources.internetGatewayList[i]!.id,
-        after: internetGatewayIds[i]
-      });
-    }
-
-    const securityGroupIds = await Promise.all(
-      resources.securityGroupList.map(securityGroup => {
-        const securityGroupVPCId = vpcIdSet.find(vpcIdSet =>
-          vpcIdSet.before.isEqualTo(securityGroup.properties.vpcId)
-        )!.after;
-        return this._securityGroupRepo.create(
-          securityGroup,
-          securityGroupVPCId
-        );
-      })
+    await Promise.all([vpcPromises, internetGatewayPromises]);
+    const securityGroupPromises = Promise.all(
+      resources.securityGroupList.map(securityGroup =>
+        this._securityGroupRepo.create(securityGroup)
+      )
     );
-    for (let i = 0; i < securityGroupIds.length; i++) {
-      securityGroupIdsSet.push({
-        before: resources.securityGroupList[i]!.id,
-        after: securityGroupIds[i]
-      });
-    }
-
+    await Promise.all([securityGroupPromises]);
     // 他のリソースに依存するリソースを作成
     const ec2Promises = Promise.all(
-      resources.ec2List.map(ec2 => {
-        const ec2SecurityGroupIds = ec2.properties.securityGroupIds.map(sId => {
-          return securityGroupIdsSet.find(sIdsSet => {
-            return sIdsSet.before.isEqualTo(sId);
-          })!.after;
-        });
-        return this._ec2Repo.create(ec2, ec2SecurityGroupIds);
-      })
+      resources.ec2List.map(ec2 => this._ec2Repo.create(ec2))
     );
     const subnetPromises = Promise.all(
-      resources.subnetList.map(subnet => {
-        const subnetVPCId = vpcIdSet.find(vpcIdSet =>
-          vpcIdSet.before.isEqualTo(subnet.properties.vpcId)
-        )!.after;
-        return this._subnetRepo.create(subnet, subnetVPCId);
-      })
+      resources.subnetList.map(subnet => this._subnetRepo.create(subnet))
     );
     const routeTablePromises = Promise.all(
-      resources.routeTableList.map(routeTable => {
-        const vpcId = vpcIdSet.find(vpcIdSet =>
-          vpcIdSet.before.isEqualTo(routeTable.properties.vpcId)
-        )!.after;
-        const selectedGatewayId = routeTable.properties.gatewayId;
-        const gatewayId = selectedGatewayId
-          ? internetGatewayIdSet.find(internetGatewayIdSet =>
-              internetGatewayIdSet.before.isEqualTo(selectedGatewayId)
-            )!.after
-          : undefined;
-        return this._routeTableRepo.create(routeTable, vpcId, gatewayId);
-      })
+      resources.routeTableList.map(routeTable =>
+        this._routeTableRepo.create(routeTable)
+      )
     );
-    const [ec2Ids, subnetIds, routeTableIds] = await Promise.all([
-      ec2Promises,
-      subnetPromises,
-      routeTablePromises
-    ]);
-    ResourceIdsDatastore.ec2Ids.push(...ec2Ids);
-    ResourceIdsDatastore.vpcIds.push(...vpcIds);
-    ResourceIdsDatastore.subnetIds.push(...subnetIds);
-    ResourceIdsDatastore.routeTableIds.push(...routeTableIds);
-    ResourceIdsDatastore.securityGroupIds.push(...securityGroupIds);
-    ResourceIdsDatastore.internetGatewayIds.push(...internetGatewayIds);
+    await Promise.all([ec2Promises, subnetPromises, routeTablePromises]);
     this._freshLog();
   }
 
   async deleteAll(): Promise<void> {
     await Promise.all([
-      this._ec2Repo.deleteAll(ResourceIdsDatastore.ec2Ids),
+      this._ec2Repo.deleteAll(ResourceIdsDatastore.getAllEc2ResourceIds()),
       this._internetGatewayRepo.deleteAll(
-        ResourceIdsDatastore.internetGatewayIds
+        ResourceIdsDatastore.getAllInternetGatewayResourceIds()
       )
     ]);
     await Promise.all([
-      this._subnetRepo.deleteAll(ResourceIdsDatastore.subnetIds),
-      this._securityGroupRepo.deleteAll(ResourceIdsDatastore.securityGroupIds),
-      this._routeTableRepo.deleteAll(ResourceIdsDatastore.routeTableIds)
+      this._subnetRepo.deleteAll(
+        ResourceIdsDatastore.getAllSubnetResourceIds()
+      ),
+      this._securityGroupRepo.deleteAll(
+        ResourceIdsDatastore.getAllSecurityGroupResourceIds()
+      ),
+      this._routeTableRepo.deleteAll(
+        ResourceIdsDatastore.getAllRouteTableResourceIds()
+      )
     ]);
-    await Promise.all([this._vpcRepo.deleteAll(ResourceIdsDatastore.vpcIds)]);
+    await Promise.all([
+      this._vpcRepo.deleteAll(ResourceIdsDatastore.getAllVpcResourceIds())
+    ]);
     ResourceIdsDatastore.freshAll();
   }
 }

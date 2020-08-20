@@ -4,6 +4,7 @@ import { injectable } from "inversify";
 import { EC2 } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { EC2Repository } from "../../domain/repositories/aws";
+import { ResourceIdsDatastore } from "@libs/application/datastore/ResourceIdsDatastore";
 
 @injectable()
 export class SdkEC2Repository extends EC2Repository {
@@ -14,7 +15,10 @@ export class SdkEC2Repository extends EC2Repository {
     this._ec2 = new AWS.EC2(metadata);
   }
 
-  async create(ec2: EC2, securityGroupIds: string[]): Promise<string> {
+  async create(ec2: EC2): Promise<string> {
+    const securityGroupIds = ec2.properties.securityGroupIds.map(s =>
+      ResourceIdsDatastore.getSecurityGroupResourceId(s)
+    );
     const createdEc2 = await this._ec2
       .runInstances({
         ImageId: "ami-0ee1410f0644c1cac",
@@ -35,6 +39,10 @@ export class SdkEC2Repository extends EC2Repository {
       })
       .promise();
     const ec2Id = createdEc2.Instances![0].InstanceId!;
+    ResourceIdsDatastore.setEc2Id({
+      entityId: ec2.id,
+      resourceId: ec2Id
+    });
     return ec2Id;
   }
 

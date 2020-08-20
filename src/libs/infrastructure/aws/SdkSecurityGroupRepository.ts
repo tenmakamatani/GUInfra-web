@@ -4,6 +4,7 @@ import { injectable } from "inversify";
 import { SecurityGroup } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { SecurityGroupRepository } from "../../domain/repositories/aws";
+import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
 
 @injectable()
 export class SdkSecurityGroupRepository extends SecurityGroupRepository {
@@ -14,7 +15,10 @@ export class SdkSecurityGroupRepository extends SecurityGroupRepository {
     this._ec2 = new AWS.EC2(metadata);
   }
 
-  async create(securityGroup: SecurityGroup, vpcId: string): Promise<string> {
+  async create(securityGroup: SecurityGroup): Promise<string> {
+    const vpcId = ResourceIdsDatastore.getVpcResourceId(
+      securityGroup.properties.vpcId
+    );
     const group = await this._ec2
       .createSecurityGroup({
         VpcId: vpcId,
@@ -75,6 +79,10 @@ export class SdkSecurityGroupRepository extends SecurityGroupRepository {
         })
         .promise()
     ]);
+    ResourceIdsDatastore.setSecurityGroupId({
+      entityId: securityGroup.id,
+      resourceId: groupId
+    });
     return groupId;
   }
 

@@ -4,6 +4,7 @@ import { injectable } from "inversify";
 import { VPC } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { VPCRepository } from "../../domain/repositories/aws";
+import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
 
 @injectable()
 export class SdkVPCRepository extends VPCRepository {
@@ -32,6 +33,10 @@ export class SdkVPCRepository extends VPCRepository {
         ]
       })
       .promise();
+    ResourceIdsDatastore.setVpcId({
+      entityId: vpc.id,
+      resourceId: vpcId
+    });
     return vpcId;
   }
 

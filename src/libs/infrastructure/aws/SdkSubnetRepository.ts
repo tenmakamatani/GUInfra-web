@@ -4,6 +4,7 @@ import { injectable } from "inversify";
 import { Subnet } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { SubnetRepository } from "../../domain/repositories/aws";
+import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
 
 @injectable()
 export class SdkSubnetRepository extends SubnetRepository {
@@ -14,7 +15,10 @@ export class SdkSubnetRepository extends SubnetRepository {
     this._ec2 = new AWS.EC2(metadata);
   }
 
-  async create(subnet: Subnet, vpcId: string): Promise<string> {
+  async create(subnet: Subnet): Promise<string> {
+    const vpcId = ResourceIdsDatastore.getVpcResourceId(
+      subnet.properties.vpcId
+    );
     const createdSubnet = await this._ec2
       .createSubnet({
         AvailabilityZone: subnet.properties.availabilityZone,
@@ -34,6 +38,10 @@ export class SdkSubnetRepository extends SubnetRepository {
         ]
       })
       .promise();
+    ResourceIdsDatastore.setSubnetId({
+      entityId: subnet.id,
+      resourceId: subnetId
+    });
     return subnetId;
   }
 
