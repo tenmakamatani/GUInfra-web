@@ -43,20 +43,21 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
     const vpcPromises = Promise.all(
       resources.vpcList.map(vpc => this._vpcRepo.create(vpc))
     );
+    this._logNormal("Creating vpc...");
+    await Promise.all([vpcPromises]);
     const internetGatewayPromises = Promise.all(
       resources.internetGatewayList.map(internetGateway =>
         this._internetGatewayRepo.create(internetGateway)
       )
     );
-    this._logNormal("Creating vpc...");
-    this._logNormal("Creating internet gateway...");
-    await Promise.all([vpcPromises, internetGatewayPromises]);
     const securityGroupPromises = Promise.all(
       resources.securityGroupList.map(securityGroup =>
         this._securityGroupRepo.create(securityGroup)
       )
     );
-    await Promise.all([securityGroupPromises]);
+    this._logNormal("Creating internet gateway...");
+    this._logNormal("Creating security group...");
+    await Promise.all([internetGatewayPromises, securityGroupPromises]);
     // 他のリソースに依存するリソースを作成
     const ec2Promises = Promise.all(
       resources.ec2List.map(ec2 => this._ec2Repo.create(ec2))
@@ -75,10 +76,12 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
 
   async deleteAll(): Promise<void> {
     await Promise.all([
-      this._ec2Repo.deleteAll(ResourceIdsDatastore.getAllEc2ResourceIds()),
+      this._ec2Repo.deleteAll(ResourceIdsDatastore.getAllEc2ResourceIds())
+      /*
       this._internetGatewayRepo.deleteAll(
         ResourceIdsDatastore.getAllInternetGatewayResourceIds()
       )
+      */
     ]);
     await Promise.all([
       this._subnetRepo.deleteAll(

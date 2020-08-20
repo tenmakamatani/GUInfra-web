@@ -1,32 +1,43 @@
 import * as React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-import { InternetGateway } from "@libs/domain/models/aws";
+import { InternetGateway, VPCId } from "@libs/domain/models/aws";
 
 import { uiActions } from "@modules/ui";
-import { awsActions } from "@modules/aws";
+import { awsActions, awsSelector } from "@modules/aws";
 
 import { Button } from "@components/atoms";
+import { SelectField } from "@components/molecules";
 
 interface IProps {
   internetGateway?: InternetGateway;
 }
 
-interface IFormValues {}
-
-const validation = Yup.object().shape<IFormValues>({});
+interface IFormValues {
+  vpcId: string;
+}
+const validation = Yup.object().shape<IFormValues>({
+  vpcId: Yup.string().required("※VPCIdを入力してください")
+});
 
 export const InternetGatewayForm: React.SFC<IProps> = ({ internetGateway }) => {
   const dispatch = useDispatch();
+  const awsState = useSelector(awsSelector.selectAll);
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
-    initialValues: {},
+    initialValues: {
+      vpcId:
+        internetGateway?.properties.vpcId.value ??
+        awsState.vpcList[0]?.resource.id.value ??
+        ""
+    },
     onSubmit: values => {
+      const { vpcId } = values;
       if (internetGateway) {
         internetGateway.update({
-          properties: values
+          vpcId: new VPCId(vpcId)
         });
         dispatch(
           awsActions.internetGateway.update({
@@ -40,7 +51,9 @@ export const InternetGatewayForm: React.SFC<IProps> = ({ internetGateway }) => {
         dispatch(
           awsActions.internetGateway.create(
             new InternetGateway({
-              properties: {}
+              properties: {
+                vpcId: new VPCId(vpcId)
+              }
             })
           )
         );
@@ -50,6 +63,18 @@ export const InternetGatewayForm: React.SFC<IProps> = ({ internetGateway }) => {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
+      <SelectField
+        label="VPCId"
+        name="vpcId"
+        value={formik.values.vpcId}
+        onChange={formik.handleChange}
+        options={awsState.vpcList.map(v => ({
+          label: v.resource.properties.name,
+          value: v.resource.id.value
+        }))}
+        error={formik.errors.vpcId}
+        touched={formik.touched.vpcId}
+      />
       <Button
         type="submit"
         value={internetGateway ? "更新" : "作成"}

@@ -1,7 +1,10 @@
 import { Id } from "../base";
 import { AWSResource } from "./common/AWSResource";
+import { VPCId } from "./VPC";
 
-interface IInternetGateway {}
+interface IInternetGateway {
+  vpcId: VPCId;
+}
 
 export class InternetGateway extends AWSResource<IInternetGateway> {
   readonly id: InternetGatewayId;

@@ -19,11 +19,21 @@ export class SdkInternetGatewayRepository extends InternetGatewayRepository {
     const createdInternetGateway = await this._ec2
       .createInternetGateway()
       .promise();
+    const gatewayId = createdInternetGateway.InternetGateway!
+      .InternetGatewayId!;
+    await this._ec2
+      .attachInternetGateway({
+        InternetGatewayId: gatewayId,
+        VpcId: ResourceIdsDatastore.getVpcResourceId(
+          internetGateway.properties.vpcId
+        )
+      })
+      .promise();
     ResourceIdsDatastore.setInternetGatewayId({
       entityId: internetGateway.id,
       resourceId: createdInternetGateway.InternetGateway!.InternetGatewayId!
     });
-    return createdInternetGateway.InternetGateway!.InternetGatewayId!;
+    return gatewayId;
   }
 
   async deleteAll(ids: string[]): Promise<void> {

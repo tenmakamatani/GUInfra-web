@@ -95,7 +95,7 @@ export const EC2Form: React.SFC<IProps> = props => {
         value={formik.values.subnetId}
         onChange={formik.handleChange}
         options={awsState.subnetList.map(s => ({
-          label: s.resource.id.value,
+          label: s.resource.properties.name,
           value: s.resource.id.value
         }))}
         error={formik.errors.subnetId}
