@@ -8,6 +8,7 @@ import {
   IpPermissionType,
   VPCId
 } from "@libs/domain/models/aws";
+import { pushOrRemove } from "@libs/application/utils";
 
 import { uiActions } from "@modules/ui";
 import { awsActions, awsSelector } from "@modules/aws";
@@ -99,17 +100,6 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
       dispatch(uiActions.removeModal());
     }
   });
-
-  const pushOrRemove = (value: string, oldValues: string[]): string[] => {
-    let newValues: string[];
-    if (oldValues.includes(value)) {
-      newValues = oldValues.filter(o => o !== value);
-    } else {
-      oldValues.push(value);
-      newValues = [...oldValues];
-    }
-    return newValues;
-  };
 
   return (
     <form onSubmit={formik.handleSubmit}>
