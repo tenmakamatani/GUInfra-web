@@ -34,6 +34,11 @@ export class ResourceIdsDatastore {
       v.entityId.isEqualTo(vpcEntityId)
     )!.resourceId;
   }
+  public static getSubnetResourceId(subnetEntityId: SubnetId): string {
+    return ResourceIdsDatastore.subnetIds.find(s =>
+      s.entityId.isEqualTo(subnetEntityId)
+    )!.resourceId;
+  }
   public static getSecurityGroupResourceId(
     securityGroupEntityId: SecurityGroupId
   ): string {

@@ -46,7 +46,9 @@ export const EC2Form: React.SFC<IProps> = props => {
     onSubmit: values => {
       const name = values.name;
       const subnetId = new SubnetId(values.subnetId);
-      const securityGroupIds = [new SecurityGroupId(values.securityGroupId)];
+      const securityGroupIds = values.securityGroupId
+        ? [new SecurityGroupId(values.securityGroupId)]
+        : [];
       if (ec2) {
         ec2.update({
           name: name,

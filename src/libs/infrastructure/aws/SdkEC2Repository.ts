@@ -16,6 +16,9 @@ export class SdkEC2Repository extends EC2Repository {
   }
 
   async create(ec2: EC2): Promise<string> {
+    const subnetId = ResourceIdsDatastore.getSubnetResourceId(
+      ec2.properties.subnetId
+    );
     const securityGroupIds = ec2.properties.securityGroupIds.map(s =>
       ResourceIdsDatastore.getSecurityGroupResourceId(s)
     );
@@ -25,9 +28,13 @@ export class SdkEC2Repository extends EC2Repository {
         InstanceType: "t2.micro",
         MaxCount: 1,
         MinCount: 1,
-        SecurityGroupIds: securityGroupIds,
+        SubnetId: subnetId,
+        SecurityGroupIds: securityGroupIds.length
+          ? securityGroupIds
+          : undefined,
         TagSpecifications: [
           {
+            ResourceType: "instance",
             Tags: [
               {
                 Key: "Name",
