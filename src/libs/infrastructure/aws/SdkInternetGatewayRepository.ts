@@ -1,7 +1,7 @@
 import * as AWS from "aws-sdk";
 import { injectable } from "inversify";
 
-import { InternetGateway } from "../../domain/models/aws";
+import { InternetGateway, InternetGatewayId } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { InternetGatewayRepository } from "../../domain/repositories/aws";
 import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
@@ -15,7 +15,7 @@ export class SdkInternetGatewayRepository extends InternetGatewayRepository {
     this._ec2 = new AWS.EC2(metadata);
   }
 
-  async create(internetGateway: InternetGateway): Promise<string> {
+  async create(internetGateway: InternetGateway): Promise<void> {
     const createdInternetGateway = await this._ec2
       .createInternetGateway()
       .promise();
@@ -33,17 +33,16 @@ export class SdkInternetGatewayRepository extends InternetGatewayRepository {
       entityId: internetGateway.id,
       resourceId: createdInternetGateway.InternetGateway!.InternetGatewayId!
     });
-    return gatewayId;
   }
 
-  async deleteAll(ids: string[]): Promise<void> {
-    const deleteInternetGatewayPromises = ids.map(id =>
-      this._ec2
-        .deleteInternetGateway({
-          InternetGatewayId: id
-        })
-        .promise()
+  async delete(internetGatewayEntityId: InternetGatewayId): Promise<void> {
+    const internetGatewayResourceId = ResourceIdsDatastore.getInternetGatewayResourceId(
+      internetGatewayEntityId
     );
-    await Promise.all(deleteInternetGatewayPromises);
+    await this._ec2
+      .deleteInternetGateway({
+        InternetGatewayId: internetGatewayResourceId
+      })
+      .promise();
   }
 }

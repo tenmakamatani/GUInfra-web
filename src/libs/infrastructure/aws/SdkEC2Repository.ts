@@ -1,7 +1,7 @@
 import * as AWS from "aws-sdk";
 import { injectable } from "inversify";
 
-import { EC2 } from "../../domain/models/aws";
+import { EC2, EC2Id } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { EC2Repository } from "../../domain/repositories/aws";
 import { ResourceIdsDatastore } from "@libs/application/datastore/ResourceIdsDatastore";
@@ -15,7 +15,7 @@ export class SdkEC2Repository extends EC2Repository {
     this._ec2 = new AWS.EC2(metadata);
   }
 
-  async create(ec2: EC2): Promise<string> {
+  async create(ec2: EC2): Promise<void> {
     const subnetId = ResourceIdsDatastore.getSubnetResourceId(
       ec2.properties.subnetId
     );
@@ -50,14 +50,13 @@ export class SdkEC2Repository extends EC2Repository {
       entityId: ec2.id,
       resourceId: ec2Id
     });
-    return ec2Id;
   }
 
-  async deleteAll(ids: string[]): Promise<void> {
-    if (!ids.length) return;
+  async delete(ec2EntityId: EC2Id): Promise<void> {
+    const ec2ResourceId = ResourceIdsDatastore.getEc2ResourceId(ec2EntityId);
     await this._ec2
       .terminateInstances({
-        InstanceIds: ids
+        InstanceIds: [ec2ResourceId]
       })
       .promise();
   }

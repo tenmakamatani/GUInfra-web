@@ -1,7 +1,7 @@
 import * as AWS from "aws-sdk";
 import { injectable } from "inversify";
 
-import { Subnet } from "../../domain/models/aws";
+import { Subnet, SubnetId } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { SubnetRepository } from "../../domain/repositories/aws";
 import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
@@ -15,7 +15,7 @@ export class SdkSubnetRepository extends SubnetRepository {
     this._ec2 = new AWS.EC2(metadata);
   }
 
-  async create(subnet: Subnet): Promise<string> {
+  async create(subnet: Subnet): Promise<void> {
     const vpcId = ResourceIdsDatastore.getVpcResourceId(
       subnet.properties.vpcId
     );
@@ -42,17 +42,12 @@ export class SdkSubnetRepository extends SubnetRepository {
       entityId: subnet.id,
       resourceId: subnetId
     });
-    return subnetId;
   }
 
-  async deleteAll(ids: string[]): Promise<void> {
-    const deleteSubnetPromises = ids.map(id =>
-      this._ec2
-        .deleteSubnet({
-          SubnetId: id
-        })
-        .promise()
+  async delete(subnetEntityId: SubnetId): Promise<void> {
+    const subnetResourceId = ResourceIdsDatastore.getSubnetResourceId(
+      subnetEntityId
     );
-    await Promise.all(deleteSubnetPromises);
+    await this._ec2.deleteSubnet({ SubnetId: subnetResourceId }).promise();
   }
 }

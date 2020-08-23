@@ -78,7 +78,9 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
 
   async deleteAll(): Promise<void> {
     await Promise.all([
-      this._ec2Repo.deleteAll(ResourceIdsDatastore.getAllEc2ResourceIds())
+      ResourceIdsDatastore.ec2Ids.map(ec2Id =>
+        this._ec2Repo.delete(ec2Id.entityId)
+      )
       /*
       this._internetGatewayRepo.deleteAll(
         ResourceIdsDatastore.getAllInternetGatewayResourceIds()
@@ -86,18 +88,20 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
       */
     ]);
     await Promise.all([
-      this._subnetRepo.deleteAll(
-        ResourceIdsDatastore.getAllSubnetResourceIds()
+      ResourceIdsDatastore.subnetIds.map(subnetId =>
+        this._subnetRepo.delete(subnetId.entityId)
       ),
-      this._securityGroupRepo.deleteAll(
-        ResourceIdsDatastore.getAllSecurityGroupResourceIds()
+      ResourceIdsDatastore.routeTableIds.map(routeTableId =>
+        this._routeTableRepo.delete(routeTableId.entityId)
       ),
-      this._routeTableRepo.deleteAll(
-        ResourceIdsDatastore.getAllRouteTableResourceIds()
+      ResourceIdsDatastore.securityGroupIds.map(securityGroupId =>
+        this._securityGroupRepo.delete(securityGroupId.entityId)
       )
     ]);
     await Promise.all([
-      this._vpcRepo.deleteAll(ResourceIdsDatastore.getAllVpcResourceIds())
+      ResourceIdsDatastore.vpcIds.map(vpcId =>
+        this._vpcRepo.delete(vpcId.entityId)
+      )
     ]);
     ResourceIdsDatastore.freshAll();
   }

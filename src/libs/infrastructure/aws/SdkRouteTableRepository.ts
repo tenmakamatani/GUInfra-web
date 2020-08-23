@@ -1,7 +1,7 @@
 import * as AWS from "aws-sdk";
 import { injectable } from "inversify";
 
-import { RouteTable } from "../../domain/models/aws";
+import { RouteTable, RouteTableId } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { RouteTableRepository } from "../../domain/repositories/aws";
 import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
@@ -19,7 +19,7 @@ export class SdkRouteTableRepository extends RouteTableRepository {
     this._ec2 = new AWS.EC2(metadata);
   }
 
-  async create(routeTable: RouteTable): Promise<string> {
+  async create(routeTable: RouteTable): Promise<void> {
     const vpcId = ResourceIdsDatastore.getVpcResourceId(
       routeTable.properties.vpcId
     );
@@ -47,16 +47,15 @@ export class SdkRouteTableRepository extends RouteTableRepository {
       entityId: routeTable.id,
       resourceId: routeTableId
     });
-    return routeTableId;
   }
 
-  async deleteAll(ids: string[]): Promise<void> {
-    const deleteRoutePromises = Promise.all(
-      ids.map(id => this._ec2.deleteRoute({ RouteTableId: id }))
+  async delete(routeTableEntityId: RouteTableId): Promise<void> {
+    const routeTableResourceId = ResourceIdsDatastore.getRouteTableResourceId(
+      routeTableEntityId
     );
-    const deleteRouteTablePromises = Promise.all(
-      ids.map(id => this._ec2.deleteRouteTable({ RouteTableId: id }))
-    );
-    await Promise.all([deleteRoutePromises, deleteRouteTablePromises]);
+    await Promise.all([
+      this._ec2.deleteRoute({ RouteTableId: routeTableResourceId }),
+      this._ec2.deleteRouteTable({ RouteTableId: routeTableResourceId })
+    ]);
   }
 }

@@ -29,6 +29,11 @@ export class ResourceIdsDatastore {
   public static internetGatewayIds: IInternetGatewayIdSet[] = [];
 
   // EntityIdからResourceIdを取得
+  public static getEc2ResourceId(ec2EntityId: EC2Id): string {
+    return ResourceIdsDatastore.ec2Ids.find(e =>
+      e.entityId.isEqualTo(ec2EntityId)
+    )!.resourceId;
+  }
   public static getVpcResourceId(vpcEntityId: VPCId): string {
     return ResourceIdsDatastore.vpcIds.find(v =>
       v.entityId.isEqualTo(vpcEntityId)
@@ -37,6 +42,13 @@ export class ResourceIdsDatastore {
   public static getSubnetResourceId(subnetEntityId: SubnetId): string {
     return ResourceIdsDatastore.subnetIds.find(s =>
       s.entityId.isEqualTo(subnetEntityId)
+    )!.resourceId;
+  }
+  public static getRouteTableResourceId(
+    routeTableEntityId: RouteTableId
+  ): string {
+    return ResourceIdsDatastore.routeTableIds.find(r =>
+      r.entityId.isEqualTo(routeTableEntityId)
     )!.resourceId;
   }
   public static getSecurityGroupResourceId(

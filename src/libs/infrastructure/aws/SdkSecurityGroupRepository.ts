@@ -1,7 +1,7 @@
 import * as AWS from "aws-sdk";
 import { injectable } from "inversify";
 
-import { SecurityGroup } from "../../domain/models/aws";
+import { SecurityGroup, SecurityGroupId } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { SecurityGroupRepository } from "../../domain/repositories/aws";
 import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
@@ -15,7 +15,7 @@ export class SdkSecurityGroupRepository extends SecurityGroupRepository {
     this._ec2 = new AWS.EC2(metadata);
   }
 
-  async create(securityGroup: SecurityGroup): Promise<string> {
+  async create(securityGroup: SecurityGroup): Promise<void> {
     const vpcId = ResourceIdsDatastore.getVpcResourceId(
       securityGroup.properties.vpcId
     );
@@ -83,17 +83,16 @@ export class SdkSecurityGroupRepository extends SecurityGroupRepository {
       entityId: securityGroup.id,
       resourceId: groupId
     });
-    return groupId;
   }
 
-  async deleteAll(ids: string[]): Promise<void> {
-    const deleteAllSecurityGroupPromise = ids.map(s =>
-      this._ec2
-        .deleteSecurityGroup({
-          GroupId: s
-        })
-        .promise()
+  async delete(securityGroupEntityId: SecurityGroupId): Promise<void> {
+    const securityGroupResourceId = ResourceIdsDatastore.getSecurityGroupResourceId(
+      securityGroupEntityId
     );
-    await Promise.all(deleteAllSecurityGroupPromise);
+    await this._ec2
+      .deleteSecurityGroup({
+        GroupId: securityGroupResourceId
+      })
+      .promise();
   }
 }
