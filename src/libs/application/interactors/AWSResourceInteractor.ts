@@ -80,12 +80,10 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
     await Promise.all([
       ...ResourceIdsDatastore.ec2Ids.map(ec2Id =>
         this._ec2Repo.delete(ec2Id.entityId)
+      ),
+      ...ResourceIdsDatastore.internetGatewayIds.map(internetGatewayId =>
+        this._internetGatewayRepo.delete(internetGatewayId.entityId)
       )
-      /*
-      this._internetGatewayRepo.deleteAll(
-        ResourceIdsDatastore.getAllInternetGatewayResourceIds()
-      )
-      */
     ]);
     await Promise.all([
       ...ResourceIdsDatastore.subnetIds.map(subnetId =>
