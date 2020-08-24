@@ -11,4 +11,8 @@ export class ResourceIdsDependencyDatastore {
       v => v.internetGatewayId === id
     )!.vpcId;
   }
+
+  public static freshAll(): void {
+    ResourceIdsDependencyDatastore.vpcAndInternetGateway = [];
+  }
 }
