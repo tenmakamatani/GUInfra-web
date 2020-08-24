@@ -4,7 +4,7 @@ import { injectable } from "inversify";
 import { Subnet, SubnetId } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { SubnetRepository } from "../../domain/repositories/aws";
-import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
+import { ResourceIdsDatastore } from "../../application/datastore";
 
 @injectable()
 export class SdkSubnetRepository extends SubnetRepository {

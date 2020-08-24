@@ -11,8 +11,7 @@ import {
   InternetGatewayRepository
 } from "../../domain/repositories/aws";
 import { AWSResourceUseCase } from "../usecases/AWSResourceUseCase";
-import { LogDatastore } from "../datastore/LogDatastore";
-import { ResourceIdsDatastore } from "../datastore/ResourceIdsDatastore";
+import { LogDatastore, ResourceIdsDatastore } from "../datastore";
 
 @injectable()
 export class AWSResourceInteractor extends AWSResourceUseCase {

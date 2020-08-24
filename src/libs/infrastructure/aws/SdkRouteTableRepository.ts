@@ -4,7 +4,7 @@ import { injectable } from "inversify";
 import { RouteTable, RouteTableId } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { RouteTableRepository } from "../../domain/repositories/aws";
-import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
+import { ResourceIdsDatastore } from "../../application/datastore";
 
 interface IRouteTableParams {
   GatewayId: string;

@@ -4,8 +4,10 @@ import { injectable } from "inversify";
 import { InternetGateway, InternetGatewayId } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { InternetGatewayRepository } from "../../domain/repositories/aws";
-import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
-import { ResourceIdsDependencyDatastore } from "@libs/application/datastore/ResourceIdDependencyDatastore";
+import {
+  ResourceIdsDatastore,
+  ResourceIdsDependencyDatastore
+} from "../../application/datastore";
 
 @injectable()
 export class SdkInternetGatewayRepository extends InternetGatewayRepository {

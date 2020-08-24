@@ -4,7 +4,7 @@ import { injectable } from "inversify";
 import { SecurityGroup, SecurityGroupId } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { SecurityGroupRepository } from "../../domain/repositories/aws";
-import { ResourceIdsDatastore } from "../../application/datastore/ResourceIdsDatastore";
+import { ResourceIdsDatastore } from "../../application/datastore";
 
 @injectable()
 export class SdkSecurityGroupRepository extends SecurityGroupRepository {
