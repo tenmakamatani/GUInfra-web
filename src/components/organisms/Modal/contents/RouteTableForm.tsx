@@ -17,7 +17,7 @@ interface IFormValues {
 
 const validation = Yup.object().shape<IFormValues>({
   vpcId: Yup.string().required("※VPCIdを入力してください"),
-  gatewayId: Yup.string().required("※GatewayIdを入力してください")
+  gatewayId: Yup.string() as Yup.StringSchema<string>
 });
 
 interface IProps {
@@ -41,7 +41,9 @@ export const RouteTableForm: React.SFC<IProps> = ({ routeTable }) => {
     },
     onSubmit: values => {
       const vpcId = new VPCId(values.vpcId);
-      const gatewayId = new InternetGatewayId(values.gatewayId);
+      const gatewayId = values
+        ? new InternetGatewayId(values.gatewayId)
+        : undefined;
       if (routeTable) {
         routeTable.update({
           vpcId: vpcId,
