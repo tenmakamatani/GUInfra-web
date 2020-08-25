@@ -151,6 +151,7 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
           { label: "https", value: "https" },
           { label: "all", value: "all" }
         ]}
+        multiple
       />
       <SelectField
         label="Permissions(egress)"
