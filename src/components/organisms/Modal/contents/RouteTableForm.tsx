@@ -78,7 +78,7 @@ export const RouteTableForm: React.SFC<IProps> = ({ routeTable }) => {
         value={formik.values.vpcId}
         onChange={formik.handleChange}
         options={awsState.vpcList.map(v => ({
-          label: v.resource.properties.cidrBlock,
+          label: v.resource.properties.name,
           value: v.resource.id.value
         }))}
         error={formik.errors.vpcId}
