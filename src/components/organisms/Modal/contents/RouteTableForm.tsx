@@ -53,7 +53,7 @@ export const RouteTableForm: React.SFC<IProps> = ({ routeTable }) => {
     onSubmit: values => {
       const vpcId = new VPCId(values.vpcId);
       const subnetId = new SubnetId(values.subnetId);
-      const gatewayId = values
+      const gatewayId = values.gatewayId
         ? new InternetGatewayId(values.gatewayId)
         : undefined;
       if (routeTable) {

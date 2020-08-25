@@ -4,11 +4,10 @@ import { injectable } from "inversify";
 import { RouteTable, RouteTableId } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { RouteTableRepository } from "../../domain/repositories/aws";
-import { ResourceIdsDatastore } from "../../application/datastore";
-
-interface IRouteTableParams {
-  GatewayId: string;
-}
+import {
+  ResourceIdsDatastore,
+  ResourceIdsDependencyDatastore
+} from "../../application/datastore";
 
 @injectable()
 export class SdkRouteTableRepository extends RouteTableRepository {
@@ -23,14 +22,9 @@ export class SdkRouteTableRepository extends RouteTableRepository {
     const vpcId = ResourceIdsDatastore.getVpcResourceId(
       routeTable.properties.vpcId
     );
-    const routeTableParams = {} as IRouteTableParams;
-    if (routeTable.properties.gatewayId) {
-      routeTableParams[
-        "GatewayId"
-      ] = ResourceIdsDatastore.getInternetGatewayResourceId(
-        routeTable.properties.gatewayId
-      );
-    }
+    const subnetId = ResourceIdsDatastore.getSubnetResourceId(
+      routeTable.properties.subnetId
+    );
     const createdRouteTable = await this._ec2
       .createRouteTable({
         VpcId: vpcId
@@ -39,13 +33,28 @@ export class SdkRouteTableRepository extends RouteTableRepository {
     const routeTableId = createdRouteTable.RouteTable!.RouteTableId!;
     await this._ec2
       .createRoute({
-        ...routeTableParams,
+        DestinationCidrBlock: "10.0.0.0/16",
+        GatewayId: routeTable.properties.gatewayId
+          ? ResourceIdsDatastore.getInternetGatewayResourceId(
+              routeTable.properties.gatewayId
+            )
+          : undefined,
         RouteTableId: routeTableId
+      })
+      .promise();
+    const association = await this._ec2
+      .associateRouteTable({
+        RouteTableId: routeTableId,
+        SubnetId: subnetId
       })
       .promise();
     ResourceIdsDatastore.setRouteTableId({
       entityId: routeTable.id,
       resourceId: routeTableId
+    });
+    ResourceIdsDependencyDatastore.associationAndRouteTable.push({
+      associationId: association.AssociationId!,
+      routeTableId: routeTableId
     });
   }
 
@@ -53,6 +62,14 @@ export class SdkRouteTableRepository extends RouteTableRepository {
     const routeTableResourceId = ResourceIdsDatastore.getRouteTableResourceId(
       routeTableEntityId
     );
+    const associationId = ResourceIdsDependencyDatastore.getAssociationIdFromRouteTableId(
+      routeTableResourceId
+    );
+    await this._ec2
+      .disassociateRouteTable({
+        AssociationId: associationId
+      })
+      .promise();
     await Promise.all([
       this._ec2.deleteRoute({ RouteTableId: routeTableResourceId }),
       this._ec2.deleteRouteTable({ RouteTableId: routeTableResourceId })
