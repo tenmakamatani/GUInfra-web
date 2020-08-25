@@ -1,9 +1,10 @@
 import { Id } from "../base";
 import { AWSResource } from "./common/AWSResource";
-import { VPCId, InternetGatewayId } from ".";
+import { VPCId, SubnetId, InternetGatewayId } from ".";
 
 interface IRouteTable {
   vpcId: VPCId;
+  subnetId: SubnetId;
   gatewayId?: InternetGatewayId;
 }
 

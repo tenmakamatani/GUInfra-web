@@ -3,7 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-import { RouteTable, VPCId, InternetGatewayId } from "@libs/domain/models/aws";
+import {
+  RouteTable,
+  VPCId,
+  SubnetId,
+  InternetGatewayId
+} from "@libs/domain/models/aws";
 
 import { uiActions } from "@modules/ui";
 import { awsActions, awsSelector } from "@modules/aws";
@@ -12,11 +17,13 @@ import { Button } from "@components/atoms";
 
 interface IFormValues {
   vpcId: string;
+  subnetId: string;
   gatewayId: string;
 }
 
 const validation = Yup.object().shape<IFormValues>({
   vpcId: Yup.string().required("※VPCIdを入力してください"),
+  subnetId: Yup.string().required("※SubnetIdを選択してください"),
   gatewayId: Yup.string() as Yup.StringSchema<string>
 });
 
@@ -34,6 +41,10 @@ export const RouteTableForm: React.SFC<IProps> = ({ routeTable }) => {
         routeTable?.properties.vpcId.value ??
         awsState.vpcList[0]?.resource.id.value ??
         "",
+      subnetId:
+        routeTable?.properties.subnetId.value ??
+        awsState.subnetList[0]?.resource.id.value ??
+        "",
       gatewayId:
         routeTable?.properties.gatewayId?.value ??
         awsState.internetGatewayList[0]?.resource.id.value ??
@@ -41,12 +52,14 @@ export const RouteTableForm: React.SFC<IProps> = ({ routeTable }) => {
     },
     onSubmit: values => {
       const vpcId = new VPCId(values.vpcId);
+      const subnetId = new SubnetId(values.subnetId);
       const gatewayId = values
         ? new InternetGatewayId(values.gatewayId)
         : undefined;
       if (routeTable) {
         routeTable.update({
           vpcId: vpcId,
+          subnetId: subnetId,
           gatewayId: gatewayId
         });
         dispatch(
@@ -63,6 +76,7 @@ export const RouteTableForm: React.SFC<IProps> = ({ routeTable }) => {
             resource: new RouteTable({
               properties: {
                 vpcId: vpcId,
+                subnetId: subnetId,
                 gatewayId: gatewayId
               }
             })
@@ -85,6 +99,18 @@ export const RouteTableForm: React.SFC<IProps> = ({ routeTable }) => {
         }))}
         error={formik.errors.vpcId}
         touched={formik.touched.vpcId}
+      />
+      <SelectField
+        label="SubnetId"
+        name="subnetId"
+        value={formik.values.subnetId}
+        onChange={formik.handleChange}
+        options={awsState.subnetList.map(s => ({
+          label: s.resource.properties.name,
+          value: s.resource.id.value
+        }))}
+        error={formik.errors.subnetId}
+        touched={formik.touched.subnetId}
       />
       <SelectField
         label="GatewayId"
