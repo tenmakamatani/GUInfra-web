@@ -41,7 +41,6 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
 
   async create(resources: Omit<IAWSState, "metadata">): Promise<void> {
     this._logError("test");
-
     // 他に依存しない独立したリソースを作成
     const vpcPromises = Promise.all(
       resources.vpcList.map(vpc => this._vpcRepo.create(vpc))
@@ -78,6 +77,8 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
   }
 
   async deleteAll(): Promise<void> {
+    this._logNormal("Deleting InternetGateway...");
+    this._logNormal("Deleting EC2...");
     await Promise.all([
       ...ResourceIdsDatastore.ec2Ids.map(ec2Id =>
         this._ec2Repo.delete(ec2Id.entityId)
@@ -86,11 +87,14 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
         this._internetGatewayRepo.delete(internetGatewayId.entityId)
       )
     ]);
+    this._logNormal("Deleting RouteTable...");
     await Promise.all([
       ...ResourceIdsDatastore.routeTableIds.map(routeTableId =>
         this._routeTableRepo.delete(routeTableId.entityId)
       )
     ]);
+    this._logNormal("Deleting Subnet...");
+    this._logNormal("Deleting SecurityGroup...");
     await Promise.all([
       ...ResourceIdsDatastore.subnetIds.map(subnetId =>
         this._subnetRepo.delete(subnetId.entityId)
@@ -99,6 +103,7 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
         this._securityGroupRepo.delete(securityGroupId.entityId)
       )
     ]);
+    this._logNormal("Deleting VPC...");
     await Promise.all([
       ...ResourceIdsDatastore.vpcIds.map(vpcId =>
         this._vpcRepo.delete(vpcId.entityId)

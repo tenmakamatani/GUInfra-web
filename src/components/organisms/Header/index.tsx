@@ -15,8 +15,14 @@ export const Header: React.SFC = () => {
       })
     );
   };
-  const handleClickDelete = () => {
-    DI.awsResourceUseCase.deleteAll();
+  const handleClickDelete = async () => {
+    dispatch(
+      uiActions.appearModal({
+        type: ModalTypes.LogDisplay
+      })
+    );
+    await DI.awsResourceUseCase.deleteAll();
+    dispatch(uiActions.removeModal());
   };
 
   return (
