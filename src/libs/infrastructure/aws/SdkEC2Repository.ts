@@ -4,7 +4,8 @@ import { injectable } from "inversify";
 import { EC2, EC2Id } from "../../domain/models/aws";
 import { IAWSState } from "../../domain/state/aws";
 import { EC2Repository } from "../../domain/repositories/aws";
-import { ResourceIdsDatastore } from "@libs/application/datastore";
+import { Timer } from "../../application/utils";
+import { ResourceIdsDatastore } from "../../application/datastore";
 
 @injectable()
 export class SdkEC2Repository extends EC2Repository {
@@ -59,5 +60,17 @@ export class SdkEC2Repository extends EC2Repository {
         InstanceIds: [ec2ResourceId]
       })
       .promise();
+    let isTerminated = false;
+    while (!isTerminated) {
+      const ec2Info = await this._ec2
+        .describeInstances({
+          InstanceIds: [ec2ResourceId]
+        })
+        .promise();
+      await Timer.wait(2);
+      if (ec2Info.Reservations![0].Instances![0].State!.Code === 48) {
+        isTerminated = true;
+      }
+    }
   }
 }
