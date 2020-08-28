@@ -69,10 +69,7 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
         this._routeTableRepo.create(routeTable)
       )
     );
-    const ec2Promises = Promise.all(
-      resources.ec2List.map(ec2 => this._ec2Repo.create(ec2))
-    );
-    await Promise.all([ec2Promises]);
+    await Promise.all(resources.ec2List.map(ec2 => this._ec2Repo.create(ec2)));
     this._freshLog();
   }
 
