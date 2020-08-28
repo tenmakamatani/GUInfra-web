@@ -31,17 +31,17 @@ export class SdkRouteTableRepository extends RouteTableRepository {
       })
       .promise();
     const routeTableId = createdRouteTable.RouteTable!.RouteTableId!;
-    await this._ec2
-      .createRoute({
-        DestinationCidrBlock: "10.0.0.0/16",
-        GatewayId: routeTable.properties.gatewayId
-          ? ResourceIdsDatastore.getInternetGatewayResourceId(
-              routeTable.properties.gatewayId
-            )
-          : undefined,
-        RouteTableId: routeTableId
-      })
-      .promise();
+    if (routeTable.properties.gatewayId) {
+      await this._ec2
+        .createRoute({
+          DestinationCidrBlock: "0.0.0.0/0",
+          GatewayId: ResourceIdsDatastore.getInternetGatewayResourceId(
+            routeTable.properties.gatewayId
+          ),
+          RouteTableId: routeTableId
+        })
+        .promise();
+    }
     const association = await this._ec2
       .associateRouteTable({
         RouteTableId: routeTableId,
@@ -71,8 +71,15 @@ export class SdkRouteTableRepository extends RouteTableRepository {
       })
       .promise();
     await Promise.all([
-      this._ec2.deleteRoute({ RouteTableId: routeTableResourceId }),
-      this._ec2.deleteRouteTable({ RouteTableId: routeTableResourceId })
+      this._ec2
+        .deleteRoute({
+          RouteTableId: routeTableResourceId,
+          DestinationCidrBlock: "0.0.0.0/0"
+        })
+        .promise(),
+      this._ec2
+        .deleteRouteTable({ RouteTableId: routeTableResourceId })
+        .promise()
     ]);
   }
 }

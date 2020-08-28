@@ -24,7 +24,7 @@ interface IFormValues {
 const validation = Yup.object().shape<IFormValues>({
   vpcId: Yup.string().required("※VPCIdを入力してください"),
   subnetId: Yup.string().required("※SubnetIdを選択してください"),
-  gatewayId: Yup.string() as Yup.StringSchema<string>
+  gatewayId: Yup.string().required("※GatewayIdを選択してください")
 });
 
 interface IProps {

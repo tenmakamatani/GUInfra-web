@@ -21,7 +21,10 @@ export const Header: React.SFC = () => {
         type: ModalTypes.LogDisplay
       })
     );
-    await DI.awsResourceUseCase.deleteAll();
+    await DI.awsResourceUseCase.deleteAll().catch(e => {
+      console.log("error!");
+      console.log(e);
+    });
     dispatch(uiActions.removeModal());
   };
 
