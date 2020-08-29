@@ -70,16 +70,14 @@ export class SdkRouteTableRepository extends RouteTableRepository {
         AssociationId: associationId
       })
       .promise();
-    await Promise.all([
-      this._ec2
-        .deleteRoute({
-          RouteTableId: routeTableResourceId,
-          DestinationCidrBlock: "0.0.0.0/0"
-        })
-        .promise(),
-      this._ec2
-        .deleteRouteTable({ RouteTableId: routeTableResourceId })
-        .promise()
-    ]);
+    await this._ec2
+      .deleteRoute({
+        RouteTableId: routeTableResourceId,
+        DestinationCidrBlock: "0.0.0.0/0"
+      })
+      .promise();
+    await this._ec2
+      .deleteRouteTable({ RouteTableId: routeTableResourceId })
+      .promise();
   }
 }

@@ -86,6 +86,11 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
     ]);
     this._logNormal("Deleting RouteTable...");
     await Promise.all([
+      ...ResourceIdsDatastore.securityGroupIds.map(securityGroupId =>
+        this._securityGroupRepo.delete(securityGroupId.entityId)
+      )
+    ]);
+    await Promise.all([
       ...ResourceIdsDatastore.routeTableIds.map(routeTableId =>
         this._routeTableRepo.delete(routeTableId.entityId)
       )
@@ -95,9 +100,6 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
     await Promise.all([
       ...ResourceIdsDatastore.subnetIds.map(subnetId =>
         this._subnetRepo.delete(subnetId.entityId)
-      ),
-      ...ResourceIdsDatastore.securityGroupIds.map(securityGroupId =>
-        this._securityGroupRepo.delete(securityGroupId.entityId)
       )
     ]);
     this._logNormal("Deleting VPC...");
