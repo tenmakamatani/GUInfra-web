@@ -118,7 +118,7 @@ export const RouteTableForm: React.SFC<IProps> = ({ routeTable }) => {
         value={formik.values.gatewayId}
         onChange={formik.handleChange}
         options={awsState.internetGatewayList.map(i => ({
-          label: i.resource.id.value,
+          label: i.resource.properties.name,
           value: i.resource.id.value
         }))}
         error={formik.errors.gatewayId}

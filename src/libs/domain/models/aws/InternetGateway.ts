@@ -3,6 +3,7 @@ import { AWSResource } from "./common/AWSResource";
 import { VPCId } from "./VPC";
 
 interface IInternetGateway {
+  name: string;
   vpcId: VPCId;
 }
 

@@ -9,16 +9,18 @@ import { uiActions } from "@modules/ui";
 import { awsActions, awsSelector } from "@modules/aws";
 
 import { Button } from "@components/atoms";
-import { SelectField } from "@components/molecules";
+import { SelectField, InputField } from "@components/molecules";
 
 interface IProps {
   internetGateway?: InternetGateway;
 }
 
 interface IFormValues {
+  name: string;
   vpcId: string;
 }
 const validation = Yup.object().shape<IFormValues>({
+  name: Yup.string().required("※Nameを入力してください"),
   vpcId: Yup.string().required("※VPCIdを入力してください")
 });
 
@@ -28,16 +30,19 @@ export const InternetGatewayForm: React.SFC<IProps> = ({ internetGateway }) => {
   const formik = useFormik<IFormValues>({
     validationSchema: validation,
     initialValues: {
+      name: internetGateway?.properties.name ?? "",
       vpcId:
         internetGateway?.properties.vpcId.value ??
         awsState.vpcList[0]?.resource.id.value ??
         ""
     },
     onSubmit: values => {
-      const { vpcId } = values;
+      const { name } = values;
+      const vpcId = new VPCId(values.vpcId);
       if (internetGateway) {
         internetGateway.update({
-          vpcId: new VPCId(vpcId)
+          name: name,
+          vpcId: vpcId
         });
         dispatch(
           awsActions.internetGateway.update({
@@ -52,7 +57,8 @@ export const InternetGatewayForm: React.SFC<IProps> = ({ internetGateway }) => {
           awsActions.internetGateway.create(
             new InternetGateway({
               properties: {
-                vpcId: new VPCId(vpcId)
+                name: name,
+                vpcId: vpcId
               }
             })
           )
@@ -63,6 +69,16 @@ export const InternetGatewayForm: React.SFC<IProps> = ({ internetGateway }) => {
   });
   return (
     <form onSubmit={formik.handleSubmit}>
+      <InputField
+        label="Name"
+        name="name"
+        type="text"
+        placeholder="internet-gateway-1"
+        value={formik.values.name}
+        onChange={formik.handleChange}
+        error={formik.errors.name}
+        touched={formik.touched.name}
+      />
       <SelectField
         label="VPCId"
         name="vpcId"
