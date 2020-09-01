@@ -14,14 +14,14 @@ export const Graph: React.SFC = () => {
   const awsResources = useSelector(awsSelector.selectAll);
   return (
     <div css={styles.graph.wrapper}>
-      {awsResources.ec2List.map(ec2 => (
-        <EC2Item key={ec2.resource.id.value} ec2={ec2} />
-      ))}
       {awsResources.vpcList.map(vpc => (
         <VPCItem key={vpc.resource.id.value} vpc={vpc} />
       ))}
       {awsResources.subnetList.map(subnet => (
         <SubnetItem key={subnet.resource.id.value} subnet={subnet} />
+      ))}
+      {awsResources.ec2List.map(ec2 => (
+        <EC2Item key={ec2.resource.id.value} ec2={ec2} />
       ))}
       {awsResources.internetGatewayList.map(internetGateway => (
         <InternetGatewayItem
