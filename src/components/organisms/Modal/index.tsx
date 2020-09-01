@@ -39,6 +39,7 @@ export const Modal: React.SFC = () => {
         }
       }}
       onRequestClose={() => {
+        if ([ModalTypes.LogDisplay].includes(modal.type)) return;
         dispatch(uiActions.removeModal());
       }}
     >
