@@ -45,7 +45,7 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
     const vpcPromises = Promise.all(
       resources.vpcList.map(vpc => this._vpcRepo.create(vpc))
     );
-    this._logNormal("Creating vpc...");
+    this._logNormal("ログ機能開発中……");
     await Promise.all([vpcPromises]);
     const internetGatewayPromises = Promise.all(
       resources.internetGatewayList.map(internetGateway =>
@@ -74,8 +74,7 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
   }
 
   async deleteAll(): Promise<void> {
-    this._logNormal("Deleting InternetGateway...");
-    this._logNormal("Deleting EC2...");
+    this._logNormal("ログ機能開発中……");
     await Promise.all([
       ...ResourceIdsDatastore.ec2Ids.map(ec2Id =>
         this._ec2Repo.delete(ec2Id.entityId)
