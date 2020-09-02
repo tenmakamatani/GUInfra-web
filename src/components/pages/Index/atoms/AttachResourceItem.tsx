@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { ModalTypes, uiActions } from "@modules/ui";
 import { IWithoutUIResourceView } from "@modules/aws/resources";
 import { Text } from "@components/atoms/Text";
+import { styles } from "../styles";
 
 interface IProps {
   title: string;
@@ -24,6 +25,7 @@ export const AttachResourceItem: React.SFC<IProps> = props => {
           })
         );
       }}
+      css={styles.attachResourceItem.wrapper}
     >
       <Text content={props.title} />
       <Text content={props.description} />

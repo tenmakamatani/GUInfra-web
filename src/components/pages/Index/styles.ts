@@ -9,6 +9,16 @@ export const styles = {
     })
   },
   // atoms
+  attachResourceItem: {
+    wrapper: css({
+      borderTop: "solid black 1px",
+      borderBottom: "solid black 1px",
+      ":hover": {
+        cursor: "pointer",
+        opacity: 0.8
+      }
+    })
+  },
   createResourceItem: {
     wrapper: css({
       textAlign: "center",
