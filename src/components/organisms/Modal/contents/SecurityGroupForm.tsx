@@ -8,7 +8,7 @@ import {
   IpPermissionType,
   VPCId
 } from "@libs/domain/models/aws";
-import { pushOrRemove } from "@libs/application/utils";
+import { pushOrRemoveIfExists } from "@libs/application/utils";
 
 import { uiActions } from "@modules/ui";
 import { awsActions, awsSelector } from "@modules/aws";
@@ -142,7 +142,10 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
         onChange={e => {
           formik.setFieldValue(
             "ingressPermissionTypes",
-            pushOrRemove(e.target.value, formik.values.ingressPermissionTypes)
+            pushOrRemoveIfExists(
+              e.target.value,
+              formik.values.ingressPermissionTypes
+            )
           );
         }}
         options={[
@@ -160,7 +163,10 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
         onChange={e => {
           formik.setFieldValue(
             "egressPermissionTypes",
-            pushOrRemove(e.target.value, formik.values.egressPermissionTypes)
+            pushOrRemoveIfExists(
+              e.target.value,
+              formik.values.egressPermissionTypes
+            )
           );
         }}
         options={[
