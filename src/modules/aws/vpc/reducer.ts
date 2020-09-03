@@ -2,6 +2,8 @@ import { defaultResourceViewCreator } from "../../uiType";
 import { IAWSState } from "../index";
 import { VPCActions } from "./actions";
 import { ActionTypes } from "../types";
+import { canRemoveVpc } from "../relations";
+import { toast } from "@libs/application/utils";
 
 export const vpcReducer = (state: IAWSState, action: VPCActions): IAWSState => {
   switch (action.type) {
@@ -24,8 +26,13 @@ export const vpcReducer = (state: IAWSState, action: VPCActions): IAWSState => {
         vpcList: updatedVpcList
       };
     case ActionTypes.RemoveVPC:
+      const vpcId = action.payload;
+      if (!canRemoveVpc(state, vpcId)) {
+        toast.error("このVPCは削除できません");
+        return state;
+      }
       const removedVpcList = state.vpcList.filter(
-        v => !v.resource.id.isEqualTo(action.payload)
+        v => !v.resource.id.isEqualTo(vpcId)
       );
       return {
         ...state,

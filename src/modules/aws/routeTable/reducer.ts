@@ -1,6 +1,8 @@
 import { IAWSState } from "../index";
 import { RouteTableActions } from "./actions";
 import { ActionTypes } from "../types";
+import { canRemoveRouteTable } from "../relations";
+import { toast } from "@libs/application/utils";
 
 export const routeTableReducer = (
   state: IAWSState,
@@ -26,8 +28,13 @@ export const routeTableReducer = (
         routeTableList: updatedrouteTableList
       };
     case ActionTypes.RemoveRouteTable:
+      const routeTableId = action.payload;
+      if (!canRemoveRouteTable(state, routeTableId)) {
+        toast.error("このRouteTableは削除できません");
+        return state;
+      }
       const removedrouteTableList = state.routeTableList.filter(
-        v => !v.resource.id.isEqualTo(action.payload)
+        v => !v.resource.id.isEqualTo(routeTableId)
       );
       return {
         ...state,

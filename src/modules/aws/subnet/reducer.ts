@@ -2,6 +2,8 @@ import { defaultResourceViewCreator } from "../../uiType";
 import { IAWSState } from "../index";
 import { SubnetActions } from "./actions";
 import { ActionTypes } from "../types";
+import { canRemoveSubnet } from "../relations";
+import { toast } from "@libs/application/utils";
 
 export const subnetReducer = (
   state: IAWSState,
@@ -30,8 +32,13 @@ export const subnetReducer = (
         subnetList: updatedsubnetList
       };
     case ActionTypes.RemoveSubnet:
+      const subnetId = action.payload;
+      if (!canRemoveSubnet(state, subnetId)) {
+        toast.error("このSubnetは削除できません");
+        return state;
+      }
       const removedsubnetList = state.subnetList.filter(
-        v => !v.resource.id.isEqualTo(action.payload)
+        v => !v.resource.id.isEqualTo(subnetId)
       );
       return {
         ...state,

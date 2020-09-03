@@ -1,6 +1,8 @@
 import { IAWSState } from "../index";
 import { SecurityGroupActions } from "./actions";
 import { ActionTypes } from "../types";
+import { canRemoveSecurityGroup } from "../relations";
+import { toast } from "@libs/application/utils";
 
 export const securityGroupReducer = (
   state: IAWSState,
@@ -27,8 +29,13 @@ export const securityGroupReducer = (
         securityGroupList: updatedSecurityGroupList
       };
     case ActionTypes.RemoveSecurityGroup:
+      const securityGroupId = action.payload;
+      if (!canRemoveSecurityGroup(state, securityGroupId)) {
+        toast.error("このSecurityGroupは削除できません");
+        return state;
+      }
       const removedSecurityGroupList = state.securityGroupList.filter(
-        s => !s.resource.id.isEqualTo(action.payload)
+        s => !s.resource.id.isEqualTo(securityGroupId)
       );
       return {
         ...state,
