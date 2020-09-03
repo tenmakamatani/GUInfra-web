@@ -57,9 +57,12 @@ export const MetadataForm: React.SFC = () => {
             internetGatewayView => internetGatewayView.resource
           )
         })
-        .catch(e => {
-          toast.error("リソースの作成に失敗しました");
+        .catch(async e => {
+          toast.error(
+            "リソースの作成に失敗しました。リソースを削除しています…"
+          );
           toast.error(e);
+          await DI.awsResourceUseCase.deleteAll();
         });
       dispatch(uiActions.removeModal());
       toast.success("リソースの作成に成功しました");
