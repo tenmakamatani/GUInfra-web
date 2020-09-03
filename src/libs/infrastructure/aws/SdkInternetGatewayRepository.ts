@@ -27,12 +27,26 @@ export class SdkInternetGatewayRepository extends InternetGatewayRepository {
     );
     const gatewayId = createdInternetGateway.InternetGateway!
       .InternetGatewayId!;
-    await this._ec2
-      .attachInternetGateway({
-        InternetGatewayId: gatewayId,
-        VpcId: vpcId
-      })
-      .promise();
+    // Nameのタグ作成,VPCへのアタッチ
+    await Promise.all([
+      this._ec2
+        .createTags({
+          Resources: [gatewayId],
+          Tags: [
+            {
+              Key: "Name",
+              Value: internetGateway.properties.name
+            }
+          ]
+        })
+        .promise(),
+      this._ec2
+        .attachInternetGateway({
+          InternetGatewayId: gatewayId,
+          VpcId: vpcId
+        })
+        .promise()
+    ]);
     ResourceIdsDatastore.setInternetGatewayId({
       entityId: internetGateway.id,
       resourceId: createdInternetGateway.InternetGateway!.InternetGatewayId!
