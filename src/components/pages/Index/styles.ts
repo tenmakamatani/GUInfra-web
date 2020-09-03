@@ -1,5 +1,4 @@
 import { css } from "@emotion/core";
-import config from "@config";
 
 export const styles = {
   // index.tsx
