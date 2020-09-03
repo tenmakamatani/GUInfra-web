@@ -1,15 +1,22 @@
 import * as React from "react";
 import styles from "./styles";
+import config from "@config";
 
 interface IProps {
   content?: string;
   error?: boolean;
+  size?: FontSize;
 }
 
-export const Text: React.SFC<IProps> = ({ error, content }) => {
+type FontSize = "huge" | "big" | "normal" | "small" | "tiny";
+
+export const Text: React.SFC<IProps> = ({ error, content, size }) => {
+  const fontSize = config.fontSize[size ? size : "normal"];
   return error ? (
-    <p css={styles.error}>{content}</p>
+    <p style={{ fontSize: fontSize }} css={styles.error}>
+      {content}
+    </p>
   ) : (
-    <p style={{ whiteSpace: "pre-line" }}>{content}</p>
+    <p style={{ whiteSpace: "pre-line", fontSize: fontSize }}>{content}</p>
   );
 };

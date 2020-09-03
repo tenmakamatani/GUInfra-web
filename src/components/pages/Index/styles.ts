@@ -1,4 +1,5 @@
 import { css } from "@emotion/core";
+import config from "@config";
 
 export const styles = {
   // index.tsx
@@ -22,7 +23,7 @@ export const styles = {
   createResourceItem: {
     wrapper: css({
       textAlign: "center",
-      width: 100,
+      width: 90,
       cursor: "pointer",
       "&:hover": {
         opacity: 0.8
@@ -41,7 +42,8 @@ export const styles = {
   // molecules
   createResourceItemList: {
     wrapper: css({
-      width: "20%",
+      width: "19%",
+      height: "100%",
       display: "flex",
       flexWrap: "wrap",
       justifyContent: "space-around",
@@ -50,13 +52,13 @@ export const styles = {
   },
   attachResourceItemList: {
     wrapper: css({
-      width: "20%"
+      width: "19%"
     })
   },
   // organisms
   graph: {
     wrapper: css({
-      width: "60%",
+      width: "64%",
       height: "calc(100%-70px)",
       border: "1px solid rgba(0,0,0,0.2)"
     })

@@ -1,7 +1,7 @@
 export default {
-  huge: 50,
+  huge: 35,
   big: 25,
-  normal: 22,
-  small: 20,
-  tiny: 15
+  normal: 18,
+  small: 15,
+  tiny: 10
 };

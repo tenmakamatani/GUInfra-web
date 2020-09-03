@@ -1,4 +1,5 @@
 import { css } from "@emotion/core";
+import config from "@config";
 
 export const styles = {
   wrapper: css({
@@ -7,11 +8,11 @@ export const styles = {
     alignItems: "center",
     height: "70px",
     padding: "0 20px",
-    backgroundColor: "tomato"
+    backgroundColor: config.colors.red
   }),
   title: css({
     color: "white",
-    fontSize: 25
+    fontSize: config.fontSize.huge
   }),
   titleWrapper: css({
     width: "10%"
@@ -21,17 +22,17 @@ export const styles = {
     width: "90%"
   }),
   leftButton: css({
-    marginRight: "10px"
+    marginRight: "20px"
   }),
   button: css({
-    border: "none",
-    padding: "5px 20px",
-    borderRadius: 5,
-    color: "grey",
+    border: `2px solid ${config.colors.white}`,
+    padding: "5px 30px",
+    color: config.colors.white,
+    backgroundColor: config.colors.red,
     cursor: "pointer",
     outline: "none",
     ":hover": {
-      opacity: 0.9
+      opacity: 0.6
     }
   })
 };

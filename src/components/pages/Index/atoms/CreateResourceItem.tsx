@@ -2,6 +2,7 @@ import * as React from "react";
 import { useDispatch } from "react-redux";
 
 import { ModalTypes, uiActions } from "@modules/ui";
+import { Text } from "@components/atoms";
 
 import { styles } from "../styles";
 
@@ -27,7 +28,7 @@ export const CreateResourceItem: React.SFC<IResource> = props => {
           );
         }}
       />
-      <p>{props.name}</p>
+      <Text size="small" content={props.name} />
     </div>
   );
 };

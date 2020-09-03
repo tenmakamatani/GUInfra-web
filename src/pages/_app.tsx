@@ -18,6 +18,7 @@ export default class GUInfra extends App {
           }
           div#__next {
             height: 100vh;
+            font-family: Avenir Heavy;
           }
         `}</style>
         <AppTemplate>
