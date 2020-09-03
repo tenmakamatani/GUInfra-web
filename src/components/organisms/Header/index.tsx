@@ -22,10 +22,16 @@ export const Header: React.SFC = () => {
         type: ModalTypes.LogDisplay
       })
     );
-    await DI.awsResourceUseCase.deleteAll().catch(e => {
-      console.log("error!");
-      console.log(e);
-    });
+    await DI.awsResourceUseCase
+      .deleteAll()
+      .catch(e => {
+        console.log("error!");
+        console.log(e);
+      })
+      .catch(e => {
+        toast.error("リソースの削除に失敗しました");
+        toast.error(e);
+      });
     dispatch(uiActions.removeModal());
     toast.success("リソースの削除に成功しました");
   };

@@ -58,8 +58,8 @@ export const MetadataForm: React.SFC = () => {
           )
         })
         .catch(e => {
-          console.log("error");
-          console.log(e);
+          toast.error("リソースの作成に失敗しました");
+          toast.error(e);
         });
       dispatch(uiActions.removeModal());
       toast.success("リソースの作成に成功しました");
