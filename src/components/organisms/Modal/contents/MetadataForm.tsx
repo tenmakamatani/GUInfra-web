@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 import { DI } from "@libs/application/DI";
+import { toast } from "@libs/application/utils";
 import { uiActions, ModalTypes } from "@modules/ui";
 import { awsSelector } from "@modules/aws";
 import { InputField } from "@components/molecules";
@@ -61,6 +62,7 @@ export const MetadataForm: React.SFC = () => {
           console.log(e);
         });
       dispatch(uiActions.removeModal());
+      toast.success("リソースの作成に成功しました");
     }
   });
   return (

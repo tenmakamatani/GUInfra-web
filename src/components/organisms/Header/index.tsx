@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { ModalTypes, uiActions } from "@modules/ui";
 
 import { styles } from "./styles";
+import { toast } from "@libs/application/utils";
 import { DI } from "@libs/application/DI";
 
 export const Header: React.SFC = () => {
@@ -26,6 +27,7 @@ export const Header: React.SFC = () => {
       console.log(e);
     });
     dispatch(uiActions.removeModal());
+    toast.success("リソースの削除に成功しました");
   };
 
   return (
