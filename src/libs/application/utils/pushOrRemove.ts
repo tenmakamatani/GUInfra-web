@@ -1,10 +1,11 @@
-export const pushOrRemove = (value: string, oldValues: string[]): string[] => {
-  let newValues: string[];
+export const pushOrRemove = <T>(value: T, oldValues: T[]): T[] => {
+  let newValues: T[];
+  console.log(value, oldValues);
   if (oldValues.includes(value)) {
     newValues = oldValues.filter(o => o !== value);
   } else {
-    oldValues.push(value);
     newValues = [...oldValues];
+    newValues.push(value);
   }
   return newValues;
 };
