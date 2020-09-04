@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Input, Text } from "@components/atoms";
+import styles from "./styles";
 
 type Props = {
   label: string;
@@ -12,10 +13,10 @@ type Props = {
 
 export const InputField: React.SFC<Props> = props => {
   return (
-    <div>
-      <Text content={props.label} />
-      <Input {...props} />
-      <Text error content={props.touched ? props.error : ""} />
+    <div css={styles.wrapper}>
+      <Text size="normal" content={props.label} />
+      <Input css={styles.input} {...props} />
+      <Text size="small" error content={props.touched ? props.error : ""} />
     </div>
   );
 };
