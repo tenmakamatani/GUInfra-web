@@ -7,6 +7,9 @@ export default {
   }),
   input: css({
     width: "100%",
+    boxSizing: "border-box",
+    "-moz-box-sizing": "border-box",
+    "-webkit-box-sizing": "border-box",
     height: 30,
     marginTop: 5,
     marginBottom: 5

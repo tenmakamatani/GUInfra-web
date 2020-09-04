@@ -9,6 +9,7 @@ import { uiActions } from "@modules/ui";
 import { awsActions } from "@modules/aws";
 import { InputField } from "@components/molecules";
 import { Button } from "@components/atoms";
+import styles from "../styles";
 
 interface IProps {
   vpc?: VPC;
@@ -63,7 +64,7 @@ export const VPCForm: React.SFC<IProps> = props => {
     }
   });
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form css={styles.form} onSubmit={formik.handleSubmit}>
       <InputField
         label="Name"
         name="name"
@@ -84,16 +85,22 @@ export const VPCForm: React.SFC<IProps> = props => {
         error={formik.errors.cidrBlock}
         touched={formik.touched.cidrBlock}
       />
-      <Button type="submit" value={vpc ? "更新" : "作成"} onClick={() => {}} />
-      {vpc ? (
+      <div css={styles.buttonWrapper}>
         <Button
-          value="削除"
-          onClick={() => {
-            dispatch(awsActions.vpc.remove(vpc.id));
-            dispatch(uiActions.removeModal());
-          }}
+          type="submit"
+          value={vpc ? "更新" : "作成"}
+          onClick={() => {}}
         />
-      ) : null}
+        {vpc ? (
+          <Button
+            value="削除"
+            onClick={() => {
+              dispatch(awsActions.vpc.remove(vpc.id));
+              dispatch(uiActions.removeModal());
+            }}
+          />
+        ) : null}
+      </div>
     </form>
   );
 };
