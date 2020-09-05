@@ -2,6 +2,7 @@ import * as React from "react";
 import { Rnd, RndResizeCallback, RndDragCallback } from "react-rnd";
 
 import { IWithUIResourceView } from "@modules/aws/resources";
+import { styles } from "../styles";
 
 interface IProps {
   source: string;
@@ -23,20 +24,20 @@ export const EntityResourceItem: React.SFC<IProps> = props => {
       style={{
         cursor: "pointer" // なぜかcssでやると効かない
       }}
+      css={styles.entityResourceItem.rnd}
       lockAspectRatio
       bounds="parent"
       onResizeStop={props.onResizeStop}
       onDragStop={props.onDragStop}
     >
-      <img
-        style={{
-          width: "100%",
-          height: "100%",
-          pointerEvents: "none"
-        }}
-        src={props.source}
-        alt="リソース"
-      />
+      <div css={styles.entityResourceItem.wrapper}>
+        <img
+          style={{ pointerEvents: "none" }}
+          css={styles.entityResourceItem.img}
+          src={props.source}
+          alt="リソース"
+        />
+      </div>
     </Rnd>
   );
 };

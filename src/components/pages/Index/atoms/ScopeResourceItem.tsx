@@ -30,7 +30,7 @@ export const ScopeResourceItem: React.SFC<IProps> = props => {
       onResizeStop={props.onResizeStop}
       onDragStop={props.onDragStop}
     >
-      {props.name}
+      <div css={styles.scopeResourceItem.wrapper}>{props.name}</div>
     </Rnd>
   );
 };

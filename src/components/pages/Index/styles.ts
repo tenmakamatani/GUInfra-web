@@ -35,13 +35,37 @@ export const styles = {
   },
   entityResourceItem: {
     rnd: css({
-      cursor: "pointer"
+      width: "100%",
+      height: "100%"
+    }),
+    wrapper: {
+      width: "100%",
+      height: "100%",
+      cursor: "pointer",
+      ":hover": {
+        transform: "scale(1.02)",
+        transitionDuration: "0.3s"
+      }
+    },
+    img: css({
+      width: "100%",
+      height: "100%"
     })
   },
   scopeResourceItem: {
     rnd: css({
+      width: "100%",
+      height: "100%"
+    }),
+    wrapper: css({
       border: "solid 1px black",
-      cursor: "pointer"
+      width: "100%",
+      height: "100%",
+      cursor: "pointer",
+      ":hover": {
+        transform: "scale(1.02)",
+        transitionDuration: "0.3s"
+      }
     })
   },
   // molecules
