@@ -6,6 +6,7 @@ import App from "next/app";
 import { store } from "@modules/store";
 import { AppTemplate } from "@components/templates/AppTemplate";
 import { Modal } from "@components/organisms/Modal";
+import { ToolTip } from "@components/atoms";
 
 export default class GUInfra extends App {
   render() {
@@ -28,6 +29,7 @@ export default class GUInfra extends App {
             autoClose={false}
             closeOnClick
           />
+          <ToolTip place="top" type="dark" />
           <Component {...pageProps} />
         </AppTemplate>
       </Provider>

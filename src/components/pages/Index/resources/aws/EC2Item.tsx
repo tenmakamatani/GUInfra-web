@@ -16,6 +16,7 @@ export const EC2Item: React.SFC<IProps> = ({ ec2 }) => {
   const dispatch = useDispatch();
   return (
     <EntityResourceItem
+      tip={ec2.resource.properties.name}
       source={config.images.ec2}
       resource={ec2}
       onDragStop={(e, data) => {

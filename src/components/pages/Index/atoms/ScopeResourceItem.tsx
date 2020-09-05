@@ -6,7 +6,7 @@ import { IWithUIResourceView } from "@modules/aws/resources";
 import { styles } from "../styles";
 
 interface IProps {
-  name?: string;
+  tip: string;
   resource: IWithUIResourceView;
   onDragStop: RndDragCallback;
   onResizeStop: RndResizeCallback;
@@ -30,7 +30,7 @@ export const ScopeResourceItem: React.SFC<IProps> = props => {
       onResizeStop={props.onResizeStop}
       onDragStop={props.onDragStop}
     >
-      <div css={styles.scopeResourceItem.wrapper}>{props.name}</div>
+      <div data-tip={props.tip} css={styles.scopeResourceItem.wrapper} />
     </Rnd>
   );
 };

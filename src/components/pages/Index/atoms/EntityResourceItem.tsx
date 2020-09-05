@@ -5,6 +5,7 @@ import { IWithUIResourceView } from "@modules/aws/resources";
 import { styles } from "../styles";
 
 interface IProps {
+  tip: string;
   source: string;
   resource: IWithUIResourceView;
   onDragStop: RndDragCallback;
@@ -30,7 +31,7 @@ export const EntityResourceItem: React.SFC<IProps> = props => {
       onResizeStop={props.onResizeStop}
       onDragStop={props.onDragStop}
     >
-      <div css={styles.entityResourceItem.wrapper}>
+      <div data-tip={props.tip} css={styles.entityResourceItem.wrapper}>
         <img
           style={{ pointerEvents: "none" }}
           css={styles.entityResourceItem.img}
