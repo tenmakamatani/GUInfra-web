@@ -23,6 +23,9 @@ export const ScopeResourceItem: React.SFC<IProps> = props => {
         height: resource.height
       }}
       bounds="parent"
+      style={{
+        cursor: "pointer"
+      }}
       css={styles.scopeResourceItem.rnd}
       onResizeStop={props.onResizeStop}
       onDragStop={props.onDragStop}

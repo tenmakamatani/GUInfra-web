@@ -33,9 +33,15 @@ export const styles = {
       height: "100%"
     })
   },
+  entityResourceItem: {
+    rnd: css({
+      cursor: "pointer"
+    })
+  },
   scopeResourceItem: {
     rnd: css({
-      border: "solid 1px black"
+      border: "solid 1px black",
+      cursor: "pointer"
     })
   },
   // molecules

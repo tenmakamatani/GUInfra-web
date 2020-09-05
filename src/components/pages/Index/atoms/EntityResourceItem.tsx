@@ -20,6 +20,9 @@ export const EntityResourceItem: React.SFC<IProps> = props => {
         width: resource.width,
         height: resource.height
       }}
+      style={{
+        cursor: "pointer" // なぜかcssでやると効かない
+      }}
       lockAspectRatio
       bounds="parent"
       onResizeStop={props.onResizeStop}
