@@ -15,7 +15,8 @@ export const styles = {
       borderBottom: "solid black 1px",
       ":hover": {
         cursor: "pointer",
-        opacity: 0.5
+        opacity: 0.5,
+        boxShadow: "0px 0px 10px 2px lightgrey"
       }
     })
   },
