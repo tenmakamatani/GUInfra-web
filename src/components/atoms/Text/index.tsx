@@ -8,7 +8,7 @@ interface IProps {
   size?: FontSize;
 }
 
-type FontSize = "huge" | "big" | "normal" | "small" | "tiny";
+type FontSize = keyof typeof config.fontSize;
 
 export const Text: React.SFC<IProps> = ({ error, content, size }) => {
   const fontSize = config.fontSize[size ? size : "normal"];
