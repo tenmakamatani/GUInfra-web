@@ -3,7 +3,7 @@ import { Rnd, RndResizeCallback, RndDragCallback } from "react-rnd";
 
 import { IWithUIResourceView } from "@modules/aws/resources";
 
-import { styles } from "../styles";
+import styles from "../styles";
 
 interface IProps {
   tip: string;

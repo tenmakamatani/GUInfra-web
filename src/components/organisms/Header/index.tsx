@@ -2,7 +2,7 @@ import * as React from "react";
 import { useDispatch } from "react-redux";
 import { ModalTypes, uiActions } from "@modules/ui";
 
-import { styles } from "./styles";
+import styles from "./styles";
 import { toast } from "@libs/application/utils";
 import { DI } from "@libs/application/DI";
 

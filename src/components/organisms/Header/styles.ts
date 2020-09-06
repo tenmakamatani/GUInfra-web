@@ -1,7 +1,7 @@
 import { css } from "@emotion/core";
 import config from "@config";
 
-export const styles = {
+export default {
   wrapper: css({
     display: "flex",
     justifyContent: "space-between",

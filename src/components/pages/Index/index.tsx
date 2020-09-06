@@ -2,7 +2,7 @@ import * as React from "react";
 
 import config from "@config";
 import { ModalTypes } from "@modules/ui";
-import { styles } from "./styles";
+import styles from "./styles";
 import { Graph } from "./organisms/Graph";
 import { CreateResourceItemList } from "./molecules/CreateResourceItemList";
 import { AttachResourceItemList } from "./molecules/AttachResourceItemList";

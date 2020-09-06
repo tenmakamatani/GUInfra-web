@@ -1,6 +1,6 @@
 import { css } from "@emotion/core";
 
-export const styles = {
+export default {
   // index.tsx
   indexPage: {
     wrapper: css({

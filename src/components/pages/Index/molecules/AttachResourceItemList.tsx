@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { awsSelector } from "@modules/aws";
 import { RouteTableItem } from "../resources/aws/RouteTableItem";
 import { SecurityGroupItem } from "../resources/aws/SecurityGroupItem";
-import { styles } from "../styles";
+import styles from "../styles";
 
 export const AttachResourceItemList = () => {
   const allResources = useSelector(awsSelector.selectAll);

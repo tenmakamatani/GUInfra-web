@@ -8,7 +8,7 @@ import { VPCItem } from "../resources/aws/VPCItem";
 import { SubnetItem } from "../resources/aws/SubnetItem";
 import { InternetGatewayItem } from "../resources/aws/InternetGatewayItem";
 
-import { styles } from "../styles";
+import styles from "../styles";
 
 export const Graph: React.SFC = () => {
   const awsResources = useSelector(awsSelector.selectAll);

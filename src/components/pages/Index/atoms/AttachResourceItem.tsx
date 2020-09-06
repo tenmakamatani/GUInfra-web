@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { ModalTypes, uiActions } from "@modules/ui";
 import { IWithoutUIResourceView } from "@modules/aws/resources";
 import { Text } from "@components/atoms/Text";
-import { styles } from "../styles";
+import styles from "../styles";
 
 interface IProps {
   title: string;

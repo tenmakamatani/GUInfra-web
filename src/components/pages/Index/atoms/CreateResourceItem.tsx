@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { ModalTypes, uiActions } from "@modules/ui";
 import { Text } from "@components/atoms";
 
-import { styles } from "../styles";
+import styles from "../styles";
 
 export interface IResource {
   name: string;
