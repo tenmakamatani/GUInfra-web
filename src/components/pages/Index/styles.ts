@@ -44,7 +44,8 @@ export const styles = {
       cursor: "pointer",
       ":hover": {
         transform: "scale(1.02)",
-        transitionDuration: "0.3s"
+        transitionDuration: "0.3s",
+        boxShadow: "0px 0px 10px 2px lightgrey"
       }
     },
     img: css({
@@ -64,7 +65,8 @@ export const styles = {
       cursor: "pointer",
       ":hover": {
         transform: "scale(1.02)",
-        transitionDuration: "0.3s"
+        transitionDuration: "0.3s",
+        boxShadow: "0px 0px 10px 2px lightgrey"
       }
     })
   },
