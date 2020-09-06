@@ -8,24 +8,10 @@ interface IProps {
 }
 
 export const SecurityGroupItem: React.SFC<IProps> = ({ securityGroup }) => {
-  const getDescription = (): string => {
-    let description = "";
-    description += `${securityGroup.resource.properties.description}`;
-    description += `\n[ingress]\n`;
-    securityGroup.resource.properties.permissions.ingress.map(i => {
-      description += `${i.type},`;
-    });
-    description += `\n[egress]\n`;
-    securityGroup.resource.properties.permissions.egress.map(e => {
-      description += `${e.type},`;
-    });
-    return description;
-  };
-
   return (
     <AttachResourceItem
       title={securityGroup.resource.properties.name}
-      description={getDescription()}
+      description={securityGroup.resource.properties.description}
       modalType={ModalTypes.SecurityGroupForm}
       resourceView={securityGroup}
     />
