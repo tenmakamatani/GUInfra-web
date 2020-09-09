@@ -2,6 +2,7 @@ import * as React from "react";
 import { Rnd, RndResizeCallback, RndDragCallback } from "react-rnd";
 
 import { IWithUIResourceView } from "@modules/aws/resources";
+import { ToolTip } from "@components/atoms";
 
 import styles from "../styles";
 
@@ -30,7 +31,14 @@ export const ScopeResourceItem: React.SFC<IProps> = props => {
       onResizeStop={props.onResizeStop}
       onDragStop={props.onDragStop}
     >
-      <div data-tip={props.tip} css={styles.scopeResourceItem.wrapper} />
+      <div
+        data-tip={props.tip}
+        data-for={resource.resource.id.value}
+        css={styles.scopeResourceItem.wrapper}
+      />
+      <ToolTip id={resource.resource.id.value} place="top" effect="solid">
+        {props.tip}
+      </ToolTip>
     </Rnd>
   );
 };

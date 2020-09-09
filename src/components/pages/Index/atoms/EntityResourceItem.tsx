@@ -2,6 +2,8 @@ import * as React from "react";
 import { Rnd, RndResizeCallback, RndDragCallback } from "react-rnd";
 
 import { IWithUIResourceView } from "@modules/aws/resources";
+import { ToolTip } from "@components/atoms";
+
 import styles from "../styles";
 
 interface IProps {
@@ -31,7 +33,11 @@ export const EntityResourceItem: React.SFC<IProps> = props => {
       onResizeStop={props.onResizeStop}
       onDragStop={props.onDragStop}
     >
-      <div data-tip={props.tip} css={styles.entityResourceItem.wrapper}>
+      <div
+        data-tip={props.tip}
+        data-for={resource.resource.id.value}
+        css={styles.entityResourceItem.wrapper}
+      >
         <img
           style={{ pointerEvents: "none" }}
           css={styles.entityResourceItem.img}
@@ -39,6 +45,9 @@ export const EntityResourceItem: React.SFC<IProps> = props => {
           alt="リソース"
         />
       </div>
+      <ToolTip id={resource.resource.id.value} place="top" effect="solid">
+        {props.tip}
+      </ToolTip>
     </Rnd>
   );
 };
