@@ -75,4 +75,8 @@ export class DI {
   static get awsResourceUseCase() {
     return container.get<AWSResourceUseCase>(TYPES.AWSResourceUseCase);
   }
+
+  static get isAwsResourceUseCaseBound() {
+    return container.isBound(TYPES.AWSResourceUseCase);
+  }
 }

@@ -17,6 +17,10 @@ export const Header: React.SFC = () => {
     );
   };
   const handleClickDelete = async () => {
+    if (!DI.isAwsResourceUseCaseBound) {
+      toast.error("まずリソースを作成してください");
+      return;
+    }
     dispatch(
       uiActions.appearModal({
         type: ModalTypes.LogDisplay
