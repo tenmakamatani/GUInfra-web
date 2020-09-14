@@ -2,6 +2,11 @@
 
 Web platform of GUInfra
 
+## Environment
+
+- node v10.21.1
+- npm v6.14.6
+
 ## How to use
 
 ### Clone and Setup
