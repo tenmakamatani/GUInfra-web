@@ -25,6 +25,7 @@ $ yarn/(npm run) dev
 ### Production
 
 ```
+$ yarn/(npm run) build
 $ yarn/(npm run) start
 ```
 
