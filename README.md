@@ -11,7 +11,7 @@ Web platform of GUInfra
 
 ### Clone and Setup
 ```
-$ git clone git@github.com:tenmakamatani/GUInfra-web.git
+$ git clone [THIS REPOSITORY]
 $ cd GUInfra-web
 $ yarn/npm install
 ```
