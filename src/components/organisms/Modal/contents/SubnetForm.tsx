@@ -101,7 +101,7 @@ export const SubnetForm: React.SFC<IProps> = props => {
         label="CIDRブロック"
         name="cidrBlock"
         type="text"
-        placeholder="10.0.0.0/16"
+        placeholder="10.0.0.1/17"
         value={formik.values.cidrBlock}
         onChange={formik.handleChange}
         error={formik.errors.cidrBlock}
