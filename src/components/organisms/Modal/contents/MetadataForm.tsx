@@ -8,7 +8,7 @@ import { toast } from "@libs/application/utils";
 import { uiActions, ModalTypes } from "@modules/ui";
 import { awsSelector } from "@modules/aws";
 import { InputField } from "@components/molecules";
-import { Button } from "@components/atoms";
+import { Margin, Button, Text } from "@components/atoms";
 
 interface IFormValues {
   accessKeyId: string;
@@ -91,6 +91,16 @@ export const MetadataForm: React.SFC = () => {
         touched={formik.touched.secretAccessKey}
       />
       <Button type="submit" value="作成" onClick={() => {}} />
+      <Margin height={10} />
+      <Text
+        size="small"
+        content="2つのキーの取得の仕方"
+      />
+      <Margin height={10} />
+      <Text
+        size="tiny"
+        content="AWSコンソールにアクセスし、「サービス」から「IAM」を検索します。「アクセス管理」→「ユーザー」を選択し、「ユーザーを追加」を押します。ユーザ名を任意の名前にし、「プログラムによるアクセス」を選択して次に進みます。次に「既存のポリシーをアタッチ」から、「AmazonEC2FullAccess」、「AmazonVPCFullAccess」を選択し、次ページで任意のタグをつけてユーザを作成します。ここでアクセスキー、シークレットキーが表示されるので、それらを入力してください。"
+      />
     </form>
   );
 };
