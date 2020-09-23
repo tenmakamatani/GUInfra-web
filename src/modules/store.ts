@@ -17,6 +17,6 @@ const configureStore = (initialStore?: IStore): Store => {
   const store = createStore(reducer, initialStore);
   return store;
 };
-console.log("aaa");
+
 const store = configureStore();
 export { store };
