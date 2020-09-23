@@ -3,5 +3,5 @@ export default {
   big: 25,
   normal: 18,
   small: 15,
-  tiny: 10
+  tiny: 13
 };

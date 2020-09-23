@@ -28,7 +28,7 @@ export const CreateResourceItem: React.SFC<IResource> = props => {
           );
         }}
       />
-      <Text size="small" content={props.name} />
+      <Text size="tiny" content={props.name} />
     </div>
   );
 };

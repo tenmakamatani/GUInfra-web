@@ -23,7 +23,7 @@ export default {
   createResourceItem: {
     wrapper: css({
       textAlign: "center",
-      width: 90,
+      width: 100,
       cursor: "pointer",
       "&:hover": {
         opacity: 0.8
