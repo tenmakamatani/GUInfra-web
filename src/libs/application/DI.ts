@@ -18,6 +18,7 @@ import {
   SdkSecurityGroupRepository,
   SdkInternetGatewayRepository
 } from "../infrastructure/aws";
+import { LogDatastore } from "./datastore";
 import { AWSResourceUseCase } from "./usecases/AWSResourceUseCase";
 import { AWSResourceInteractor } from "./interactors/AWSResourceInteractor";
 
@@ -47,6 +48,10 @@ export class DI {
     container
       .bind<AWSResourceUseCase>(TYPES.AWSResourceUseCase)
       .to(AWSResourceInteractor)
+      .inSingletonScope();
+    container
+      .bind<LogDatastore>(TYPES.LogDatastore)
+      .to(LogDatastore)
       .inSingletonScope();
   }
 
@@ -78,5 +83,9 @@ export class DI {
 
   static get isAwsResourceUseCaseBound() {
     return container.isBound(TYPES.AWSResourceUseCase);
+  }
+
+  static get logger() {
+    return container.get<LogDatastore>(TYPES.LogDatastore);
   }
 }

@@ -1,13 +1,19 @@
 import * as React from "react";
-import { ILog, LogDatastore } from "@libs/application/datastore/LogDatastore";
+import { useState } from "react";
+import useInterval from "use-interval";
+import { DI } from "@libs/application/DI";
+import { ILog } from "@libs/application/datastore/LogDatastore";
 import { Text } from "@components/atoms";
 
 export const LogDisplay: React.SFC = () => {
-  const [logs, setLogs] = React.useState<ILog[]>([]);
+  const [logs, setLogs] = useState<ILog[]>([]);
 
-  React.useEffect(() => {
-    setLogs(LogDatastore.getLog());
-  }, [LogDatastore.getLog()]);
+  useInterval(() => {
+    const newLogs = DI.logger.getLog();
+    if (newLogs.length > logs.length) {
+      setLogs([...newLogs]);
+    }
+  }, 100);
 
   return (
     <div>

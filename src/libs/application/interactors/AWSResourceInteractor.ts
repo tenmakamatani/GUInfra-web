@@ -28,15 +28,17 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
   private _securityGroupRepo: SecurityGroupRepository;
   @inject(TYPES.InternetGatewayRepository)
   private _internetGatewayRepo: InternetGatewayRepository;
+  @inject(TYPES.LogDatastore)
+  private _logger: LogDatastore;
 
   private _freshLog(): void {
-    LogDatastore.fresh();
+    this._logger.fresh();
   }
   private _logNormal(val: string): void {
-    LogDatastore.normal(val);
+    this._logger.normal(val);
   }
   private _logError(val: string): void {
-    LogDatastore.error(val);
+    this._logger.error(val);
   }
 
   async create(resources: Omit<IAWSState, "metadata">): Promise<void> {
@@ -75,6 +77,8 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
 
   async deleteAll(): Promise<void> {
     this._logNormal("ログ機能開発中……");
+    this._logNormal("Deleting EC2...");
+    this._logNormal("Deleting InternetGateway...");
     await Promise.all([
       ...ResourceIdsDatastore.ec2Ids.map(ec2Id =>
         this._ec2Repo.delete(ec2Id.entityId)
@@ -83,6 +87,7 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
         this._internetGatewayRepo.delete(internetGatewayId.entityId)
       )
     ]);
+    this._logNormal("Deleting SecurityGroup...");
     this._logNormal("Deleting RouteTable...");
     await Promise.all([
       ...ResourceIdsDatastore.securityGroupIds.map(securityGroupId =>
@@ -95,7 +100,6 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
       )
     ]);
     this._logNormal("Deleting Subnet...");
-    this._logNormal("Deleting SecurityGroup...");
     await Promise.all([
       ...ResourceIdsDatastore.subnetIds.map(subnetId =>
         this._subnetRepo.delete(subnetId.entityId)
@@ -109,5 +113,6 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
     ]);
     ResourceIdsDatastore.freshAll();
     ResourceIdsDependencyDatastore.freshAll();
+    this._freshLog();
   }
 }

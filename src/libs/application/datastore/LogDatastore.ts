@@ -1,28 +1,31 @@
+import { injectable } from "inversify";
+
 type LogType = "normal" | "error";
 export interface ILog {
   value: string;
   type: LogType;
 }
 
+@injectable()
 export class LogDatastore {
-  public static values: ILog[] = [];
+  private _values: ILog[] = [];
 
-  static getLog(): ILog[] {
-    return LogDatastore.values;
+  getLog(): ILog[] {
+    return this._values;
   }
-  static normal(value: string): void {
-    LogDatastore.values.push({
+  normal(value: string): void {
+    this._values.push({
       value: value,
       type: "normal"
     });
   }
-  static error(value: string): void {
-    LogDatastore.values.push({
+  error(value: string): void {
+    this._values.push({
       value: value,
       type: "error"
     });
   }
-  static fresh(): void {
-    LogDatastore.values = [];
+  fresh(): void {
+    this._values = [];
   }
 }

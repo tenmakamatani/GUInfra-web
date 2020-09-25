@@ -7,5 +7,7 @@ export const TYPES = {
   SecurityGroupRepository: Symbol.for("SecurityGroupRepository"),
   InternetGatewayRepository: Symbol.for("InternetGatewayRepository"),
   // UseCase
-  AWSResourceUseCase: Symbol.for("AWSResourceUseCase")
+  AWSResourceUseCase: Symbol.for("AWSResourceUseCase"),
+  // Datastore
+  LogDatastore: Symbol.for("LogDatastore")
 } as const;
