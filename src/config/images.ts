@@ -1,8 +1,10 @@
+const awsBase = "/img/aws";
+
 export default {
-  ec2: "/aws/EC2.png",
-  vpc: "/aws/VPC.png",
-  subnet: "/aws/Subnet.png",
-  routeTable: "/aws/RouteTable.png",
-  securityGroup: "/aws/SecurityGroup.png",
-  internetGateway: "/aws/InternetGateway.png"
+  ec2: `${awsBase}/EC2.png`,
+  vpc: `${awsBase}/VPC.png`,
+  subnet: `${awsBase}/Subnet.png`,
+  routeTable: `${awsBase}/RouteTable.png`,
+  securityGroup: `${awsBase}/SecurityGroup.png`,
+  internetGateway: `${awsBase}/InternetGateway.png`
 };
