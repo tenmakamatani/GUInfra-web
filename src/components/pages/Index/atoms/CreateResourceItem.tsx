@@ -30,7 +30,7 @@ export const CreateResourceItem: React.SFC<IResource> = props => {
         }}
       />
       <Margin height={5} />
-      <Text size="tiny" content={props.name} />
+      <Text size="small" content={props.name} />
     </div>
   );
 };

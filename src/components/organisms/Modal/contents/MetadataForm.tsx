@@ -92,10 +92,10 @@ export const MetadataForm: React.SFC = () => {
       />
       <Button inverted type="submit" value="作成" onClick={() => {}} />
       <Margin height={10} />
-      <Text size="small" content="2つのキーの取得の仕方" />
+      <Text size="normal" content="2つのキーの取得の仕方" />
       <Margin height={10} />
       <Text
-        size="tiny"
+        size="small"
         content="AWSコンソールにアクセスし、「サービス」から「IAM」を検索します。「アクセス管理」→「ユーザー」を選択し、「ユーザーを追加」を押します。ユーザ名を任意の名前にし、「プログラムによるアクセス」を選択して次に進みます。次に「既存のポリシーをアタッチ」から、「AmazonEC2FullAccess」、「AmazonVPCFullAccess」を選択し、次ページで任意のタグをつけてユーザを作成します。ここでアクセスキー、シークレットキーが表示されるので、それらを入力してください。"
       />
     </form>
