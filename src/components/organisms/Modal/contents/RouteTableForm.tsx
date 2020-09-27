@@ -126,6 +126,7 @@ export const RouteTableForm: React.SFC<IProps> = ({ routeTable }) => {
       />
       <Button
         type="submit"
+        inverted
         value={routeTable ? "更新" : "作成"}
         onClick={() => {}}
       />

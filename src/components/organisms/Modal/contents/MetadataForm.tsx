@@ -90,12 +90,9 @@ export const MetadataForm: React.SFC = () => {
         error={formik.errors.secretAccessKey}
         touched={formik.touched.secretAccessKey}
       />
-      <Button type="submit" value="作成" onClick={() => {}} />
+      <Button inverted type="submit" value="作成" onClick={() => {}} />
       <Margin height={10} />
-      <Text
-        size="small"
-        content="2つのキーの取得の仕方"
-      />
+      <Text size="small" content="2つのキーの取得の仕方" />
       <Margin height={10} />
       <Text
         size="tiny"

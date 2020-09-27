@@ -93,6 +93,7 @@ export const InternetGatewayForm: React.SFC<IProps> = ({ internetGateway }) => {
       />
       <Button
         type="submit"
+        inverted
         value={internetGateway ? "更新" : "作成"}
         onClick={() => {}}
       />

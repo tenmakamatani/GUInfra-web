@@ -179,6 +179,7 @@ export const SecurityGroupForm: React.SFC<IProps> = ({ securityGroup }) => {
       />
       <Button
         type="submit"
+        inverted
         value={securityGroup ? "更新" : "作成"}
         onClick={() => {}}
       />

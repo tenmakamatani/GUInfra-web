@@ -115,7 +115,12 @@ export const EC2Form: React.SFC<IProps> = props => {
         error={formik.errors.securityGroupId}
         touched={formik.touched.securityGroupId}
       />
-      <Button type="submit" value={ec2 ? "更新" : "作成"} onClick={() => {}} />
+      <Button
+        inverted
+        type="submit"
+        value={ec2 ? "更新" : "作成"}
+        onClick={() => {}}
+      />
       {ec2 ? (
         <Button
           value="削除"

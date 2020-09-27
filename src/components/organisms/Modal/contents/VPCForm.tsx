@@ -85,9 +85,10 @@ export const VPCForm: React.SFC<IProps> = props => {
         error={formik.errors.cidrBlock}
         touched={formik.touched.cidrBlock}
       />
-      <div css={styles.buttonWrapper}>
+      <div>
         <Button
           type="submit"
+          inverted
           value={vpc ? "更新" : "作成"}
           onClick={() => {}}
         />

@@ -133,6 +133,7 @@ export const SubnetForm: React.SFC<IProps> = props => {
       />
       <Button
         type="submit"
+        inverted
         value={subnet ? "更新" : "作成"}
         onClick={() => {}}
       />
