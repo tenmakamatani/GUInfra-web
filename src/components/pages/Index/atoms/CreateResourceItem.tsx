@@ -2,7 +2,7 @@ import * as React from "react";
 import { useDispatch } from "react-redux";
 
 import { ModalTypes, uiActions } from "@modules/ui";
-import { Text } from "@components/atoms";
+import { Margin, Text } from "@components/atoms";
 
 import styles from "../styles";
 
@@ -16,8 +16,9 @@ export const CreateResourceItem: React.SFC<IResource> = props => {
   const dispatch = useDispatch();
   return (
     <div css={styles.createResourceItem.wrapper}>
+      <Margin height={30} />
       <img
-        css={styles.createResourceItem.wrapper}
+        css={styles.createResourceItem.img}
         src={props.source}
         alt="Resource"
         onClick={() => {
@@ -28,6 +29,7 @@ export const CreateResourceItem: React.SFC<IResource> = props => {
           );
         }}
       />
+      <Margin height={5} />
       <Text size="tiny" content={props.name} />
     </div>
   );

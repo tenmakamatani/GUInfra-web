@@ -31,7 +31,8 @@ export default {
     }),
     img: css({
       width: "100%",
-      height: "100%"
+      height: "auto",
+      borderRadius: "8%"
     })
   },
   entityResourceItem: {
@@ -74,25 +75,25 @@ export default {
   // molecules
   createResourceItemList: {
     wrapper: css({
-      width: "19%",
+      width: "20%",
       height: "100%",
       display: "flex",
       flexWrap: "wrap",
       justifyContent: "space-around",
-      marginTop: "10px"
+      alignContent: "flex-start"
     })
   },
   attachResourceItemList: {
     wrapper: css({
-      width: "19%"
+      width: "20%"
     })
   },
   // organisms
   graph: {
     wrapper: css({
+      backgroundColor: "#F7F7F7",
       width: "64%",
-      height: "calc(100%-70px)",
-      border: "1px solid rgba(0,0,0,0.2)"
+      height: "calc(100%-70px)"
     })
   },
   // resources
