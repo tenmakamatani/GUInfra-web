@@ -61,10 +61,11 @@ export default {
       height: "100%"
     }),
     wrapper: css({
-      border: "solid 1px black",
+      border: "solid 1px grey",
       width: "100%",
       height: "100%",
       cursor: "pointer",
+      backgroundColor: "white",
       ":hover": {
         transform: "scale(1.02)",
         transitionDuration: "0.3s",
