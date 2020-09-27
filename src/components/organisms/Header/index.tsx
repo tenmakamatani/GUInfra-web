@@ -5,6 +5,7 @@ import { ModalTypes, uiActions } from "@modules/ui";
 import styles from "./styles";
 import { toast } from "@libs/application/utils";
 import { DI } from "@libs/application/DI";
+import { Margin, Button } from "@components/atoms";
 
 export const Header: React.SFC = () => {
   const dispatch = useDispatch();
@@ -41,15 +42,9 @@ export const Header: React.SFC = () => {
           <h1 css={styles.title}>GUInfra</h1>
         </div>
         <div css={styles.buttonsWrapper}>
-          <button
-            css={[styles.button, styles.leftButton]}
-            onClick={handleClickCreate}
-          >
-            実行
-          </button>
-          <button css={styles.button} onClick={handleClickDelete}>
-            削除
-          </button>
+          <Button value="実行" onClick={handleClickCreate} />
+          <Margin width={10} />
+          <Button value="削除" inverted onClick={handleClickDelete} />
         </div>
       </div>
     </header>

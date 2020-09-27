@@ -18,21 +18,8 @@ export default {
     width: "10%"
   }),
   buttonsWrapper: css({
-    textAlign: "end",
+    display: "flex",
+    justifyContent: "flex-end",
     width: "90%"
-  }),
-  leftButton: css({
-    marginRight: "20px"
-  }),
-  button: css({
-    border: `2px solid ${config.colors.white}`,
-    padding: "5px 30px",
-    color: config.colors.white,
-    backgroundColor: config.colors.red,
-    cursor: "pointer",
-    outline: "none",
-    ":hover": {
-      opacity: 0.6
-    }
   })
 };
