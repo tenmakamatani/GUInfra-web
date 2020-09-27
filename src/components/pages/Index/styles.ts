@@ -1,4 +1,5 @@
 import { css } from "@emotion/core";
+import config from "@config";
 
 export default {
   // index.tsx
@@ -65,11 +66,11 @@ export default {
       width: "100%",
       height: "100%",
       cursor: "pointer",
-      backgroundColor: "white",
+      backgroundColor: config.colors.white,
       ":hover": {
         transform: "scale(1.02)",
         transitionDuration: "0.3s",
-        boxShadow: "0px 0px 10px 2px lightgrey"
+        boxShadow: `0px 0px 10px 2px ${config.colors.darkgrey}`
       }
     })
   },
@@ -92,7 +93,7 @@ export default {
   // organisms
   graph: {
     wrapper: css({
-      backgroundColor: "#F7F7F7",
+      backgroundColor: config.colors.grey,
       width: "64%",
       height: "calc(100%-70px)"
     })
