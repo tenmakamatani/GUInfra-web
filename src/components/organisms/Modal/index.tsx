@@ -35,7 +35,7 @@ export const Modal: React.SFC = () => {
           margin: "auto"
         },
         overlay: {
-          backgroundColor: "rgba(255, 255, 255, 0.75)"
+          backgroundColor: "rgba(50, 50, 50, 0.5)"
         }
       }}
       onRequestClose={() => {

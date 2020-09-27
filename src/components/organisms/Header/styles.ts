@@ -11,7 +11,7 @@ export default {
     backgroundColor: config.colors.red
   }),
   title: css({
-    color: "white",
+    color: config.colors.white,
     fontSize: config.fontSize.huge
   }),
   titleWrapper: css({
