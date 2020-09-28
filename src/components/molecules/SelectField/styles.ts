@@ -9,6 +9,7 @@ export default {
     width: "100%",
     height: 30,
     marginTop: 5,
-    marginBottom: 5
+    marginBottom: 5,
+    cursor: "pointer"
   })
 };

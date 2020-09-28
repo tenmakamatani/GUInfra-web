@@ -14,7 +14,7 @@ type Props = {
 export const InputField: React.SFC<Props> = props => {
   return (
     <div css={styles.wrapper}>
-      <Text size="normal" content={props.label} />
+      <Text bold size="normal" content={props.label} />
       <Input css={styles.input} {...props} />
       <Text size="small" error content={props.touched ? props.error : ""} />
     </div>

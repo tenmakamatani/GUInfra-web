@@ -92,7 +92,7 @@ export const MetadataForm: React.SFC = () => {
       />
       <Button inverted type="submit" value="作成" onClick={() => {}} />
       <Margin height={10} />
-      <Text size="normal" content="2つのキーの取得の仕方" />
+      <Text bold size="normal" content="2つのキーの取得の仕方" />
       <Margin height={10} />
       <Text
         size="small"

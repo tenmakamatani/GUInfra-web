@@ -17,7 +17,7 @@ export const Select: React.SFC<Props> = props => {
   return (
     <select css={styles.select} {...props}>
       {props.options.map(option => (
-        <option label={option.label} value={option.value} />
+        <option css={styles.option} label={option.label} value={option.value} />
       ))}
     </select>
   );
