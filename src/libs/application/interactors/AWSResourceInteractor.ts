@@ -42,11 +42,11 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
   }
 
   async create(resources: Omit<IAWSState, "metadata">): Promise<void> {
-    this._logError("test");
     // 他に依存しない独立したリソースを作成
     const vpcPromises = Promise.all(
       resources.vpcList.map(vpc => this._vpcRepo.create(vpc))
     );
+    this._logNormal("Creating vpc...");
     await Promise.all([vpcPromises]);
     const internetGatewayPromises = Promise.all(
       resources.internetGatewayList.map(internetGateway =>
@@ -62,14 +62,17 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
     this._logNormal("Creating security group...");
     // 他のリソースに依存するリソースを作成
     await Promise.all([internetGatewayPromises, securityGroupPromises]);
+    this._logNormal("Creating subnet...");
     await Promise.all(
       resources.subnetList.map(subnet => this._subnetRepo.create(subnet))
     );
+    this._logNormal("Creating route table...");
     await Promise.all(
       resources.routeTableList.map(routeTable =>
         this._routeTableRepo.create(routeTable)
       )
     );
+    this._logNormal("Creating ec2...");
     await Promise.all(resources.ec2List.map(ec2 => this._ec2Repo.create(ec2)));
     this._freshLog();
   }
