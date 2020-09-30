@@ -63,9 +63,11 @@ export const MetadataForm: React.SFC = () => {
           );
           toast.error(e);
           await DI.awsResourceUseCase.deleteAll();
+        })
+        .finally(() => {
+          dispatch(uiActions.removeModal());
+          toast.success("リソースの作成に成功しました");
         });
-      dispatch(uiActions.removeModal());
-      toast.success("リソースの作成に成功しました");
     }
   });
   return (
