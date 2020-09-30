@@ -37,9 +37,6 @@ export class AWSResourceInteractor extends AWSResourceUseCase {
   private _logNormal(val: string): void {
     this._logger.normal(val);
   }
-  private _logError(val: string): void {
-    this._logger.error(val);
-  }
 
   async create(resources: Omit<IAWSState, "metadata">): Promise<void> {
     // 他に依存しない独立したリソースを作成
