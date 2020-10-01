@@ -5,6 +5,7 @@ import ReactModal from "react-modal";
 import { uiActions, uiSelectors, ModalTypes } from "@modules/ui";
 
 import { LogDisplay } from "./contents/LogDisplay";
+import { FirstDisplay } from "./contents/FirstDisplay";
 import { MetadataForm } from "./contents/MetadataForm";
 import { EC2Form } from "./contents/EC2Form";
 import { VPCForm } from "./contents/VPCForm";
@@ -61,6 +62,8 @@ export const Modal: React.SFC = () => {
         <MetadataForm />
       ) : modal.type === ModalTypes.LogDisplay ? (
         <LogDisplay />
+      ) : modal.type === ModalTypes.FirstDisplay ? (
+        <FirstDisplay />
       ) : (
         <div />
       )}

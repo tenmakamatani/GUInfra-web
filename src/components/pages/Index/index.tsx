@@ -1,7 +1,7 @@
 import * as React from "react";
-
+import { useDispatch } from "react-redux";
 import config from "@config";
-import { ModalTypes } from "@modules/ui";
+import { ModalTypes, uiActions } from "@modules/ui";
 import styles from "./styles";
 import { Graph } from "./organisms/Graph";
 import { CreateResourceItemList } from "./molecules/CreateResourceItemList";
@@ -41,6 +41,14 @@ const createResourceItemList = [
 ];
 
 const IndexPage = () => {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(
+      uiActions.appearModal({
+        type: ModalTypes.FirstDisplay
+      })
+    );
+  }, []);
   return (
     <div css={styles.indexPage.wrapper}>
       <CreateResourceItemList resources={createResourceItemList} />

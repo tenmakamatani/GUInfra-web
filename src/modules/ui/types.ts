@@ -8,6 +8,8 @@ export enum ModalTypes {
   NotOpen,
   // ログ表示用のモーダル
   LogDisplay,
+  // 最初に表示するモーダル
+  FirstDisplay,
   // 以下、リソース作成モーダルのタイプ
   MetadataForm,
   EC2Form,
