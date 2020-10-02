@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { ModalTypes, uiActions } from "@modules/ui";
 import { IWithoutUIResourceView } from "@modules/aws/resources";
-import { Text } from "@components/atoms/Text";
+import { Text, Margin } from "@components/atoms";
 import styles from "../styles";
 
 interface IProps {
@@ -27,8 +27,9 @@ export const AttachResourceItem: React.SFC<IProps> = props => {
       }}
       css={styles.attachResourceItem.wrapper}
     >
-      <Text content={props.title} />
-      <Text content={props.description} />
+      <Text size="normal" content={props.title} />
+      <Margin height={2} />
+      <Text size="small" content={props.description} />
     </div>
   );
 };

@@ -12,8 +12,8 @@ export default {
   // atoms
   attachResourceItem: {
     wrapper: css({
-      borderTop: "solid black 1px",
-      borderBottom: "solid black 1px",
+      padding: "10px 0 10px 5px",
+      backgroundColor: config.colors.grey,
       ":hover": {
         cursor: "pointer",
         opacity: 0.5,
@@ -87,6 +87,7 @@ export default {
   },
   attachResourceItemList: {
     wrapper: css({
+      padding: "10px",
       width: "20%"
     })
   },
