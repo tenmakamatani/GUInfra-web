@@ -6,7 +6,7 @@ export default {
   indexPage: {
     wrapper: css({
       display: "flex",
-      height: "100%"
+      height: "calc(100% - 70px)"
     })
   },
   // atoms
