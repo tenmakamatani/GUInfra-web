@@ -3,6 +3,7 @@ import styles from "./styles";
 
 type Props = {
   options: IOption[];
+  isMultiple?: boolean;
 } & React.DetailedHTMLProps<
   React.SelectHTMLAttributes<HTMLSelectElement>,
   HTMLSelectElement
@@ -15,9 +16,16 @@ export interface IOption {
 
 export const Select: React.SFC<Props> = props => {
   return (
-    <select css={styles.select} {...props}>
+    <select
+      css={props.multiple ? styles.multipleSelect : styles.select}
+      {...props}
+    >
       {props.options.map(option => (
-        <option css={styles.option} label={option.label} value={option.value} />
+        <option
+          css={props.multiple ? styles.multipleOption : styles.option}
+          label={option.label}
+          value={option.value}
+        />
       ))}
     </select>
   );
