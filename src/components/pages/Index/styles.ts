@@ -13,7 +13,6 @@ export default {
   attachResourceItem: {
     wrapper: css({
       padding: "10px 0 10px 5px",
-      backgroundColor: config.colors.grey,
       ":hover": {
         cursor: "pointer",
         opacity: 0.5,
