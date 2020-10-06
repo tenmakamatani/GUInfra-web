@@ -9,5 +9,6 @@ export default {
   securityGroup: `${awsBase}/SecurityGroup.png`,
   internetGateway: `${awsBase}/InternetGateway.png`,
   // Other
+  logo: "/img/Logo.png",
   firstDisplay: "/img/FirstDisplay.png"
 };
