@@ -30,6 +30,7 @@ export const MetadataForm: React.SFC = () => {
       secretAccessKey: ""
     },
     onSubmit: async values => {
+      DI.analytics.logOnCreateResource();
       DI.setup({
         accessKeyId: values.accessKeyId,
         secretAccessKey: values.secretAccessKey,

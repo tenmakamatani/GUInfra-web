@@ -18,6 +18,7 @@ import {
   SdkSecurityGroupRepository,
   SdkInternetGatewayRepository
 } from "../infrastructure/aws";
+import { Analytics } from "./analytics";
 import { LogDatastore } from "./datastore";
 import { AWSResourceUseCase } from "./usecases/AWSResourceUseCase";
 import { AWSResourceInteractor } from "./interactors/AWSResourceInteractor";
@@ -53,6 +54,10 @@ export class DI {
       .bind<LogDatastore>(TYPES.LogDatastore)
       .to(LogDatastore)
       .inSingletonScope();
+    container
+      .bind<Analytics>(TYPES.Analytics)
+      .to(Analytics)
+      .inSingletonScope();
   }
 
   static get ec2Repo() {
@@ -87,5 +92,9 @@ export class DI {
 
   static get logger() {
     return container.get<LogDatastore>(TYPES.LogDatastore);
+  }
+
+  static get analytics() {
+    return container.get<Analytics>(TYPES.Analytics);
   }
 }

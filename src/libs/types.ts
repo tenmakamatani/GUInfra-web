@@ -9,5 +9,7 @@ export const TYPES = {
   // UseCase
   AWSResourceUseCase: Symbol.for("AWSResourceUseCase"),
   // Datastore
-  LogDatastore: Symbol.for("LogDatastore")
+  LogDatastore: Symbol.for("LogDatastore"),
+  // Analytics
+  Analytics: Symbol.for("Analytics")
 } as const;

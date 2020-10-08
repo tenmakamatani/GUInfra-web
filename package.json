@@ -4,10 +4,11 @@
   "main": "index.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "deploy": "now"
+    "dev": "FB_ENV=development next",
+    "build": "FB_ENV=production next build",
+    "start": "FB_ENV=production next start",
+    "deploy:dev": "now",
+    "deploy:prod": "now --prod"
   },
   "husky": {
     "hooks": {
@@ -25,6 +26,7 @@
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@types/aws-sdk": "^2.7.0",
+    "@types/firebase": "^3.2.1",
     "@types/inversify": "^2.0.33",
     "@types/next": "^9.0.0",
     "@types/node": "^14.0.27",
@@ -57,6 +59,7 @@
   "dependencies": {
     "@emotion/core": "^10.0.28",
     "aws-sdk": "^2.684.0",
+    "firebase": "^7.22.1",
     "formik": "^2.1.4",
     "inversify": "^5.0.1",
     "next": "^9.4.4",
