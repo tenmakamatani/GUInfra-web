@@ -4,9 +4,9 @@
   "main": "index.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "FB_ENV=development next",
-    "build": "FB_ENV=production next build",
-    "start": "FB_ENV=production next start",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
     "deploy:dev": "now",
     "deploy:prod": "now --prod"
   },
