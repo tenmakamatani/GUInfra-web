@@ -15,7 +15,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 if (typeof window !== "undefined" && !firebase.apps.length) {
-  console.log(config.isProd);
   firebase.initializeApp(firebaseConfig);
   if ("measurementId" in firebaseConfig && config.isProd) {
     firebase.analytics();
