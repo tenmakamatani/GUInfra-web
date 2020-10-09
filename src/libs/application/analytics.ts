@@ -4,12 +4,6 @@ import { firebase } from "./firebase";
 
 @injectable()
 export class Analytics {
-  logOnOpenCreateModal(): void {
-    if (!config.isProd) {
-      return;
-    }
-    firebase.analytics().logEvent("on_open_create_modal");
-  }
   logOnCreateResource(): void {
     if (!config.isProd) {
       return;

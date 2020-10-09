@@ -16,7 +16,6 @@ export const Header: React.SFC = () => {
         type: ModalTypes.MetadataForm
       })
     );
-    DI.analytics.logOnOpenCreateModal();
   };
   const handleClickDelete = async () => {
     DI.analytics.logOnDeleteResource();
