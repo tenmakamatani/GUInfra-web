@@ -40,7 +40,7 @@ const createResourceItemList = [
   }
 ];
 
-const IndexPage = () => {
+const TopPage = () => {
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(
@@ -58,4 +58,4 @@ const IndexPage = () => {
   );
 };
 
-export { IndexPage };
+export { TopPage };

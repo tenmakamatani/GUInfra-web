@@ -1,6 +1,6 @@
 import * as React from "react";
 import Head from "next/head";
-import { IndexPage } from "@components/pages/Index";
+import { TopPage } from "@components/pages";
 import config from "@config";
 
 export default () => {
@@ -24,7 +24,7 @@ export default () => {
           content="GUInfraは、クラウドインフラの学習を支援するサービスです。構成図から直接リソースを建てることができます。"
         />
       </Head>
-      <IndexPage />
+      <TopPage />
     </React.Fragment>
   );
 };
