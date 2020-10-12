@@ -2,13 +2,9 @@ import { css } from "@emotion/core";
 
 export default {
   wrapper: css({
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-  }),
-  wrapperInner: css({
     textAlign: "center",
+    width: "100%",
+    height: "100%",
   }),
   img: css({
     width: "80%",

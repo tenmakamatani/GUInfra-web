@@ -5,8 +5,9 @@ import styles from "./styles";
 
 export const ForMobilePage: React.SFC = () => {
   return (
-    <div css={styles.wrapper}>
-      <div css={styles.wrapperInner}>
+    <div>
+      <div css={styles.wrapper}>
+        <Margin height="30%" />
         <img
           css={styles.img}
           src={config.images.firstDisplay}

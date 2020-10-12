@@ -1,20 +1,20 @@
 import * as React from "react";
 
 interface IProps {
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
 }
 
 export const Margin: React.SFC<IProps> = ({ width, height }) => {
-  const marginVertical = height ?? 0;
-  const marginHorizontal = width ?? 0;
+  const paddingVertical = height ?? 0;
+  const paddingHorizontal = width ?? 0;
   return (
     <div
       style={{
-        marginTop: marginVertical,
-        marginBottom: marginVertical,
-        marginLeft: marginHorizontal,
-        marginRight: marginHorizontal
+        paddingTop: paddingVertical,
+        paddingBottom: paddingVertical,
+        paddingLeft: paddingHorizontal,
+        paddingRight: paddingHorizontal
       }}
     />
   );
