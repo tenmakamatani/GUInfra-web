@@ -87,7 +87,21 @@ export default {
   attachResourceItemList: {
     wrapper: css({
       padding: "10px",
-      width: "20%"
+      width: "20%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between"
+    }),
+    feedbackLink: css({
+      textDecoration: "none",
+      color: config.colors.red,
+      ":hover": {
+        transition: "0.2s",
+        opacity: 0.5
+      }
+    }),
+    feedbackLinkWrapper: css({
+      textAlign: "end"
     })
   },
   // organisms
