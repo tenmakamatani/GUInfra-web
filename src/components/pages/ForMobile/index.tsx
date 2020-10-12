@@ -7,7 +7,7 @@ export const ForMobilePage: React.SFC = () => {
   return (
     <div>
       <div css={styles.wrapper}>
-        <Margin height="30%" />
+        <Margin height={200} />
         <img
           css={styles.img}
           src={config.images.firstDisplay}

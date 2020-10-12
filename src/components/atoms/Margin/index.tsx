@@ -6,15 +6,11 @@ interface IProps {
 }
 
 export const Margin: React.SFC<IProps> = ({ width, height }) => {
-  const paddingVertical = height ?? 0;
-  const paddingHorizontal = width ?? 0;
   return (
     <div
       style={{
-        paddingTop: paddingVertical,
-        paddingBottom: paddingVertical,
-        paddingLeft: paddingHorizontal,
-        paddingRight: paddingHorizontal
+        width: width ?? 0,
+        height: height ?? 0,
       }}
     />
   );
