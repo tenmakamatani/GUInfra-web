@@ -22,6 +22,7 @@ export default class GUInfraDocument extends Document {
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
           />
+          <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon"/>
           <script src="/js/blockUnload.js"></script>
         </Head>
         <body id="root">
