@@ -94,7 +94,6 @@ export default {
     }),
     feedbackLink: css({
       textDecoration: "none",
-      color: config.colors.red,
       ":hover": {
         transition: "0.2s",
         opacity: 0.5
