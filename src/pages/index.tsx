@@ -13,16 +13,29 @@ export default () => {
           content="GUInfraは、クラウドインフラの学習を支援するサービスです。構成図から直接リソースを建てることができます。"
         />
         <meta name="keywords" content="GUInfra,AWS,クラウドインフラ" />
-        <meta name="og:title" content="GUInfra | トップページ" />
-        <meta name="og:image" content={config.images.logo} />
+        <meta name="og:title" content="トップページ | GUInfra" />
+        <meta name="og:image" content={config.images.ogImage} />
         <meta
           name="og:url"
-          content="https://guinfra-web.tenmakamatani.vercel.app"
+          content={config.baseUrl}
         />
         <meta
           name="og:description"
           content="GUInfraは、クラウドインフラの学習を支援するサービスです。構成図から直接リソースを建てることができます。"
         />
+        <meta
+          name="twitter:title"
+          content="トップページ | GUInfra"
+        />
+        <meta
+          name="twitter:image"
+          content={config.images.ogImage}
+        />
+        <meta
+          name="twitter:url"
+          content={config.baseUrl}
+        />
+        <meta name="twitter:card" content="summary_large_image" />
       </Head>
       <TopPage />
     </React.Fragment>
