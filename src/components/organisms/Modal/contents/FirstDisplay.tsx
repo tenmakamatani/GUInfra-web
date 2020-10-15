@@ -36,7 +36,7 @@ export const FirstDisplay: React.SFC = () => {
       />
       <Margin height={10} />
       <div css={styles.imgWrapper}>
-        <img css={styles.img} src={config.images.firstDisplay} />
+        <img css={styles.img} src={config.images.firstDisplay} alt="ファーストモーダルの画像" />
       </div>
     </div>
   );
