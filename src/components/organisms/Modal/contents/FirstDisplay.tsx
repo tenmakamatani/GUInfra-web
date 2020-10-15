@@ -22,7 +22,7 @@ export const FirstDisplay: React.SFC = () => {
       <Margin height={10} />
       <Text
         size="normal"
-        content="GUInfraは、選択できるプロパティを制限してクラウドインフラの構成図を作成し、実際にリソースを建てて確認することでクラウドインフラを効率よく学習できるサービスです。現在はAWSに対応しています。"
+        content="GUInfraは、クラウドインフラの構成図を作成し、実際にリソースを建てて確認することでクラウドインフラを効率よく学習できるサービスです。現在はAWSに対応しています。"
       />
       <Margin height={5} />
       <Text
