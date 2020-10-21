@@ -12,7 +12,7 @@ export default () => {
           name="description"
           content="GUInfraは、クラウドインフラの学習を支援するサービスです。構成図から直接リソースを建てることができます。"
         />
-        <meta name="keywords" content="GUInfra,AWS,クラウドインフラ" />
+        <meta name="keywords" content="GUInfra,guinfra,AWS,クラウドインフラ,未踏ジュニア" />
         <meta name="og:title" content="トップページ | GUInfra" />
         <meta name="og:image" content={`${config.baseUrl}${config.images.ogImage}`} />
         <meta
