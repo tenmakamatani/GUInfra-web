@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { awsActions } from "@modules/aws";
 import { IVPCView } from "@modules/aws/resources";
 import { uiActions, ModalTypes } from "@modules/ui";
-
+import config from "@config";
 import { ScopeResourceItem } from "../../atoms/ScopeResourceItem";
 
 interface IProps {
@@ -16,6 +16,7 @@ export const VPCItem: React.SFC<IProps> = ({ vpc }) => {
   return (
     <ScopeResourceItem
       tip={vpc.resource.properties.name}
+      color={config.colors.purple}
       resource={vpc}
       onDragStop={(e, data) => {
         if (Math.abs(data.x - vpc.x) < 5 && Math.abs(data.y - vpc.y) < 5) {

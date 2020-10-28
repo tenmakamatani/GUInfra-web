@@ -8,6 +8,7 @@ import styles from "../styles";
 
 interface IProps {
   tip: string;
+  color?: string;
   resource: IWithUIResourceView;
   onDragStop: RndDragCallback;
   onResizeStop: RndResizeCallback;
@@ -34,7 +35,7 @@ export const ScopeResourceItem: React.SFC<IProps> = props => {
       <div
         data-tip={props.tip}
         data-for={resource.resource.id.value}
-        css={styles.scopeResourceItem.wrapper}
+        css={styles.scopeResourceItem.wrapper(props.color)}
       />
       <ToolTip id={resource.resource.id.value} place="top" effect="solid">
         {props.tip}

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { awsActions } from "@modules/aws";
 import { ISubnetView } from "@modules/aws/resources";
 import { uiActions, ModalTypes } from "@modules/ui";
-
+import config from "@config";
 import { ScopeResourceItem } from "../../atoms/ScopeResourceItem";
 
 interface IProps {
@@ -16,6 +16,7 @@ export const SubnetItem: React.SFC<IProps> = ({ subnet }) => {
   return (
     <ScopeResourceItem
       tip={subnet.resource.properties.name}
+      color={config.colors.green}
       resource={subnet}
       onDragStop={(e, data) => {
         if (

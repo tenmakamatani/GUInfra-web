@@ -60,8 +60,8 @@ export default {
       width: "100%",
       height: "100%"
     }),
-    wrapper: css({
-      border: "solid 1px grey",
+    wrapper: (color?: string) => css({
+      border: `solid 1px ${color ?? "grey"}`,
       width: "100%",
       height: "100%",
       cursor: "pointer",
