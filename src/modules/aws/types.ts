@@ -16,5 +16,7 @@ export enum ActionTypes {
   RemoveSecurityGroup = "AWS/RemoveSecurityGroup",
   CreateInternetGateway = "AWS/CreateInternetGateway",
   UpdateInternetGateway = "AWS/UpdateInternetGateway",
-  RemoveInternetGateway = "AWS/RemoveInternetGateway"
+  RemoveInternetGateway = "AWS/RemoveInternetGateway",
+
+  CreateSample = "AWS/CreateSample",
 }

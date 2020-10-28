@@ -7,6 +7,7 @@ import { subnetReducer } from "./subnet";
 import { routeTableReducer } from "./routeTable";
 import { securityGroupReducer } from "./securityGroup";
 import { internetGatewayReducer } from "./internetGateway";
+import { sampleReducer } from "./sample";
 
 const initialState: IAWSState = {
   metadata: {
@@ -35,5 +36,6 @@ export const reducer = (
     return securityGroupReducer(state, action);
   if (action.resource === "internetGateway")
     return internetGatewayReducer(state, action);
+  if (action.resource === "sample") return sampleReducer(state, action);
   return state;
 };

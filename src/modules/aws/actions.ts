@@ -13,6 +13,7 @@ import {
   internetGatewayActions as internetGateway,
   InternetGatewayActions
 } from "./internetGateway";
+import { sampleActions as sample, SampleActions } from "./sample";
 
 export type AWSActions =
   | EC2Actions
@@ -20,7 +21,8 @@ export type AWSActions =
   | SubnetActions
   | RouteTableActions
   | SecurityGroupActions
-  | InternetGatewayActions;
+  | InternetGatewayActions
+  | SampleActions;
 
 export const actions = {
   ec2,
@@ -28,5 +30,6 @@ export const actions = {
   subnet,
   routeTable,
   securityGroup,
-  internetGateway
+  internetGateway,
+  sample,
 };
