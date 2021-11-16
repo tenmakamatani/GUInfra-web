@@ -59,7 +59,7 @@
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
-    "aws-sdk": "^2.684.0",
+    "aws-sdk": "^2.814.0",
     "firebase": "^7.22.1",
     "formik": "^2.1.4",
     "inversify": "^5.0.1",
